@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Szwedzka droga — teoria i mentalność dla polskich kierowców</title>
+<meta name="description" content="Teoria jazdy w Szwecji dla polskiej diaspory: przepisy, różnice wobec Polski i niepisane zasady szwedzkiej drogi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:opsz,wght@8..60,400..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asfalt:#16191D;
+  --asfalt-2:#22272D;
+  --frost:#E9EDEC;
+  --frost-2:#F5F7F6;
+  --gul:#F6C51E;
+  --rod:#BE1E2D;
+  --bla:#0B4F8A;
+  --grafit:#5A6470;
+  --linje:#C9D1D0;
+
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --spine:72px;
+  --maxw:820px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--frost);
+  color:var(--asfalt);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;display:block}
+a{color:var(--bla)}
+a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--gul);
+  outline-offset:2px;
+}
+
+/* ---------- VÄGEN: the road spine ---------- */
+.road{
+  position:fixed;
+  top:0;left:0;bottom:0;
+  width:var(--spine);
+  background:var(--asfalt);
+  z-index:40;
+  overflow:hidden;
+}
+.road::before{
+  content:"";
+  position:absolute;
+  left:50%;top:0;bottom:0;
+  width:5px;
+  margin-left:-2.5px;
+  background:repeating-linear-gradient(
+    to bottom,
+    #F5F7F6 0 26px,
+    transparent 26px 52px
+  );
+  opacity:.62;
+}
+.road::after{
+  content:"";
+  position:absolute;
+  left:6px;right:6px;top:0;
+  height:1px;
+  background:var(--gul);
+  box-shadow:0 0 14px 3px rgba(246,197,30,.5);
+  transform:translateY(var(--progress,0px));
+}
+.road-label{
+  position:absolute;
+  bottom:22px;left:50%;
+  transform:translateX(-50%) rotate(180deg);
+  writing-mode:vertical-rl;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#7C8894;
+}
+
+.shell{margin-left:var(--spine)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  background:var(--asfalt);
+  color:var(--frost-2);
+  padding:0;
+  overflow:hidden;
+}
+.hero-art{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:104px 28px 88px;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--gul);
+  margin:0 0 26px;
+}
+.hero h1{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(2.15rem,6vw,4rem);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  margin:0 0 26px;
+  max-width:19ch;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--gul);
+}
+.hero-lead{
+  max-width:46ch;
+  font-size:1.06rem;
+  color:#C4CCD3;
+  margin:0 0 34px;
+}
+.hero-lead strong{color:var(--frost-2);font-weight:600}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:10px 26px;
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#8894A0;
+  border-top:1px solid #333A42;
+  padding-top:20px;
+}
+
+/* ---------- LEGEND OF SIGN SHAPES ---------- */
+.legend{
+  background:var(--frost-2);
+  border-bottom:1px solid var(--linje);
+  padding:34px 0;
+}
+.legend h2{
+  font-family:var(--mono);
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--grafit);font-weight:500;margin:0 0 20px;
+}
+.legend ul{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.legend li{display:flex;align-items:flex-start;gap:16px;font-size:.94rem}
+.legend b{font-family:var(--display);font-weight:600}
+
+/* sign glyphs */
+.glyph{flex:0 0 34px;width:34px;height:34px;position:relative;margin-top:2px}
+.glyph i{position:absolute;inset:0;display:block}
+.g-tri i{
+  background:var(--gul);
+  clip-path:polygon(50% 4%,97% 92%,3% 92%);
+  border:0;
+}
+.g-tri i::after{
+  content:"";position:absolute;inset:0;
+  background:var(--rod);
+  clip-path:polygon(50% 4%,97% 92%,3% 92%,50% 4%,50% 18%,14% 84%,86% 84%,50% 18%);
+}
+.g-cir i{
+  border-radius:50%;
+  background:#fff;
+  border:5px solid var(--rod);
+}
+.g-dia i{
+  background:var(--gul);
+  transform:rotate(45deg) scale(.72);
+  border:3px solid #fff;
+  box-shadow:0 0 0 1px var(--linje);
+}
+.g-sq i{background:var(--bla)}
+
+/* ---------- SECTIONS ---------- */
+.sec{padding:76px 0 8px;border-top:1px solid var(--linje)}
+.sec:first-of-type{border-top:0}
+.sec-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:26px}
+.sec-head .glyph{flex:0 0 30px;width:30px;height:30px;margin-top:8px}
+.kicker{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--grafit);margin:0 0 6px;
+}
+.sec h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(1.55rem,3.4vw,2.15rem);
+  line-height:1.1;letter-spacing:-.015em;margin:0;
+}
+.sec p{margin:0 0 1.05em}
+.sec > .wrap > p:last-child{margin-bottom:0}
+
+.sv{
+  font-family:var(--mono);
+  font-size:.86em;
+  background:#DDE4E3;
+  padding:.1em .34em;
+  border-radius:2px;
+  white-space:nowrap;
+}
+.hero .sv{background:#2C3339;color:var(--gul)}
+
+/* ---------- PL/SE LEDGER ---------- */
+.ledger{margin:30px 0 34px;border-top:2px solid var(--asfalt)}
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border-bottom:1px solid var(--linje);
+}
+.row > div{padding:16px 18px 18px}
+.row .pl{border-right:1px solid var(--linje);background:transparent}
+.row .se{background:#FDF7E2;border-left:3px solid var(--gul)}
+.row.same .se{background:transparent;border-left:3px solid var(--linje)}
+.flag{
+  display:block;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--grafit);margin-bottom:7px;
+}
+.row .se .flag{color:#8A6A00}
+.row.same .se .flag{color:var(--grafit)}
+.row-topic{
+  grid-column:1/-1;
+  padding:14px 18px 4px;
+  font-family:var(--display);font-weight:600;font-size:1.02rem;
+  background:var(--frost-2);
+  border-bottom:1px solid var(--linje);
+}
+.row p{margin:0;font-size:.95rem;line-height:1.5}
+
+/* ---------- CALLOUT ---------- */
+.note{
+  margin:30px 0;
+  padding:22px 24px;
+  background:var(--asfalt);
+  color:var(--frost-2);
+  border-left:6px solid var(--gul);
+}
+.note .flag{color:var(--gul)}
+.note p{margin:0;font-size:.97rem}
+.note p + p{margin-top:.8em}
+.note .sv{background:#2C3339;color:var(--gul)}
+
+.warn{
+  margin:30px 0;padding:20px 22px;
+  background:#FBEBEC;border-left:6px solid var(--rod);
+}
+.warn .flag{color:var(--rod)}
+.warn p{margin:0;font-size:.97rem}
+
+/* ---------- MENTALITY CARDS ---------- */
+.rules{list-style:none;margin:26px 0 8px;padding:0;display:grid;gap:2px}
+.rules li{
+  background:var(--frost-2);
+  padding:18px 20px;
+  border-left:3px solid var(--asfalt);
+}
+.rules b{
+  display:block;
+  font-family:var(--display);font-weight:600;font-size:1.04rem;
+  margin-bottom:5px;
+}
+.rules span{font-size:.94rem;color:#333A42}
+
+/* ---------- SPEED TABLE ---------- */
+.speeds{width:100%;border-collapse:collapse;margin:26px 0 30px;font-size:.93rem}
+.speeds caption{
+  text-align:left;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--grafit);
+  padding-bottom:10px;
+}
+.speeds th,.speeds td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--linje)}
+.speeds thead th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grafit);font-weight:500;
+  border-bottom:2px solid var(--asfalt);
+}
+.speeds td.num{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.speeds tbody tr:hover{background:var(--frost-2)}
+
+/* ---------- GLOSSARY ---------- */
+.gloss{display:grid;gap:2px;margin:26px 0 8px}
+.gloss div{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+  gap:14px;background:var(--frost-2);padding:12px 16px;
+}
+.gloss dt{font-family:var(--mono);font-size:.87rem;font-weight:500;margin:0}
+.gloss dd{margin:0;font-size:.93rem}
+
+/* ---------- QUIZ ---------- */
+.quiz{margin:30px 0 0}
+.q{
+  border:1px solid var(--linje);
+  background:var(--frost-2);
+  padding:22px 22px 20px;
+  margin-bottom:14px;
+}
+.q-n{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--grafit);display:block;margin-bottom:8px;
+}
+p.q-t{font-family:var(--display);font-weight:600;font-size:1.06rem;line-height:1.3;margin:0 0 16px}
+.opts{display:grid;gap:8px}
+.opt{
+  display:block;width:100%;text-align:left;
+  font-family:var(--body);font-size:.95rem;line-height:1.45;
+  background:#fff;border:1px solid var(--linje);
+  padding:12px 14px;cursor:pointer;
+  transition:border-color .12s ease,background .12s ease;
+}
+.opt:hover:not([disabled]){border-color:var(--asfalt)}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:#1E7A45;background:#E6F4EB;font-weight:600}
+.opt.wrong{border-color:var(--rod);background:#FBEBEC;text-decoration:line-through}
+p.why{
+  margin:14px 0 0;padding:14px 16px;
+  background:var(--asfalt);color:var(--frost-2);
+  font-size:.92rem;line-height:1.5;
+  display:none;
+}
+p.why.on{display:block}
+.why .sv{background:#2C3339;color:var(--gul)}
+.score{
+  position:sticky;bottom:0;
+  background:var(--asfalt);color:var(--frost-2);
+  padding:14px 20px;margin-top:20px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+.score button{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  background:transparent;color:var(--gul);border:1px solid var(--gul);
+  padding:7px 12px;cursor:pointer;
+}
+.score button:hover{background:var(--gul);color:var(--asfalt)}
+
+/* ---------- FOOTER ---------- */
+footer{
+  margin-top:80px;
+  background:var(--asfalt);color:#A9B3BD;
+  padding:56px 0 64px;
+  font-size:.9rem;
+}
+footer .wrap > *{max-width:60ch}
+footer h2{
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gul);font-weight:500;margin:0 0 16px;
+}
+footer ul{padding-left:1.1em;margin:0 0 22px}
+footer li{margin-bottom:6px}
+footer a{color:var(--frost-2)}
+footer .fine{font-size:.82rem;color:#7C8894;border-top:1px solid #333A42;padding-top:20px;margin-top:26px}
+
+/* ---------- NAV ---------- */
+.toc{background:var(--asfalt-2);color:var(--frost-2);padding:30px 0}
+.toc h2{
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gul);font-weight:500;margin:0 0 16px;
+}
+.toc ol{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2px 26px;
+}
+.toc a{
+  color:var(--frost-2);text-decoration:none;
+  font-family:var(--display);font-size:.98rem;
+  display:block;padding:7px 0;border-bottom:1px solid #333A42;
+}
+.toc a:hover{color:var(--gul)}
+
+@media (max-width:1023px){
+  :root{--spine:26px}
+  .road-label{display:none}
+  .road::before{width:3px;margin-left:-1.5px}
+}
+@media (max-width:600px){
+  body{font-size:17px}
+  .row{grid-template-columns:1fr}
+  .row .pl{border-right:0;border-bottom:1px solid var(--linje)}
+  .gloss div{grid-template-columns:1fr;gap:2px}
+  .hero-inner{padding:76px 22px 64px}
+  .wrap{padding:0 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="road" aria-hidden="true">
+  <span class="road-label">Nollvisionen · 1997</span>
+</div>
+
+<div class="shell">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <svg class="hero-art" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#16191D"/>
+        <stop offset="1" stop-color="#2A3238"/>
+      </linearGradient>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#16191D" stop-opacity="1"/>
+        <stop offset=".55" stop-color="#16191D" stop-opacity=".72"/>
+        <stop offset="1" stop-color="#16191D" stop-opacity=".55"/>
+      </linearGradient>
+    </defs>
+    <rect width="1200" height="700" fill="url(#sky)"/>
+    <circle cx="600" cy="452" r="120" fill="#F6C51E" opacity=".07"/>
+    <!-- road surface -->
+    <polygon points="600,450 1500,700 -300,700" fill="#0E1114"/>
+    <!-- edge lines -->
+    <polygon points="600,450 603,450 1180,700 1090,700" fill="#F5F7F6" opacity=".5"/>
+    <polygon points="597,450 600,450 110,700 20,700" fill="#F5F7F6" opacity=".5"/>
+    <!-- dashed centre line -->
+    <polygon points="599.4,455 600.6,455 604,468 596,468" fill="#F5F7F6" opacity=".85"/>
+    <polygon points="597,482 603,482 609,504 591,504" fill="#F5F7F6" opacity=".85"/>
+    <polygon points="594,524 606,524 617,558 583,558" fill="#F5F7F6" opacity=".85"/>
+    <polygon points="588,586 612,586 632,644 568,644" fill="#F5F7F6" opacity=".85"/>
+    <!-- wire barrier posts (Vision Zero) -->
+    <g fill="#3A434B">
+      <rect x="700" y="430" width="4" height="34"/><rect x="820" y="438" width="6" height="46"/>
+      <rect x="1000" y="450" width="8" height="66"/><rect x="496" y="430" width="4" height="34"/>
+      <rect x="374" y="438" width="6" height="46"/><rect x="192" y="450" width="8" height="66"/>
+    </g>
+    <rect x="0" y="0" width="1200" height="700" fill="url(#fade)"/>
+  </svg>
+
+  <div class="hero-inner">
+    <p class="eyebrow">Teoria i mentalność szwedzkiej drogi · dla polskich kierowców</p>
+    <h1>W Szwecji nie chodzi o to, żeby jeździć <em>dobrze</em>. Chodzi o to, żeby nikt nie zginął.</h1>
+    <p class="hero-lead">To jedno zdanie wyjaśnia niemal wszystko, co wydaje Ci się tu dziwne: limity 70 na pustej prostej, betonowe wysepki na wsi, linę stalową na środku szosy, kierowcę, który zatrzymuje się, choć jeszcze nie wszedłeś na pasy. Szwedzki parlament przyjął w 1997 roku <strong>Nollvisionen</strong> — zasadę, że w ruchu drogowym nikt nie powinien ginąć ani zostać trwale okaleczony. Droga ma wybaczać błąd, bo człowiek błąd popełni.</p>
+    <p class="hero-lead">Ten przewodnik nie zastąpi podręcznika do <span class="sv">teoriprov</span> (egzamin teoretyczny). Pokazuje coś, czego w podręczniku nie ma: <strong>gdzie polskie nawyki przestają działać.</strong></p>
+    <div class="hero-meta">
+      <span>10 rozdziałów</span>
+      <span>Słownik PL ↔ SV</span>
+      <span>Test wiedzy — 12 pytań</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TOC ============ -->
+<nav class="toc" aria-label="Spis treści">
+  <div class="wrap">
+    <h2>Spis treści</h2>
+    <ol>
+      <li><a href="#mentalnosc">Mentalność: niepisany kodeks</a></li>
+      <li><a href="#prawo-jazdy">Prawo jazdy i egzamin</a></li>
+      <li><a href="#predkosc">Prędkość i kary</a></li>
+      <li><a href="#pierwszenstwo">Pierwszeństwo</a></li>
+      <li><a href="#niechronieni">Piesi i rowerzyści</a></li>
+      <li><a href="#zima">Zima, ciemność, opony</a></li>
+      <li><a href="#alkohol">Alkohol i telefon</a></li>
+      <li><a href="#zwierzeta">Zwierzęta i obowiązek zgłoszenia</a></li>
+      <li><a href="#papiery">Papiery, podatki, parkowanie</a></li>
+      <li><a href="#slownik">Słownik PL ↔ SV</a></li>
+      <li><a href="#test">Test wiedzy</a></li>
+      <li><a href="pytania.html">Pytania egzaminacyjne &rarr;</a></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ============ LEGEND ============ -->
+<section class="legend">
+  <div class="wrap">
+    <h2>Jak czytać ten przewodnik</h2>
+    <ul>
+      <li><span class="glyph g-tri" aria-hidden="true"><i></i></span><span><b>Trójkąt — ostrzeżenie.</b> Rzeczy, które w Szwecji zabijają albo kosztują prawo jazdy, a w Polsce nie mają odpowiednika.</span></li>
+      <li><span class="glyph g-cir" aria-hidden="true"><i></i></span><span><b>Koło — zakaz i nakaz.</b> Twarde przepisy, gdzie liczby po prostu są inne.</span></li>
+      <li><span class="glyph g-dia" aria-hidden="true"><i></i></span><span><b>Romb — pierwszeństwo.</b> Kto ustępuje komu — i dlaczego szwedzki kierowca zachowuje się inaczej, niż się spodziewasz.</span></li>
+      <li><span class="glyph g-sq" aria-hidden="true"><i></i></span><span><b>Niebieski kwadrat — informacja.</b> Urzędy, papiery, pieniądze, słownictwo.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 1. MENTALNOŚĆ ============ -->
+<section class="sec" id="mentalnosc">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-dia" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 1 · Kultura</p><h2>Mentalność: niepisany kodeks</h2></div>
+    </div>
+
+    <p>Przepisy można wykuć. Trudniejsze jest to, że polski i szwedzki ruch drogowy opierają się na dwóch różnych założeniach o drugim kierowcy. W Polsce domyślne założenie jest defensywne w sensie nieufności: <em>on mnie nie wpuści, więc muszę się wcisnąć</em>. W Szwecji domyślne założenie jest kooperacyjne: <em>on się dostosuje, bo wszyscy się dostosowują</em>. Oba systemy działają wewnętrznie — ale kierowca przenoszący jeden do drugiego jest odczytywany jako agresywny albo jako niebezpiecznie bierny.</p>
+
+    <ul class="rules">
+      <li><b>Nie trąb.</b> Klakson w Szwecji to sygnał ostrzegawczy przed zderzeniem, nie komentarz. Trąbienie na kogoś, kto wolno startuje na zielonym, jest odczytane jak krzyk na ulicy — coś się z tym człowiekiem stało.</li>
+      <li><b>Nie „doklejaj się”.</b> Jazda na zderzaku (<span class="sv">tuta och köra nära</span> (trąbienie i jazda na zderzaku)) nie jest tu presją, którą ktoś zrozumie. Jest odczytana jako czysta agresja i coraz częściej po prostu zgłaszana policji.</li>
+      <li><b>Nie mrugaj długimi na wyprzedzającego.</b> Mrugnięcie światłami ma jedno znaczenie: <em>uwaga, niebezpieczeństwo</em> — najczęściej łoś, wypadek albo kontrola. Nie znaczy „zjedź”, nie znaczy „jedź”.</li>
+      <li><b>Zamek błyskawiczny.</b> Przy zwężeniu jedzie się do końca pasa i wpuszcza po jednym — <span class="sv">blixtlåsprincipen</span> (zasada zamka błyskawiczkowego). Wcześniejsze zjeżdżanie na „porządny” pas nie jest tu uprzejmością, tylko blokowaniem przepustowości.</li>
+      <li><b>Lewy pas jest do wyprzedzania.</b> I to jest przestrzegane. Wracasz w prawo natychmiast po manewrze. Zajmowanie lewego „bo i tak jadę szybko” jest tu wykroczeniem obyczajowym i formalnym.</li>
+      <li><b>Wolniej niż myślisz, ale konsekwentnie.</b> Szwedzki kierowca rzadko jedzie 20 km/h ponad limit i rzadko jedzie 20 pod. Trzyma limit i trzyma odstęp. Płynność bierze się z przewidywalności, nie z prędkości.</li>
+      <li><b>Kontakt wzrokowy zamiast pierwszeństwa siłą.</b> Na osiedlu, przy zwężeniu, na parkingu — kto pierwszy nawiąże kontakt wzrokowy i machnie ręką, ten organizuje sytuację. Wjechanie „bo mam pierwszeństwo” bez sprawdzenia, czy drugi to widzi, jest tu uznane za ryzykanctwo.</li>
+      <li><b>Korytarz życia bez przypominania.</b> Na dźwięk <span class="sv">utryckningsfordon</span> (pojazd uprzywilejowany) kolumna rozjeżdża się na boki i zatrzymuje, także na czerwonym i także na skrzyżowaniu. Nikt nie czeka, aż karetka zacznie trąbić.</li>
+      <li><b>Zero tolerancji jest społeczne, nie tylko prawne.</b> Jazda po alkoholu w Szwecji nie jest „ryzykiem mandatu”. Jest towarzyskim wykluczeniem. Osoba, która przyzna się w pracy, że wsiadła po dwóch piwach, ma poważny problem niezależnie od policji.</li>
+      <li><b>Rower jest pojazdem, nie przeszkodą.</b> A dziecko na rowerze jest normalną częścią ruchu. Wyprzedzanie rowerzysty z odstępem 40 cm — coś, co w polskim mieście przechodzi — tutaj kończy się zgłoszeniem.</li>
+    </ul>
+
+    <div class="note">
+      <span class="flag">Kluczowa różnica systemowa</span>
+      <p>W Polsce projekt drogi zakłada, że kierowca będzie przestrzegał przepisów, a kara ma go do tego skłonić. W Szwecji projekt drogi zakłada, że kierowca <em>popełni błąd</em>, i ma sprawić, żeby ten błąd nie był śmiertelny. Dlatego zobaczysz drogi <span class="sv">2+1</span> (droga z naprzemiennie dwoma i jednym pasem, rozdzielona barierą) z liną stalową na środku, rondo tam, gdzie w Polsce byłyby światła, i wyniesione przejścia dla pieszych. To nie utrudnienia. To założenie projektowe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. PRAWO JAZDY ============ -->
+<section class="sec" id="prawo-jazdy">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-sq" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 2 · Formalności</p><h2>Prawo jazdy i egzamin</h2></div>
+    </div>
+
+    <p>Polskie prawo jazdy jest dokumentem unijnym, więc w Szwecji jeździsz na nim legalnie tak długo, jak długo jest ważne w Polsce. Nie musisz go wymieniać — ale często warto, i w kilku sytuacjach trzeba.</p>
+
+    <div class="ledger">
+      <div class="row">
+        <div class="row-topic">Ważność dokumentu</div>
+        <div class="pl"><span class="flag">Polska</span><p>Kategoria B wydana przed 2013 r. bywa bezterminowa. Nowsze — na 15 lat.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Szwedzkie prawo jazdy odnawia się co 10 lat (samo zdjęcie i opłata, bez egzaminu). Po wymianie polskiego na szwedzkie wchodzisz w ten cykl.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">System punktów</div>
+        <div class="pl"><span class="flag">Polska</span><p>Punkty karne, próg utraty uprawnień po przekroczeniu limitu.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><strong>Punktów nie ma w ogóle.</strong> Zamiast tego Transportstyrelsen odbiera prawo jazdy (<span class="sv">återkallelse</span> (odebranie uprawnień)) za jedno wystarczająco poważne wykroczenie, z okresem karencji (<span class="sv">spärrtid</span> (okres karencji przed odzyskaniem uprawnień)) zwykle od miesiąca do roku. Jedno przewinienie może wystarczyć.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Nauka jazdy</div>
+        <div class="pl"><span class="flag">Polska</span><p>Kurs w OSK, jazdy z instruktorem.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Można legalnie ćwiczyć z prywatnym opiekunem (<span class="sv">handledare</span> (opiekun przy nauce jazdy)) po zdaniu przez niego krótkiego kursu i uzyskaniu zezwolenia. Nauka od 16. roku życia. Dlatego wielu Szwedów ma setki godzin praktyki przed egzaminem.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Szkolenia obowiązkowe</div>
+        <div class="pl"><span class="flag">Polska</span><p>Brak obowiązkowego szkolenia na poślizgi dla kat. B.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Dwa obowiązkowe bloki: <span class="sv">Risk 1</span> (alkohol, narkotyki, zmęczenie, ryzyko — teoria/dyskusja) i <span class="sv">Risk 2</span> (obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym) — praktyczna jazda na <span class="sv">halkbana</span> (tor poślizgowy), torze poślizgowym. Ważne 5 lat, bez nich nie podejdziesz do egzaminu praktycznego.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Egzamin teoretyczny</div>
+        <div class="pl"><span class="flag">Polska</span><p>Test w języku polskim, wiele języków obcych dostępnych.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Kunskapsprov</span> (egzamin teoretyczny) u Trafikverket. Standardowo po szwedzku, z ograniczoną liczbą innych wersji językowych; w pozostałych przypadkach możliwy egzamin z tłumaczem na własny koszt. <strong>Zakres języków i warunki zmieniają się — sprawdź aktualne zasady na trafikverket.se przed zapisem.</strong></p></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="flag">Kiedy wymiana ma sens</span>
+      <p>Wymiana polskiego prawa jazdy na szwedzkie (<span class="sv">utbyte av utländskt körkort</span> (wymiana zagranicznego prawa jazdy)) w Transportstyrelsen bywa praktyczna, jeśli mieszkasz tu na stałe: masz szwedzki dokument z <span class="sv">personnummer</span> (szwedzki numer identyfikacyjny), prostsze odnawianie i mniej pytań przy wynajmie auta czy u pracodawcy. Uwaga: przy wymianie oddajesz polski dokument.</p>
+      <p>Ważne też w drugą stronę: jeśli mieszkasz w Szwecji i szwedzki organ odbierze Ci uprawnienia, <strong>nie możesz tu jeździć na polskim prawie jazdy</strong> jako obejściu decyzji.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. PRĘDKOŚĆ ============ -->
+<section class="sec" id="predkosc">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-cir" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 3 · Liczby</p><h2>Prędkość i kary</h2></div>
+    </div>
+
+    <p>Największa pułapka nie polega na tym, że limity są niższe. Polega na tym, że <strong>szwedzkie limity są stopniowane co 10 km/h i realnie zmienne</strong> — 40, 60, 80, 100 pojawiają się tam, gdzie polski kierowca oczekuje jednej wartości na całą trasę. Limit jest funkcją tego, co droga wybacza: jest lina na środku i brak zjazdów — będzie 100. Nie ma — będzie 80, choć asfalt wygląda identycznie.</p>
+
+    <table class="speeds">
+      <caption>Limity domyślne — orientacyjnie</caption>
+      <thead>
+        <tr><th>Sytuacja</th><th>Polska</th><th>Szwecja</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Obszar zabudowany</td><td class="num">50</td><td class="num">50 <span style="font-family:var(--body);font-weight:400">(<span class="sv">tättbebyggt område</span> (obszar zabudowany))</span></td></tr>
+        <tr><td>Strefa szkoły / osiedla</td><td class="num">40–50</td><td class="num">30–40 <span style="font-family:var(--body);font-weight:400">bardzo częste</span></td></tr>
+        <tr><td>Poza obszarem zabudowanym — domyślnie</td><td class="num">90</td><td class="num">70 <span style="font-family:var(--body);font-weight:400">(<span class="sv">bashastighet</span> (domyślny limit prędkości))</span></td></tr>
+        <tr><td>Droga główna / 2+1</td><td class="num">100</td><td class="num">80–100</td></tr>
+        <tr><td>Droga ekspresowa</td><td class="num">120</td><td class="num">100–110</td></tr>
+        <tr><td>Autostrada</td><td class="num">140</td><td class="num">110–120 <span style="font-family:var(--body);font-weight:400">maks.</span></td></tr>
+      </tbody>
+    </table>
+
+    <p>Domyślny limit poza miastem to <strong>70, a nie 90</strong>. Jeśli nie widzisz znaku, obowiązuje 70. Polski odruch „pusta szosa, więc 90” to w Szwecji przekroczenie o 20 km/h przez cały przejazd.</p>
+
+    <div class="warn">
+      <span class="flag">Fotoradary działają inaczej</span>
+      <p>Szwedzkie <span class="sv">ATK</span> (<span class="sv">trafiksäkerhetskamera</span> (fotoradar)) fotografują <strong>kierowcę, nie tylko tablicę</strong>, bo w Szwecji karę ponosi kierujący, a nie właściciel pojazdu. Nie ma znanego z Polski mechanizmu „wskaż kierowcę albo płać jako właściciel”. Jeśli ze zdjęcia nie da się rozpoznać kierowcy, sprawa zwykle upada — co czasem tworzy złudzenie, że kamery nic nie robią. Robią, i są celowo oznakowane: mają zwalniać, nie zarabiać.</p>
+    </div>
+
+    <p>Mandat (<span class="sv">penningböter</span> (mandat w kwocie stałej)) za przekroczenie prędkości to kwota z widełek rzędu kilku tysięcy koron. Nie płaci się na miejscu — policjant wystawia <span class="sv">ordningsbot</span> (mandat wystawiany na miejscu), którą podpisujesz (podpis = przyjęcie), a płatność idzie osobno. Podpisanie oznacza zrzeczenie się drogi sądowej, więc jeśli nie zgadzasz się z zarzutem, <strong>nie podpisuj</strong>.</p>
+
+    <p>Groźniejsza od mandatu jest utrata uprawnień. Przy przekroczeniu rzędu 30 km/h i więcej (a w strefach 30 — znacznie mniej) Transportstyrelsen odbiera prawo jazdy na okres karencji. Dokładne progi i długości zmieniają się — przyjmij zasadę: <strong>w Szwecji nie ma „bezpiecznego” zapasu 20 km/h.</strong></p>
+  </div>
+</section>
+
+<!-- ============ 4. PIERWSZEŃSTWO ============ -->
+<section class="sec" id="pierwszenstwo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-dia" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 4 · Kto pierwszy</p><h2>Pierwszeństwo</h2></div>
+    </div>
+
+    <p>Podstawa jest wspólna: <strong>reguła prawej ręki</strong> (<span class="sv">högerregeln</span> (reguła prawej ręki)) działa tak jak polskie „pierwszeństwo z prawej”. Różnice są w tym, jak często i gdzie się ją stosuje.</p>
+
+    <div class="ledger">
+      <div class="row">
+        <div class="row-topic">Znak STOP</div>
+        <div class="pl"><span class="flag">Polska</span><p>Bardzo częsty, w wielu miejscach domyślne rozwiązanie skrzyżowania.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Stopplikt</span> (obowiązek zatrzymania się) jest rzadka i stosowana wyłącznie tam, gdzie widoczność jest naprawdę zła. Standardem jest <span class="sv">väjningsplikt</span> (obowiązek ustąpienia pierwszeństwa) — ustąp pierwszeństwa, trójkąt do dołu. Jeśli widzisz STOP w Szwecji, traktuj to jak informację: <em>tu naprawdę nic nie widać</em>.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Osiedla mieszkaniowe</div>
+        <div class="pl"><span class="flag">Polska</span><p>Zwykle wyznaczone drogi z pierwszeństwem, dużo znaków.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Całe dzielnice bez żadnego oznakowania — obowiązuje wyłącznie <span class="sv">högerregeln</span> (reguła prawej ręki) na każdym skrzyżowaniu. Nie „domyślaj się”, która droga jest ważniejsza po szerokości asfaltu. Szerokość nic nie znaczy.</p></div>
+      </div>
+      <div class="row same">
+        <div class="row-topic">Droga z pierwszeństwem</div>
+        <div class="pl"><span class="flag">Polska</span><p>Żółty romb = droga z pierwszeństwem, do odwołania.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Huvudled</span> (droga z pierwszeństwem) — ten sam żółty romb, ta sama logika. Dodatkowo: wyjeżdżając z <span class="sv">huvudled</span> (droga z pierwszeństwem) na parking lub podwórze, tracisz pierwszeństwo natychmiast.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Wyjazd z posesji, parkingu, stacji</div>
+        <div class="pl"><span class="flag">Polska</span><p>Ustępujesz — zasada znana i przestrzegana.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Utfartsregeln</span> (zasada wyjazdu) — ustępujesz <strong>wszystkim</strong>, także pieszym i rowerzystom na chodniku, który przecinasz. Wyjazd z parkingu przez ścieżkę rowerową to najczęstsza kolizja polskiego kierowcy w szwedzkim mieście.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Autobus odjeżdżający z przystanku</div>
+        <div class="pl"><span class="flag">Polska</span><p>Kierowca ustępuje autobusowi w obszarze zabudowanym.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Tak samo: na drogach z limitem 50 km/h lub niższym masz <span class="sv">väjningsplikt</span> (obowiązek ustąpienia pierwszeństwa) wobec autobusu, który sygnalizuje wyjazd z przystanku. W praktyce Szwedzi zwalniają i puszczają nawet tam, gdzie nie muszą.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Rondo</div>
+        <div class="pl"><span class="flag">Polska</span><p>Kierunkowskaz w prawo przy zjeździe; praktyka bywa dowolna.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Kierunkowskaz w prawo przed zjazdem jest <strong>bezwyjątkowy</strong> i wszyscy na nim polegają — kierowca czekający na wjeździe podejmuje decyzję na podstawie Twojego migacza. Brak sygnału realnie blokuje rondo. Na wjeździe nie sygnalizujesz, jeśli jedziesz prosto.</p></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="flag">Rzecz, której nie ma w podręczniku</span>
+      <p>Szwedzki kierowca bardzo często <em>zrzeka się</em> pierwszeństwa gestem: zatrzymuje się, choć ma prawo jechać, i machnie ręką. To nie pułapka i nie sarkazm. Odpowiedź: jedź, płynnie, i podnieś rękę w podziękowaniu. Odmawianie („nie, ty pierwszy”) w kółko jest tu uznawane za mylące i niebezpieczne — ktoś musi podjąć decyzję.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. NIECHRONIENI ============ -->
+<section class="sec" id="niechronieni">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-tri" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 5 · Ludzie bez blachy</p><h2>Piesi i rowerzyści</h2></div>
+    </div>
+
+    <p>To obszar, w którym polski nawyk najszybciej kończy się mandatem albo tragedią — bo różnica nie jest w przepisie, a w <strong>momencie</strong>, w którym trzeba zwolnić.</p>
+
+    <p>Od 2000 roku Szwecja ma tzw. <span class="sv">zebralagen</span> (przepis o pierwszeństwie pieszych na przejściu): na przejściu bez sygnalizacji (<span class="sv">obevakat övergångsställe</span> (przejście dla pieszych bez sygnalizacji)) kierowca ma obowiązek ustąpić pieszemu, który <strong>wchodzi lub zamierza wejść</strong> na przejście. „Zamierza” to słowo operacyjne. Szwedzki kierowca zwalnia, gdy widzi człowieka idącego <em>w kierunku</em> pasów, jeszcze zanim ten stanie na krawężniku. Pieszy z kolei ma obowiązek nie wchodzić bez upewnienia się — ale on wejdzie, bo zakłada, że zwolnisz.</p>
+
+    <div class="warn">
+      <span class="flag">Dwa podobne miejsca, dwa różne obowiązki</span>
+      <p><strong><span class="sv">Cykelöverfart</span> (przejazd dla rowerów z pierwszeństwem)</strong> — oznaczona znakiem, z wyniesieniem lub progiem, projektowana na maks. 30 km/h. Tu masz <strong>obowiązek ustąpić rowerzyście</strong>.<br>
+      <strong><span class="sv">Cykelpassage</span> (przejazd dla rowerów bez pierwszeństwa)</strong> — samo przerywane oznakowanie na jezdni, bez znaku. Tu rowerzysta <strong>nie ma</strong> pierwszeństwa, ale Ty masz obowiązek dostosować prędkość tak, żeby nie było zagrożenia. W praktyce: zwalniasz i tak.</p>
+      <p>Rozróżnienie jest subtelne i wielu Szwedów też go nie zna. Zasada praktyczna: przy każdym przekroczeniu ścieżki rowerowej zejdź z gazu i patrz w lewo — rowerzysta jedzie 25–30 km/h i pojawia się szybciej, niż podpowiada polski instynkt.</p>
+    </div>
+
+    <p>Skręcając w prawo, sprawdź <strong>prawe lusterko i martwe pole</strong>, nawet gdy jesteś pewien, że nikogo nie było. Ścieżka rowerowa biegnie równolegle do jezdni i rowerzysta ma zieloną razem z Tobą. To samo dotyczy skrętu przez ścieżkę na parking.</p>
+
+    <p>Dodatkowo: w Szwecji dzieci jeżdżą do szkoły same — na rowerze, na hulajnodze, pieszo — od wczesnych klas. Strefy 30 wokół szkół nie są dekoracją. <span class="sv">Skolskjuts</span> (autobus szkolny), autobus szkolny, wymaga szczególnej ostrożności przy mijaniu: dziecko wybiegnie przed pojazd.</p>
+
+    <p>Wyprzedzanie rowerzysty: nie ma jednej liczby w przepisie, ale przyjęta i egzekwowana praktyka to <strong>co najmniej 1,5 metra</strong> odstępu, a jeśli nie możesz go dać — czekasz. Zaczekanie 15 sekund za rowerzystą jest tu całkowicie normalne i nikt za Tobą nie zatrąbi.</p>
+  </div>
+</section>
+
+<!-- ============ 6. ZIMA ============ -->
+<section class="sec" id="zima">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-tri" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 6 · Warunki</p><h2>Zima, ciemność, opony</h2></div>
+    </div>
+
+    <p>Tu Szwecja ma przepis, którego Polska nie ma wcale, i warunki, których polski kierowca nie zna z doświadczenia.</p>
+
+    <div class="ledger">
+      <div class="row">
+        <div class="row-topic">Opony zimowe</div>
+        <div class="pl"><span class="flag">Polska</span><p>Brak obowiązku prawnego. Kwestia rozsądku i ceny.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><strong>Obowiązek ustawowy</strong> od 1 grudnia do 31 marca, jeśli panują zimowe warunki drogowe (<span class="sv">vinterväglag</span> (zimowe warunki drogowe)) — czyli śnieg, lód, szron lub błoto pośniegowe na drodze. Minimalna głębokość bieżnika opony zimowej: <strong>3 mm</strong> (nie 1,6 mm jak dla letniej). Kontrola drogowa to sprawdza, mandat jest naliczany za oponę.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Opony z kolcami</div>
+        <div class="pl"><span class="flag">Polska</span><p>Zakazane.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Dubbdäck</span> (opony z kolcami) są legalne i powszechne: od 1 października do 15 kwietnia, a poza tym okresem tylko gdy są lub są spodziewane zimowe warunki. Uwaga: część miast ma lokalne zakazy kolców na konkretnych ulicach.</p></div>
+      </div>
+      <div class="row same">
+        <div class="row-topic">Światła w dzień</div>
+        <div class="pl"><span class="flag">Polska</span><p>Obowiązkowe całą dobę, cały rok.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Tak samo — całą dobę, cały rok. Jedna rzecz z polskiego nawyku, którą można przywieźć bez zmian.</p></div>
+      </div>
+    </div>
+
+    <p><strong>Ciemność.</strong> W Sztokholmie w grudniu robi się szaro po 15:00, a w Norrland słońce praktycznie nie wschodzi. To nie jest ciekawostka klimatyczna — to trzy miesiące jazdy do pracy i z pracy w nocy. Konsekwencje praktyczne: czyste szyby i reflektory to nie kosmetyka; światła drogowe (<span class="sv">helljus</span> (światła drogowe)) używa się poza miastem stale i przełącza się je natychmiast; a pieszy w czarnej kurtce bez odblasków jest w Szwecji realnie niewidoczny do ostatniej sekundy. Odblaski (<span class="sv">reflex</span> (odblask)) nosi tu dorosła połowa populacji i nadal ginie kilkudziesięciu pieszych rocznie.</p>
+
+    <p><strong>Lód, którego nie widzisz.</strong> Szwedzka droga zimą jest odśnieżona i wygląda na czarną. Bardzo często jest to <span class="sv">svarthalka</span> (czarny lód) — czarny lód. Najgorsze miejsca: mosty, wiadukty, cień lasu, zjazdy, oraz temperatura około zera przy wilgotności. Regułą jest <strong>podwójny odstęp</strong>, hamowanie wcześniej i bardzo delikatna kierownica. Kurs <span class="sv">Risk 2</span> (obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym) na torze poślizgowym istnieje właśnie dlatego, że intuicja tu zawodzi.</p>
+
+    <div class="note">
+      <span class="flag">Sprzęt, którego nie miałeś w Polsce</span>
+      <p>Skrobaczka i szczotka do dachu — obowiązek praktyczny: jedziesz z odśnieżonym <em>całym</em> autem, także dachem i światłami, bo śnieg zsuwający się na szybę przy hamowaniu jest przyczyną wypadków i podstawą mandatu za nieodpowiedni stan pojazdu. Dodatkowo: <span class="sv">motorvärmare</span> (podgrzewacz silnika) — podgrzewacz silnika na kabel, standard w północnej Szwecji, i dlatego na parkingach zobaczysz słupki z gniazdkami.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. ALKOHOL ============ -->
+<section class="sec" id="alkohol">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-cir" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 7 · Granice absolutne</p><h2>Alkohol i telefon</h2></div>
+    </div>
+
+    <p>Limit alkoholu jest liczbowo taki sam jak w Polsce: <strong>0,2 ‰</strong>. Różnica jest w tym, co się dzieje po przekroczeniu, i w tym, jak to jest odbierane.</p>
+
+    <div class="ledger">
+      <div class="row same">
+        <div class="row-topic">Próg</div>
+        <div class="pl"><span class="flag">Polska</span><p>0,2 ‰ — stan po użyciu; powyżej 0,5 ‰ — przestępstwo.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>0,2 ‰ — <span class="sv">rattfylleri</span> (jazda pod wpływem alkoholu), przestępstwo już od tego progu. Od 1,0 ‰ — <span class="sv">grovt rattfylleri</span> (jazda po alkoholu w typie kwalifikowanym), kwalifikowane, z realną karą pozbawienia wolności.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Konsekwencja</div>
+        <div class="pl"><span class="flag">Polska</span><p>Grzywna, zakaz, przy poważniejszych przypadkach więzienie.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Wyrok karny + niemal automatyczne odebranie prawa jazdy przez Transportstyrelsen, zwykle na 12 miesięcy lub dłużej. Wpis do rejestru karnego wpływa na pracę — w wielu zawodach, także w opiece i szkolnictwie, oznacza koniec zatrudnienia.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Kontrole</div>
+        <div class="pl"><span class="flag">Polska</span><p>Kontrole policyjne, często akcyjne.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Kontrole rutynowe i masowe — policja zatrzymuje całe sznury samochodów bez żadnego podejrzenia. W niektórych portach działają <span class="sv">alkobommar</span> (automatyczne bramki z alkomatem): automatyczne bramki, które nie wypuszczą Cię z terminalu promowego bez dmuchnięcia.</p></div>
+      </div>
+    </div>
+
+    <p><strong>Dzień po.</strong> To najczęstszy scenariusz, w którym Polak w Szwecji traci prawo jazdy: impreza do drugiej, wyjazd do pracy o siódmej. Przy 0,2 ‰ margines jest praktycznie zerowy. Szwedzka norma społeczna brzmi: jeśli piłeś wieczorem, następnego dnia jedziesz komunikacją. To nie przesada — to lokalna kalkulacja ryzyka.</p>
+
+    <p><strong>Telefon.</strong> Od 2018 roku nie wolno <em>trzymać</em> telefonu w ręce podczas jazdy. Nie chodzi tylko o rozmowę — trzymanie urządzenia jest wykroczeniem samo w sobie. Nawigacja musi być w uchwycie. Zerknięcie na wiadomość na czerwonym świetle również podlega przepisowi, bo pojazd jest w ruchu drogowym.</p>
+  </div>
+</section>
+
+<!-- ============ 8. ZWIERZĘTA ============ -->
+<section class="sec" id="zwierzeta">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-tri" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 8 · Obowiązek, o którym nikt nie mówi</p><h2>Zwierzęta i obowiązek zgłoszenia</h2></div>
+    </div>
+
+    <p>To najczęściej łamany przez obcokrajowców szwedzki przepis — nie ze złej woli, tylko z niewiedzy. W Szwecji dochodzi do dziesiątek tysięcy kolizji ze zwierzętami rocznie.</p>
+
+    <div class="warn">
+      <span class="flag">Prawo, nie uprzejmość</span>
+      <p>Jeśli potrącisz dzikie zwierzę z listy ustawowej — <span class="sv">älg</span> (łoś), <span class="sv">rådjur</span> (sarna), <span class="sv">hjort</span> (jeleń), <span class="sv">vildsvin</span> (dzik), a także duże drapieżniki i kilka innych gatunków — masz <strong>obowiązek prawny</strong>:</p>
+      <p>1. Oznaczyć miejsce zdarzenia (w każdym szwedzkim aucie powinna być <span class="sv">viltremsa</span> (taśma do oznaczenia miejsca kolizji ze zwierzęciem) — plastikowa taśma odblaskowa; przywiąż ją po tej stronie, w którą uciekło zwierzę).<br>
+      2. Zgłosić zdarzenie policji, dzwoniąc na <strong>112</strong>.<br>
+      3. Zrobić to <strong>nawet jeśli zwierzę odbiegło i wydaje się nieuszkodzone.</strong></p>
+      <p>Odjechanie bez zgłoszenia jest czynem karalnym. Powód nie jest biurokratyczny: policja wysyła <span class="sv">eftersöksjägare</span> (myśliwy z psem tropiącym) — myśliwego z psem tropiącym, który znajduje ranne zwierzę i skraca jego cierpienie. Ranny łoś to również śmiertelne zagrożenie dla następnego kierowcy.</p>
+    </div>
+
+    <p><strong>Dlaczego łoś jest inny niż wszystko w Polsce.</strong> Dorosły łoś waży 400–700 kg, a jego masa jest wysoko — na wysokości szyby, nie zderzaka. Przy zderzeniu maska przechodzi pod nim, a tułów wchodzi do kabiny. Dlatego szwedzka nauka jazdy uczy odwrotności polskiego odruchu: <strong>hamuj z całej siły, prosto, i nie odbijaj gwałtownie</strong>. Ucieczka kierownicą przy 90 km/h kończy się w drzewie albo na przeciwnym pasie — statystycznie gorzej niż uderzenie.</p>
+
+    <p>Praktyka: zwierzęta wychodzą najczęściej o świcie i o zmierzchu, wiosną i w okresie rui na jesieni. Widzisz jedno — spodziewaj się drugiego, bo sarny i łosie chodzą grupami. Żółty trójkąt z łosiem nie jest pamiątką z lat 70. Stoi tam, gdzie były zderzenia.</p>
+  </div>
+</section>
+
+<!-- ============ 9. PAPIERY ============ -->
+<section class="sec" id="papiery">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-sq" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 9 · Auto jako obowiązek administracyjny</p><h2>Papiery, podatki, parkowanie</h2></div>
+    </div>
+
+    <p>Szwedzki system jest zautomatyzowany i milczący: nikt Ci nie przypomni ustnie, ale wszystko jest powiązane z <span class="sv">personnummer</span> (szwedzki numer identyfikacyjny) i numerem rejestracyjnym, a kary narastają same.</p>
+
+    <div class="ledger">
+      <div class="row">
+        <div class="row-topic">Ubezpieczenie</div>
+        <div class="pl"><span class="flag">Polska</span><p>OC obowiązkowe, kary za brak nakładane przez UFG.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Trafikförsäkring</span> (obowiązkowe ubezpieczenie OC) obowiązkowe od dnia rejestracji. Za brak nalicza się <span class="sv">trafikförsäkringsavgift</span> (opłata karna za brak obowiązkowego OC) — <strong>opłata dzienna, wielokrotnie wyższa od składki</strong>, ściągana przez Kronofogden. Kilka tygodni przerwy potrafi kosztować więcej niż roczne ubezpieczenie.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Przegląd techniczny</div>
+        <div class="pl"><span class="flag">Polska</span><p>Roczny przegląd, pilnujesz terminu sam.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Kontrollbesiktning</span> (przegląd techniczny) w terminie zależnym od wieku pojazdu. Nie ma naklejki na szybie — system wie. Po terminie pojazd dostaje <span class="sv">körförbud</span> (zakaz używania pojazdu): zakaz używania, natychmiast.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Podatek</div>
+        <div class="pl"><span class="flag">Polska</span><p>Brak podatku od posiadania auta osobowego.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Fordonsskatt</span> (podatek od pojazdu) — roczny podatek od pojazdu, płatny automatycznie, zależny od emisji CO₂. Dla nowszych aut z dużym silnikiem pierwsze trzy lata są znacznie droższe (<span class="sv">malus</span> (podwyższony podatek dla pojazdów o wysokiej emisji)).</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Opłaty miejskie</div>
+        <div class="pl"><span class="flag">Polska</span><p>Strefy płatnego parkowania, rosnąca liczba stref czystego transportu.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p><span class="sv">Trängselskatt</span> (opłata za wjazd do centrum miasta) — opłata za wjazd do Sztokholmu i Göteborga, naliczana automatycznie z kamer, rachunek przychodzi pocztą. Plus <span class="sv">miljözon</span> (strefa czystego transportu) w niektórych miastach i opłaty za kilka mostów.</p></div>
+      </div>
+      <div class="row">
+        <div class="row-topic">Parkowanie</div>
+        <div class="pl"><span class="flag">Polska</span><p>Znaki, strefy, aplikacje.</p></div>
+        <div class="se"><span class="flag">Szwecja</span><p>Na drodze publicznej obowiązuje domyślnie <strong>limit 24 godzin</strong> w dni powszednie. Częsty jest <span class="sv">P-skiva</span> (tarcza czasu parkowania) — tarcza z godziną przyjazdu za szybą; bez niej mandat, choć postój jest darmowy. Do tego <span class="sv">städdag</span> (dzień sprzątania ulicy) / <span class="sv">datumparkering</span> (parkowanie zależne od dnia lub daty): konkretna noc w tygodniu, gdy ulica musi być pusta pod czyszczenie lub odśnieżanie. Auto zostawione tej nocy zostaje odholowane.</p></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="flag">Zasada praktyczna</span>
+      <p>Szwedzkie znaki parkingowe czyta się od góry: czarne cyfry = dni powszednie, cyfry w nawiasach = sobota, czerwone = niedziele i święta. Godziny podane <em>bez</em> dodatku oznaczają, że w tym czasie parkowanie jest <strong>płatne lub ograniczone</strong> — nie że tylko wtedy wolno. Odwrotność częstego polskiego odczytu.</p>
+      <p>Uwaga na dwa różne znaki: <span class="sv">förbud att parkera</span> (nie wolno parkować, ale wolno się zatrzymać, by wysadzić pasażera) i <span class="sv">förbud att stanna</span> (nie wolno się nawet zatrzymać). Oraz na regułę 10 metrów: nie zatrzymujesz się w odległości 10 m przed przejściem dla pieszych ani przed skrzyżowaniem i za nim.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. SŁOWNIK ============ -->
+<section class="sec" id="slownik">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-sq" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 10 · Język</p><h2>Słownik PL ↔ SV</h2></div>
+    </div>
+
+    <p>Te słowa zobaczysz na znakach, w mandacie, w pismach z urzędu i w podręczniku. Warto je znać, zanim będą potrzebne. Ta sama lista, z wyszukiwaniem, jest też na stronie <a href="pytania.html">Pytania egzaminacyjne</a>.</p>
+
+    <dl class="gloss">
+      <div><dt>2+1</dt><dd>droga z naprzemiennie dwoma i jednym pasem, rozdzielona barierą</dd></div>
+      <div><dt>accelerationsfält</dt><dd>pas włączania</dd></div>
+      <div><dt>airbag</dt><dd>poduszka powietrzna</dd></div>
+      <div><dt>alkobommar</dt><dd>automatyczne bramki z alkomatem</dd></div>
+      <div><dt>alkolås</dt><dd>blokada alkoholowa w pojeździe</dd></div>
+      <div><dt>antisladdsystem</dt><dd>układ stabilizacji toru jazdy</dd></div>
+      <div><dt>atk</dt><dd>automatyczny nadzór nad prędkością</dd></div>
+      <div><dt>avställd</dt><dd>czasowo wycofany z ruchu</dd></div>
+      <div><dt>avställning</dt><dd>czasowe wycofanie pojazdu z ruchu</dd></div>
+      <div><dt>bashastighet</dt><dd>domyślny limit prędkości</dd></div>
+      <div><dt>blixtlåsprincipen</dt><dd>zasada zamka błyskawiczkowego</dd></div>
+      <div><dt>bromsfading</dt><dd>zanik skuteczności hamowania</dd></div>
+      <div><dt>bromssträcka</dt><dd>droga hamowania</dd></div>
+      <div><dt>cykelfält</dt><dd>pas dla rowerów na jezdni</dd></div>
+      <div><dt>cykelpassage</dt><dd>przejazd dla rowerów bez pierwszeństwa</dd></div>
+      <div><dt>cykelöverfart</dt><dd>przejazd dla rowerów z pierwszeństwem</dd></div>
+      <div><dt>datumparkering</dt><dd>parkowanie zależne od dnia lub daty</dd></div>
+      <div><dt>drograttfylleri</dt><dd>jazda pod wpływem narkotyków</dd></div>
+      <div><dt>dubbdäck</dt><dd>opony z kolcami</dd></div>
+      <div><dt>eftersöksjägare</dt><dd>myśliwy z psem tropiącym</dd></div>
+      <div><dt>elsparkcykel</dt><dd>hulajnoga elektryczna</dd></div>
+      <div><dt>enkelriktad trafik</dt><dd>ruch jednokierunkowy</dd></div>
+      <div><dt>farthinder</dt><dd>progi zwalniające</dd></div>
+      <div><dt>fordonsskatt</dt><dd>podatek od pojazdu</dd></div>
+      <div><dt>färja</dt><dd>prom</dd></div>
+      <div><dt>förarprov</dt><dd>egzamin praktyczny</dd></div>
+      <div><dt>förbud att parkera</dt><dd>zakaz parkowania</dd></div>
+      <div><dt>förbud att stanna</dt><dd>zakaz zatrzymywania</dd></div>
+      <div><dt>förbud mot infart med fordon</dt><dd>zakaz wjazdu pojazdów</dd></div>
+      <div><dt>förbudsmärken</dt><dd>znaki zakazu</dd></div>
+      <div><dt>grovt rattfylleri</dt><dd>jazda po alkoholu w typie kwalifikowanym</dd></div>
+      <div><dt>grusväg</dt><dd>droga żwirowa</dd></div>
+      <div><dt>gul vägmarkering</dt><dd>żółte oznakowanie poziome</dd></div>
+      <div><dt>gågata</dt><dd>ulica dla pieszych</dd></div>
+      <div><dt>gångfart</dt><dd>tempo marszu</dd></div>
+      <div><dt>gårdsgata</dt><dd>strefa zamieszkania</dd></div>
+      <div><dt>halkbana</dt><dd>tor poślizgowy</dd></div>
+      <div><dt>halvljus</dt><dd>światła mijania</dd></div>
+      <div><dt>handledare</dt><dd>opiekun przy nauce jazdy</dd></div>
+      <div><dt>heldragen linje</dt><dd>linia ciągła</dd></div>
+      <div><dt>helljus</dt><dd>światła drogowe</dd></div>
+      <div><dt>hjort</dt><dd>jeleń</dd></div>
+      <div><dt>huvudled</dt><dd>droga z pierwszeństwem</dd></div>
+      <div><dt>högerregeln</dt><dd>reguła prawej ręki</dd></div>
+      <div><dt>kantlinje</dt><dd>linia krawędziowa</dd></div>
+      <div><dt>katalysator</dt><dd>katalizator</dd></div>
+      <div><dt>kommun</dt><dd>gmina</dd></div>
+      <div><dt>kontrollbesiktning</dt><dd>przegląd techniczny</dd></div>
+      <div><dt>kunskapsprov</dt><dd>egzamin teoretyczny</dd></div>
+      <div><dt>körförbud</dt><dd>zakaz używania pojazdu</dd></div>
+      <div><dt>körkort</dt><dd>prawo jazdy</dd></div>
+      <div><dt>körprov</dt><dd>egzamin praktyczny</dd></div>
+      <div><dt>lgf-skylt</dt><dd>tablica pojazdu wolnobieżnego</dd></div>
+      <div><dt>localstorage</dt><dd>pamięć lokalna przeglądarki</dd></div>
+      <div><dt>malus</dt><dd>podwyższony podatek dla pojazdów o wysokiej emisji</dd></div>
+      <div><dt>mikrosömn</dt><dd>mikrosen</dd></div>
+      <div><dt>miljözon</dt><dd>strefa czystego transportu</dd></div>
+      <div><dt>motorbromsning</dt><dd>hamowanie silnikiem</dd></div>
+      <div><dt>motortrafikled</dt><dd>droga ekspresowa</dd></div>
+      <div><dt>motorväg</dt><dd>autostrada</dd></div>
+      <div><dt>motorvärmare</dt><dd>podgrzewacz silnika</dd></div>
+      <div><dt>nolltolerans</dt><dd>zero tolerancji</dd></div>
+      <div><dt>nollvisionen</dt><dd>wizja zero</dd></div>
+      <div><dt>obevakat övergångsställe</dt><dd>przejście dla pieszych bez sygnalizacji</dd></div>
+      <div><dt>omkörning förbjuden</dt><dd>zakaz wyprzedzania</dd></div>
+      <div><dt>ordningsbot</dt><dd>mandat wystawiany na miejscu</dd></div>
+      <div><dt>p-skiva</dt><dd>tarcza czasu parkowania</dd></div>
+      <div><dt>penningböter</dt><dd>mandat w kwocie stałej</dd></div>
+      <div><dt>personliga förutsättningar</dt><dd>uwarunkowania osobiste kierowcy</dd></div>
+      <div><dt>personnummer</dt><dd>szwedzki numer identyfikacyjny</dd></div>
+      <div><dt>pisksnärtsskada</dt><dd>uraz kręgosłupa szyjnego</dd></div>
+      <div><dt>prövotid</dt><dd>okres próbny</dd></div>
+      <div><dt>påbudsmärke</dt><dd>znak nakazu</dd></div>
+      <div><dt>rattfylleri</dt><dd>jazda pod wpływem alkoholu</dd></div>
+      <div><dt>reaktionssträcka</dt><dd>droga reakcji</dd></div>
+      <div><dt>reflex</dt><dd>odblask</dd></div>
+      <div><dt>rekommenderad lägre hastighet</dt><dd>zalecana niższa prędkość</dd></div>
+      <div><dt>ren</dt><dd>renifer</dd></div>
+      <div><dt>renar</dt><dd>renifery</dd></div>
+      <div><dt>risk 1</dt><dd>obowiązkowe szkolenie ryzyka, część pierwsza</dd></div>
+      <div><dt>risk 2</dt><dd>obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym</dd></div>
+      <div><dt>rådjur</dt><dd>sarna</dd></div>
+      <div><dt>röd varningstriangel</dt><dd>czerwony trójkąt ostrzegawczy na opakowaniu leku</dd></div>
+      <div><dt>skolskjuts</dt><dd>autobus szkolny</dd></div>
+      <div><dt>smitning</dt><dd>ucieczka z miejsca zdarzenia</dd></div>
+      <div><dt>sparsam körning</dt><dd>jazda oszczędna</dd></div>
+      <div><dt>spärrområde</dt><dd>obszar wyłączony z ruchu</dd></div>
+      <div><dt>spärrtid</dt><dd>okres karencji przed odzyskaniem uprawnień</dd></div>
+      <div><dt>spårvagn</dt><dd>tramwaj</dd></div>
+      <div><dt>stopplikt</dt><dd>obowiązek zatrzymania się</dd></div>
+      <div><dt>stoppsträcka</dt><dd>droga zatrzymania</dd></div>
+      <div><dt>städdag</dt><dd>dzień sprzątania ulicy</dd></div>
+      <div><dt>svarthalka</dt><dd>czarny lód</dd></div>
+      <div><dt>teoriprov</dt><dd>egzamin teoretyczny</dd></div>
+      <div><dt>tilläggstavla</dt><dd>tabliczka dodatkowa pod znakiem</dd></div>
+      <div><dt>tjänstevikt</dt><dd>masa własna pojazdu</dd></div>
+      <div><dt>tomgångskörning</dt><dd>praca silnika na biegu jałowym</dd></div>
+      <div><dt>totalvikt</dt><dd>dopuszczalna masa całkowita</dd></div>
+      <div><dt>trafikförsäkring</dt><dd>obowiązkowe ubezpieczenie OC</dd></div>
+      <div><dt>trafikförsäkringsavgift</dt><dd>opłata karna za brak obowiązkowego OC</dd></div>
+      <div><dt>trafiksäkerhetskamera</dt><dd>fotoradar</dd></div>
+      <div><dt>tresekundersregeln</dt><dd>zasada trzech sekund</dd></div>
+      <div><dt>trängselskatt</dt><dd>opłata za wjazd do centrum miasta</dd></div>
+      <div><dt>tuta och köra nära</dt><dd>trąbienie i jazda na zderzaku</dd></div>
+      <div><dt>tättbebyggt område</dt><dd>obszar zabudowany</dd></div>
+      <div><dt>utbyte av körkort</dt><dd>wymiana prawa jazdy</dd></div>
+      <div><dt>utbyte av utländskt körkort</dt><dd>wymiana zagranicznego prawa jazdy</dd></div>
+      <div><dt>utfartsregeln</dt><dd>zasada wyjazdu</dd></div>
+      <div><dt>utryckningsfordon</dt><dd>pojazd uprzywilejowany</dd></div>
+      <div><dt>varningsmärken</dt><dd>znaki ostrzegawcze</dd></div>
+      <div><dt>varningstriangel</dt><dd>trójkąt ostrzegawczy</dd></div>
+      <div><dt>vattenplaning</dt><dd>aquaplaning</dd></div>
+      <div><dt>vildsvin</dt><dd>dzik</dd></div>
+      <div><dt>viltolycka</dt><dd>kolizja z dzikim zwierzęciem</dd></div>
+      <div><dt>viltremsa</dt><dd>taśma do oznaczenia miejsca kolizji ze zwierzęciem</dd></div>
+      <div><dt>vinterväglag</dt><dd>zimowe warunki drogowe</dd></div>
+      <div><dt>vägarbete</dt><dd>roboty drogowe</dd></div>
+      <div><dt>väjningsplikt</dt><dd>obowiązek ustąpienia pierwszeństwa</dd></div>
+      <div><dt>zebralagen</dt><dd>przepis o pierwszeństwie pieszych na przejściu</dd></div>
+      <div><dt>älg</dt><dd>łoś</dd></div>
+      <div><dt>återkallelse</dt><dd>odebranie uprawnień</dd></div>
+      <div><dt>återkallelse av körkort</dt><dd>odebranie prawa jazdy</dd></div>
+      <div><dt>återvinningscentral</dt><dd>punkt odbioru odpadów</dd></div>
+      <div><dt>återvändsgata</dt><dd>droga bez przejazdu</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ 11. TEST ============ -->
+<section class="sec" id="test">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="glyph g-cir" aria-hidden="true"><i></i></span>
+      <div><p class="kicker">Rozdział 11 · Sprawdź się</p><h2>Test wiedzy</h2></div>
+    </div>
+    <p>Dwanaście pytań o miejsca, w których polski nawyk prowadzi do złej odpowiedzi. Wybierz jedną opcję — wyjaśnienie pojawi się od razu.</p>
+    <div class="note">
+      <span class="flag">Pełna baza pytań</span>
+      <p>Poniższe dwanaście pytań to rozgrzewka. Osobna strona <a href="pytania.html" style="color:var(--gul)">Pytania egzaminacyjne</a> zawiera 182 pytania w stylu <span class="sv">kunskapsprov</span> (egzamin teoretyczny), podzielone na dziewięć działów, z egzaminem próbnym na czas, oceną mocnych i słabych stron oraz zapisem postępu w przeglądarce.</p>
+    </div>
+    <div class="quiz" id="quiz"></div>
+    <div class="score" id="score">
+      <span id="score-txt">Odpowiedzi: 0 / 12 · Poprawne: 0</span>
+      <button type="button" id="reset">Zacznij od nowa</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Gdzie sprawdzić źródła</h2>
+    <ul>
+      <li><b>Transportstyrelsen</b> — prawo jazdy, wymiana dokumentu, odebranie uprawnień, podatek od pojazdu: <a href="https://www.transportstyrelsen.se">transportstyrelsen.se</a></li>
+      <li><b>Trafikverket</b> — egzaminy <span class="sv">kunskapsprov</span> (egzamin teoretyczny) i <span class="sv">förarprov</span> (egzamin praktyczny), zapisy, języki egzaminu: <a href="https://www.trafikverket.se">trafikverket.se</a></li>
+      <li><b>Polisen</b> — zgłaszanie kolizji ze zwierzęciem, mandaty: <a href="https://polisen.se">polisen.se</a></li>
+      <li><b>NTF</b> i <b>Trafikverket / Nollvisionen</b> — statystyki i filozofia bezpieczeństwa ruchu</li>
+      <li>Twoja gmina (<span class="sv">kommun</span> (gmina)) — zasady parkowania, <span class="sv">städdag</span> (dzień sprzątania ulicy), strefy środowiskowe</li>
+    </ul>
+    <p class="fine">Materiał edukacyjny, nie porada prawna. Limity prędkości, kwoty mandatów, progi odebrania prawa jazdy, języki egzaminu teoretycznego oraz zasady parkowania i stref miejskich zmieniają się i różnią lokalnie. Przed decyzjami formalnymi — egzamin, wymiana dokumentu, odwołanie od mandatu — potwierdź stan aktualny w Transportstyrelsen, Trafikverket lub swojej gminie. Nazwy szwedzkie podano celowo, żeby dało się ich szukać w oryginalnych źródłach.</p>
+  </div>
+</footer>
+
+</div><!-- /shell -->
+
+<script>
+(function(){
+  "use strict";
+
+  /* road progress marker */
+  var road = document.querySelector('.road');
+  function progress(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    road.style.setProperty('--progress', (p * (window.innerHeight - 2)) + 'px');
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ progress(); ticking = false; }); }
+  }, {passive:true});
+  window.addEventListener('resize', progress);
+  progress();
+
+  /* quiz */
+  var QS = [
+    {
+      q:"Jedziesz szosą poza obszarem zabudowanym. Nie widziałeś żadnego znaku ograniczenia prędkości. Jaki limit obowiązuje?",
+      o:["90 km/h","70 km/h","80 km/h","Brak limitu, decyduje bezpieczeństwo"],
+      a:1,
+      why:"Szwedzki <span class='sv'>bashastighet</span> (domyślny limit prędkości) poza obszarem zabudowanym to 70 km/h, a nie 90 jak w Polsce. Brak znaku nie oznacza 90 — oznacza 70. To jedna z najczęstszych i najdroższych pomyłek polskich kierowców."
+    },
+    {
+      q:"Wjeżdżasz na osiedle mieszkaniowe. Skrzyżowania bez żadnych znaków, jedna droga wyraźnie szersza od drugiej. Kto ma pierwszeństwo?",
+      o:["Kierowca na szerszej drodze","Kierowca nadjeżdżający z prawej","Ten, kto pierwszy wjedzie na skrzyżowanie","Ruch z lewej, bo szersza droga jest dojazdowa"],
+      a:1,
+      why:"Obowiązuje <span class='sv'>högerregeln</span> (reguła prawej ręki) — pierwszeństwo ma nadjeżdżający z prawej. Szerokość jezdni, nawierzchnia ani „ważniejszy wygląd” drogi nie mają żadnego znaczenia prawnego. W Szwecji całe dzielnice działają wyłącznie na tej regule."
+    },
+    {
+      q:"Potrąciłeś sarnę. Zwierzę pobiegło w las i wygląda na nieuszkodzone. Auto ma tylko zadrapanie. Co robisz?",
+      o:["Jadę dalej, nic się nie stało","Zgłaszam ubezpieczycielowi i jadę dalej","Oznaczam miejsce i dzwonię na 112","Zgłaszam tylko wtedy, gdy zwierzę zostało na drodze"],
+      a:2,
+      why:"Zgłoszenie policji przez <strong>112</strong> jest obowiązkiem prawnym niezależnie od tego, czy zwierzę odbiegło. Miejsce oznaczasz taśmą <span class='sv'>viltremsa</span> (taśma do oznaczenia miejsca kolizji ze zwierzęciem) po stronie, w którą uciekło. Policja wysyła myśliwego z psem tropiącym. Odjechanie bez zgłoszenia jest czynem karalnym."
+    },
+    {
+      q:"Zbliżasz się do przejścia dla pieszych bez sygnalizacji. Człowiek idzie chodnikiem w kierunku pasów, ale jeszcze na nie nie wszedł. Co powinieneś zrobić?",
+      o:["Jechać dalej — pieszy nie jest jeszcze na przejściu","Zwolnić i ustąpić, bo zamierza wejść","Zatrąbić, żeby dać znać, że jadę","Przyspieszyć, aby zwolnić przejście"],
+      a:1,
+      why:"Tzw. <span class='sv'>zebralagen</span> (przepis o pierwszeństwie pieszych na przejściu) nakazuje ustąpić pieszemu, który wchodzi <em>lub zamierza wejść</em> na przejście. Szwedzki pieszy zakłada, że zwolnisz — i wejdzie. Zatrąbienie jest tu odczytane jako agresja, nie ostrzeżenie."
+    },
+    {
+      q:"Jest 12 grudnia, na drodze leży śnieg. Twoje auto ma dobre opony letnie z bieżnikiem 6 mm. Czy jedziesz legalnie?",
+      o:["Tak, bieżnik jest wystarczający","Tak, opony zimowe są tylko zalecane","Nie — przy zimowych warunkach obowiązkowe są opony zimowe","Tylko na drogach lokalnych"],
+      a:2,
+      why:"Od 1 grudnia do 31 marca, przy zimowych warunkach drogowych (<span class='sv'>vinterväglag</span> (zimowe warunki drogowe)), opony zimowe są <strong>obowiązkowe ustawowo</strong> — z minimalnym bieżnikiem 3 mm. W Polsce takiego obowiązku nie ma wcale, dlatego to jedna z pierwszych rzeczy do przestawienia w głowie."
+    },
+    {
+      q:"Piłeś trzy piwa do drugiej w nocy. O siódmej masz jechać do pracy. Jaka jest szwedzka norma?",
+      o:["Wystarczy się przespać, po pięciu godzinach jest bezpiecznie","Można jechać ostrożnie, limit to 0,5 ‰","Jadę komunikacją — przy 0,2 ‰ margines jest zerowy","Wystarczy zjeść śniadanie i wypić kawę"],
+      a:2,
+      why:"Próg <span class='sv'>rattfylleri</span> (jazda pod wpływem alkoholu) to 0,2 ‰ i jest to <strong>przestępstwo</strong>, nie wykroczenie. Przy takim progu „dzień po” jest realnym ryzykiem, a nie teoretycznym. Skutkiem jest wyrok, wpis do rejestru i odebranie prawa jazdy zwykle na rok — plus konsekwencje zawodowe."
+    },
+    {
+      q:"Widzisz w Szwecji znak STOP. Co to najczęściej oznacza w praktyce?",
+      o:["Standardowe rozwiązanie skrzyżowania, jak w Polsce","Że widoczność jest naprawdę zła — znak jest rzadki i stawiany celowo","Że skrzyżowanie ma sygnalizację wyłączoną","To relikt, zwykle ignorowany"],
+      a:1,
+      why:"W Szwecji <span class='sv'>stopplikt</span> (obowiązek zatrzymania się) stosuje się oszczędnie, tylko przy naprawdę złej widoczności. Standardem jest <span class='sv'>väjningsplikt</span> (obowiązek ustąpienia pierwszeństwa). Widok znaku STOP to informacja: <em>tu nic nie widać, zatrzymaj się i wyjrzyj</em>."
+    },
+    {
+      q:"Zwężenie na drodze dwupasmowej. Twój pas się kończy za 300 metrów. Jak jedziesz?",
+      o:["Zjeżdżam natychmiast, żeby nie blokować","Jadę do końca pasa i wpuszczam po jednym, na zamek","Wciskam się siłą, bo inaczej nikt nie wpuści","Zjeżdżam w połowie, zależnie od ruchu"],
+      a:1,
+      why:"<span class='sv'>Blixtlåsprincipen</span> (zasada zamka błyskawiczkowego) — zasada zamka błyskawicznego. Jedziesz do końca pasa i pojazdy łączą się naprzemiennie. Wcześniejsze zjeżdżanie nie jest tu uprzejmością, tylko marnowaniem przepustowości drogi."
+    },
+    {
+      q:"Wyjeżdżasz z parkingu sklepu na ulicę. Między parkingiem a jezdnią biegnie ścieżka rowerowa. Kto ustępuje?",
+      o:["Rowerzysta, bo wyjeżdżam z prawej","Ja — obowiązuje utfartsregeln, ustępuję wszystkim","Zależy od oznakowania poziomego","Rowerzysta, bo ścieżka nie jest jezdnią"],
+      a:1,
+      why:"<span class='sv'>Utfartsregeln</span> (zasada wyjazdu): wyjeżdżając z parkingu, posesji lub stacji ustępujesz <strong>wszystkim</strong> — pojazdom, rowerzystom i pieszym na przecinanym chodniku. To najczęstsza kolizja polskiego kierowcy w szwedzkim mieście."
+    },
+    {
+      q:"Fotoradar zrobił Ci zdjęcie. Auto jest zarejestrowane na Twoją żonę, ale prowadziłeś Ty. Kto dostanie mandat?",
+      o:["Właścicielka pojazdu — musi wskazać kierowcę","Kierowca, bo kamera fotografuje twarz prowadzącego","Nikt, bo to auto na inną osobę","Właścicielka, a Ty spłacasz jej mandat"],
+      a:1,
+      why:"Szwedzkie <span class='sv'>ATK</span> (automatyczny nadzór nad prędkością) fotografują kierowcę, bo odpowiedzialność ponosi <strong>prowadzący</strong>, nie właściciel pojazdu. Nie ma znanego z Polski mechanizmu obowiązku wskazania kierowcy przez właściciela."
+    },
+    {
+      q:"Na drodze 90 km/h przed maskę wychodzi łoś. Nie zdążysz się zatrzymać. Co robisz?",
+      o:["Odbijam gwałtownie kierownicą, żeby ominąć","Hamuję z całej siły prosto, bez gwałtownego skrętu","Przyspieszam, żeby przejechać przed nim","Hamuję i odbijam w prawo, do rowu"],
+      a:1,
+      why:"Szwedzka nauka jazdy uczy hamowania w linii prostej. Gwałtowny manewr przy 90 km/h kończy się utratą panowania — drzewem albo przeciwnym pasem, statystycznie gorzej niż uderzenie. Masa łosia jest wysoko, więc każdy metr wytraconej prędkości ma ogromne znaczenie."
+    },
+    {
+      q:"Zaparkowałeś na ulicy w Szwecji. Znak pokazuje symbol parkowania i pod nim „(8–18)”. Co znaczą nawiasy?",
+      o:["Że parkowanie jest dozwolone tylko w tych godzinach","Że godziny dotyczą sobót","Że w tych godzinach parkowanie jest bezpłatne","Że to sugestia, nie przepis"],
+      a:1,
+      why:"Na szwedzkich znakach parkingowych: czarne cyfry = dni powszednie, <strong>cyfry w nawiasach = soboty</strong>, czerwone = niedziele i święta. Podane godziny oznaczają czas, w którym parkowanie jest płatne lub ograniczone — nie czas, w którym jest dozwolone."
+    }
+  ];
+
+  var quizEl = document.getElementById('quiz');
+  var scoreTxt = document.getElementById('score-txt');
+  var answered = 0, correct = 0;
+
+  function render(){
+    quizEl.innerHTML = '';
+    answered = 0; correct = 0; update();
+    QS.forEach(function(item, i){
+      var card = document.createElement('div');
+      card.className = 'q';
+
+      var n = document.createElement('span');
+      n.className = 'q-n';
+      n.textContent = 'Pytanie ' + (i+1) + ' / ' + QS.length;
+      card.appendChild(n);
+
+      var t = document.createElement('p');
+      t.className = 'q-t';
+      t.textContent = item.q;
+      card.appendChild(t);
+
+      var opts = document.createElement('div');
+      opts.className = 'opts';
+      var why = document.createElement('p');
+      why.className = 'why';
+      why.innerHTML = item.why;
+
+      var order = item.o.map(function(_, k){ return k; });
+      for(var s = order.length - 1; s > 0; s--){
+        var r = Math.floor(Math.random() * (s + 1));
+        var tmp = order[s]; order[s] = order[r]; order[r] = tmp;
+      }
+      var rightPos = order.indexOf(item.a);
+
+      order.forEach(function(orig, pos){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt';
+        b.textContent = item.o[orig];
+        b.addEventListener('click', function(){
+          if(card.dataset.done) return;
+          card.dataset.done = '1';
+          answered++;
+          var all = opts.querySelectorAll('.opt');
+          for(var k=0;k<all.length;k++){ all[k].disabled = true; }
+          all[rightPos].classList.add('right');
+          if(orig === item.a){ correct++; }
+          else { b.classList.add('wrong'); }
+          why.classList.add('on');
+          update();
+        });
+        opts.appendChild(b);
+      });
+
+      card.appendChild(opts);
+      card.appendChild(why);
+      quizEl.appendChild(card);
+    });
+  }
+
+  function update(){
+    scoreTxt.textContent = 'Odpowiedzi: ' + answered + ' / ' + QS.length + ' · Poprawne: ' + correct;
+  }
+
+  document.getElementById('reset').addEventListener('click', function(){
+    render();
+    document.getElementById('test').scrollIntoView({block:'start'});
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

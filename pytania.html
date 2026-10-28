@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pytania egzaminacyjne — szwedzki teoriprov po polsku</title>
+<meta name="description" content="Baza pytań w stylu szwedzkiego kunskapsprov (teoriprov) w języku polskim, z zapisem postępu w przeglądarce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:opsz,wght@8..60,400..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asfalt:#16191D; --asfalt-2:#22272D;
+  --frost:#E9EDEC; --frost-2:#F5F7F6;
+  --gul:#F6C51E; --rod:#BE1E2D; --bla:#0B4F8A;
+  --gron:#1E7A45; --gron-bg:#E6F4EB;
+  --grafit:#5A6470; --linje:#C9D1D0;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --spine:72px; --maxw:840px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--frost);color:var(--asfalt);font-family:var(--body);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--bla)}
+a:focus-visible,button:focus-visible,label:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--gul);outline-offset:2px}
+.mono{font-family:var(--mono)}
+.sv{font-family:var(--mono);font-size:.85em;background:#DDE4E3;padding:.08em .32em;border-radius:2px}
+
+/* road spine */
+.road{position:fixed;top:0;left:0;bottom:0;width:var(--spine);background:var(--asfalt);z-index:40;overflow:hidden}
+.road::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:5px;margin-left:-2.5px;
+  background:repeating-linear-gradient(to bottom,#F5F7F6 0 26px,transparent 26px 52px);opacity:.6}
+.road-label{position:absolute;bottom:22px;left:50%;transform:translateX(-50%) rotate(180deg);
+  writing-mode:vertical-rl;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#7C8894}
+.shell{margin-left:var(--spine)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+/* header */
+.top{background:var(--asfalt);color:var(--frost-2);padding:26px 0 40px}
+.crumb{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8894A0;margin:0 0 26px}
+.crumb a{color:var(--gul);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.top h1{font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,5vw,2.9rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 16px;max-width:24ch}
+.top h1 em{font-style:normal;color:var(--gul)}
+.top .lead{max-width:52ch;color:#C4CCD3;font-size:1rem;margin:0}
+.top .lead strong{color:var(--frost-2);font-weight:600}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:#333A42;margin-top:32px}
+.stat{background:var(--asfalt-2);padding:14px 16px}
+.stat b{display:block;font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--gul);line-height:1.1}
+.stat span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8894A0;margin-top:5px}
+
+/* storage banner */
+.banner{background:#FBEBEC;border-left:6px solid var(--rod);padding:14px 18px;margin:0;font-size:.9rem}
+.banner.ok{background:var(--gron-bg);border-left-color:var(--gron)}
+.banner p{margin:0}
+
+/* panel */
+.panel{background:var(--frost-2);border-bottom:1px solid var(--linje);padding:34px 0}
+.plabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--grafit);margin:0 0 12px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:26px}
+.mode{text-align:left;background:#fff;border:1px solid var(--linje);padding:14px 16px;cursor:pointer;font-family:var(--body);transition:border-color .12s}
+.mode:hover{border-color:var(--asfalt)}
+.mode[aria-pressed="true"]{border-color:var(--asfalt);border-left:4px solid var(--gul);background:#fff}
+.mode b{display:block;font-family:var(--display);font-weight:600;font-size:1rem;margin-bottom:3px}
+.mode span{font-size:.85rem;color:#444C55;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;background:#fff;border:1px solid var(--linje);padding:8px 12px;cursor:pointer;transition:background .12s}
+.chip:hover{border-color:var(--asfalt)}
+.chip[aria-pressed="true"]{background:var(--asfalt);color:var(--frost-2);border-color:var(--asfalt)}
+.chip i{font-style:normal;opacity:.65;margin-left:6px}
+.start{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:13px 22px;cursor:pointer;border:1px solid var(--asfalt);background:var(--asfalt);color:var(--frost-2)}
+.btn:hover{background:var(--gul);color:var(--asfalt);border-color:var(--gul)}
+.btn.ghost{background:transparent;color:var(--asfalt)}
+.btn.ghost:hover{background:var(--asfalt);color:var(--frost-2);border-color:var(--asfalt)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.hint{font-size:.86rem;color:var(--grafit)}
+
+/* runner */
+.runner{padding:40px 0 10px}
+.runbar{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline;justify-content:space-between;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grafit);
+  border-bottom:2px solid var(--asfalt);padding-bottom:10px;margin-bottom:0}
+.runbar .timer{font-weight:600;color:var(--asfalt)}
+.runbar .timer.low{color:var(--rod)}
+.meter{height:4px;background:var(--linje);margin-bottom:26px}
+.meter i{display:block;height:100%;background:var(--gul);width:0}
+
+.card{border:1px solid var(--linje);background:var(--frost-2);padding:24px}
+.qcat{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--grafit);display:block;margin-bottom:10px}
+p.qtext{font-family:var(--display);font-weight:600;font-size:clamp(1.05rem,2.6vw,1.3rem);line-height:1.28;margin:0 0 6px}
+p.qmulti{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#8A6A00;background:#FDF7E2;display:inline-block;padding:4px 8px;margin:0 0 16px}
+p.qsingle{margin:0 0 16px}
+.opts{display:grid;gap:8px;margin:0}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:1px solid var(--linje);
+  padding:13px 15px;cursor:pointer;font-family:var(--body);font-size:.96rem;line-height:1.45;transition:border-color .12s,background .12s}
+.opt:hover:not([disabled]){border-color:var(--asfalt)}
+.opt[disabled]{cursor:default}
+.opt .box{flex:0 0 18px;width:18px;height:18px;border:1.5px solid var(--grafit);margin-top:2px;position:relative}
+.opt.multi .box{border-radius:2px}
+.opt:not(.multi) .box{border-radius:50%}
+.opt[aria-pressed="true"] .box{border-color:var(--asfalt);background:var(--asfalt)}
+.opt[aria-pressed="true"] .box::after{content:"";position:absolute;left:4px;top:4px;right:4px;bottom:4px;background:var(--gul)}
+.opt.right{border-color:var(--gron);background:var(--gron-bg)}
+.opt.right .box{border-color:var(--gron);background:var(--gron)}
+.opt.wrong{border-color:var(--rod);background:#FBEBEC}
+.opt.wrong .box{border-color:var(--rod);background:var(--rod)}
+.opt.missed{border-color:var(--gron);border-style:dashed;background:#fff}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+p.why{margin:18px 0 0;padding:16px 18px;background:var(--asfalt);color:var(--frost-2);font-size:.93rem;line-height:1.5}
+p.why .sv{background:#2C3339;color:var(--gul)}
+p.why b{color:var(--gul)}
+
+/* results */
+.result{border:1px solid var(--linje);background:var(--frost-2);padding:28px}
+.verdict{font-family:var(--display);font-weight:600;font-size:clamp(1.4rem,4vw,2rem);line-height:1.1;margin:0 0 10px}
+.verdict.pass{color:var(--gron)}
+.verdict.fail{color:var(--rod)}
+.result .big{font-family:var(--mono);font-size:2.6rem;font-weight:600;line-height:1;margin:0 0 6px}
+.result p{margin:0 0 14px;font-size:.95rem}
+.review{margin-top:24px;display:grid;gap:2px}
+.rev{background:#fff;border-left:4px solid var(--rod);padding:12px 15px;font-size:.9rem}
+.rev.ok{border-left-color:var(--gron)}
+.rev b{display:block;font-family:var(--display);font-weight:600;font-size:.95rem;margin-bottom:4px}
+.rev em{font-style:normal;color:var(--gron);font-weight:600}
+
+/* glossary */
+.gl-tools{margin:0 0 18px}
+.gl-tools input{width:100%;max-width:420px;font-family:var(--mono);font-size:13px;
+  padding:12px 14px;border:1px solid var(--linje);background:#fff;color:var(--asfalt)}
+.gl-tools input:focus{outline:3px solid var(--gul);outline-offset:2px}
+.gl-count{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--grafit);margin:10px 0 0}
+.gl-list{display:grid;gap:2px}
+.gl-item{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:14px;
+  background:var(--frost-2);padding:11px 16px}
+.gl-item dt{font-family:var(--mono);font-size:.87rem;font-weight:500;margin:0;word-break:break-word}
+.gl-item dd{margin:0;font-size:.93rem}
+.gl-empty{background:var(--frost-2);padding:16px;font-size:.93rem;color:var(--grafit)}
+@media (max-width:600px){.gl-item{grid-template-columns:1fr;gap:3px}}
+
+/* area report */
+.summary{background:var(--asfalt);color:var(--frost-2);padding:22px 24px;margin:0 0 26px}
+.summary p{margin:0;font-size:.95rem;line-height:1.55}
+.summary p + p{margin-top:10px}
+.summary b{font-family:var(--display);font-weight:600;color:var(--gul)}
+.summary .none{color:#A9B3BD}
+
+.area{background:var(--frost-2);border-left:4px solid var(--linje);padding:15px 18px}
+.area.s-top{border-left-color:var(--gron)}
+.area.s-ok{border-left-color:#8AA63F}
+.area.s-mid{border-left-color:var(--gul)}
+.area.s-low{border-left-color:var(--rod)}
+.area-h{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;justify-content:space-between}
+.area-h b{font-family:var(--display);font-weight:600;font-size:1rem}
+.pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;white-space:nowrap}
+.pill.s-top{background:var(--gron);color:#fff}
+.pill.s-ok{background:#8AA63F;color:#fff}
+.pill.s-mid{background:var(--gul);color:var(--asfalt)}
+.pill.s-low{background:var(--rod);color:#fff}
+.pill.s-none{background:var(--linje);color:var(--grafit)}
+.area-track{height:8px;background:var(--linje);margin:11px 0 9px;position:relative;overflow:hidden}
+.area-track i{position:absolute;top:0;bottom:0;left:0}
+.area-track.s-top i{background:var(--gron)}
+.area-track.s-ok i{background:#8AA63F}
+.area-track.s-mid i{background:var(--gul)}
+.area-track.s-low i{background:var(--rod)}
+.area-track.s-none i{background:var(--grafit)}
+.area-f{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between}
+.area-f span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--grafit)}
+.trainbtn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--asfalt);color:var(--asfalt);padding:6px 11px;cursor:pointer}
+.trainbtn:hover{background:var(--asfalt);color:var(--frost-2)}
+
+/* per-area breakdown on the result screen */
+.brk{margin-top:24px;display:grid;gap:2px}
+.brk-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;
+  background:#fff;padding:9px 14px;font-size:.9rem}
+.brk-row b{font-family:var(--display);font-weight:600;font-size:.92rem}
+.brk-row span{font-family:var(--mono);font-size:11px;color:var(--grafit)}
+.brk-row u{text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:600}
+.brk-row u.good{color:var(--gron)}
+.brk-row u.bad{color:var(--rod)}
+
+/* dashboard */
+.dash{padding:56px 0 10px;border-top:1px solid var(--linje)}
+.dash h2{font-family:var(--display);font-weight:600;font-size:1.5rem;margin:0 0 6px}
+.dash > .wrap > p{font-size:.93rem;color:#3A424B;margin:0 0 24px;max-width:56ch}
+.bars{display:grid;gap:12px}
+.bar b{display:flex;justify-content:space-between;gap:14px;font-family:var(--display);font-weight:600;font-size:.95rem;margin-bottom:5px}
+.bar b span{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--grafit);letter-spacing:.08em}
+.track{height:9px;background:var(--linje);position:relative;overflow:hidden}
+.track i{position:absolute;top:0;bottom:0;left:0;background:var(--gron)}
+.track u{position:absolute;top:0;bottom:0;background:var(--rod);text-decoration:none}
+.hist{margin-top:34px}
+.hist table{width:100%;border-collapse:collapse;font-size:.9rem}
+.hist th,.hist td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--linje)}
+.hist thead th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grafit);font-weight:500;border-bottom:2px solid var(--asfalt)}
+.hist td.n{font-family:var(--mono);font-weight:600}
+.hist td.pass{color:var(--gron)}
+.hist td.fail{color:var(--rod)}
+.danger{margin-top:34px;border-top:1px solid var(--linje);padding-top:22px}
+.danger .btn{border-color:var(--rod);background:transparent;color:var(--rod)}
+.danger .btn:hover{background:var(--rod);color:#fff}
+
+footer{margin-top:70px;background:var(--asfalt);color:#A9B3BD;padding:50px 0 60px;font-size:.9rem}
+footer .wrap > *{max-width:62ch}
+footer h2{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gul);font-weight:500;margin:0 0 14px}
+footer a{color:var(--frost-2)}
+footer .fine{font-size:.82rem;color:#7C8894;border-top:1px solid #333A42;padding-top:18px;margin-top:22px}
+.hidden{display:none!important}
+
+@media (max-width:1023px){:root{--spine:26px}.road-label{display:none}.road::before{width:3px;margin-left:-1.5px}}
+@media (max-width:600px){
+  body{font-size:17px}
+  .wrap{padding:0 20px}
+  .card{padding:20px 18px}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="road" aria-hidden="true"><span class="road-label">Kunskapsprov · trening</span></div>
+
+<div class="shell">
+
+<header class="top">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">&larr; Szwedzka droga</a> &nbsp;·&nbsp; Pytania egzaminacyjne &nbsp;·&nbsp; <a href="#slownik">Słownik</a></p>
+    <h1>Pytania jak na <em>teoriprovie</em>, po polsku.</h1>
+    <p class="lead">Baza pytań w stylu szwedzkiego egzaminu teoretycznego (<span class="sv">kunskapsprov</span> (egzamin teoretyczny)). Każdy szwedzki termin ma polski odpowiednik, bo na prawdziwym egzaminie zobaczysz właśnie szwedzkie słowo. Postęp zapisuje się <strong>lokalnie w Twojej przeglądarce</strong> — nic nie jest wysyłane na serwer.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<div id="banner" class="banner hidden"><div class="wrap"><p id="banner-txt"></p></div></div>
+
+<section class="panel" id="panel">
+  <div class="wrap">
+    <p class="plabel">1 · Wybierz tryb</p>
+    <div class="modes" id="modes">
+      <button type="button" class="mode" data-mode="train" aria-pressed="true">
+        <b>Trening</b><span>Odpowiedź sprawdzana od razu, z wyjaśnieniem. Bez limitu czasu.</span>
+      </button>
+      <button type="button" class="mode" data-mode="exam" aria-pressed="false">
+        <b>Egzamin próbny</b><span>40 losowych pytań, 32 minuty, próg zaliczenia 80% — jak na prawdziwym provie.</span>
+      </button>
+      <button type="button" class="mode" data-mode="wrong" aria-pressed="false">
+        <b>Moje błędy</b><span>Tylko pytania, w których ostatnio się pomyliłeś lub których nie widziałeś.</span>
+      </button>
+    </div>
+
+    <p class="plabel" id="catlabel">2 · Wybierz dział</p>
+    <div class="chips" id="chips"></div>
+
+    <div class="start">
+      <button type="button" class="btn" id="go">Zaczynamy</button>
+      <span class="hint" id="starthint"></span>
+    </div>
+  </div>
+</section>
+
+<section class="runner hidden" id="runner">
+  <div class="wrap">
+    <div class="runbar">
+      <span id="runinfo">&nbsp;</span>
+      <span class="timer hidden" id="timer">32:00</span>
+    </div>
+    <div class="meter"><i id="meterfill"></i></div>
+    <div id="stage"></div>
+  </div>
+</section>
+
+<section class="dash" id="dash">
+  <div class="wrap">
+    <h2>Twoje mocne i słabe strony</h2>
+    <p>Procent to skuteczność w danym dziale, licząc wszystkie Twoje odpowiedzi. Ocena pojawia się po co najmniej pięciu odpowiedziach z działu — wcześniej nie ma z czego wyciągać wniosków.</p>
+    <div class="summary" id="summary"></div>
+    <div class="bars" id="bars"></div>
+    <div class="hist" id="hist"></div>
+    <div class="danger">
+      <button type="button" class="btn" id="wipe">Usuń zapisany postęp</button>
+    </div>
+  </div>
+</section>
+
+<section class="dash" id="slownik">
+  <div class="wrap">
+    <h2>Słownik szwedzko-polski</h2>
+    <p>Wszystkie szwedzkie terminy użyte w pytaniach, z polskim odpowiednikiem. Na egzaminie zobaczysz szwedzkie słowo, dlatego warto znać oba.</p>
+    <div class="gl-tools">
+      <input type="search" id="glfind" placeholder="Szukaj po szwedzku lub po polsku..." aria-label="Szukaj w słowniku">
+      <p class="gl-count" id="glcount"></p>
+    </div>
+    <dl class="gl-list" id="gllist"></dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Zanim pójdziesz na prawdziwy egzamin</h2>
+    <p>Aktualnie <span class="sv">kunskapsprov</span> (egzamin teoretyczny) na kategorię B liczy 70 pytań, z których 65 jest oceniane, a do zaliczenia potrzeba 52 poprawnych odpowiedzi w 50 minut. Część pytań ma <strong>więcej niż jedną poprawną odpowiedź</strong> i trzeba zaznaczyć wszystkie. Egzamin zapisujesz w <a href="https://www.trafikverket.se">Trafikverket</a>; wynik teorii jest ważny ograniczony czas, więc egzamin praktyczny (<span class="sv">körprov</span> (egzamin praktyczny)) planuj od razu.</p>
+    <p class="fine">To materiał do nauki, nie oficjalna baza pytań Trafikverket. Pytania napisano na podstawie zakresu tematycznego szwedzkiego egzaminu, ale sformułowania i kolejność odpowiedzi są własne. Przepisy, kwoty i progi zmieniają się — przed egzaminem potwierdź stan aktualny w Trafikverket i Transportstyrelsen. Postęp jest zapisywany wyłącznie w Twojej przeglądarce (<span class="sv">localStorage</span> (pamięć lokalna przeglądarki)) i zniknie po wyczyszczeniu danych witryny.</p>
+  </div>
+</footer>
+
+</div><!-- /shell -->
+
+<script>
+(function(){
+"use strict";
+
+var CATS = [
+  {k:"znaki",        pl:"Znaki i oznakowanie",        sv:"Vägmärken"},
+  {k:"pierwszenstwo",pl:"Pierwszeństwo",              sv:"Väjningsplikt"},
+  {k:"hastighet",    pl:"Prędkość i odstępy",         sv:"Hastighet och avstånd"},
+  {k:"fordon",       pl:"Pojazd i technika",          sv:"Fordonskännedom"},
+  {k:"vinter",       pl:"Zima i ciemność",            sv:"Vinterväglag och mörker"},
+  {k:"manniska",     pl:"Człowiek za kierownicą",     sv:"Personliga förutsättningar"},
+  {k:"miljo",        pl:"Środowisko i ekonomia jazdy",sv:"Miljö och sparsam körning"},
+  {k:"risk",         pl:"Ryzyko i niechronieni",      sv:"Riskmedvetenhet"},
+  {k:"regler",       pl:"Prawo i dokumenty",          sv:"Regler och körkort"}
+];
+
+/* =========================================================
+   BAZA PYTAŃ
+   a = tablica indeksów poprawnych odpowiedzi
+   m = true  -> pytanie wielokrotnego wyboru (flera alternativ)
+   ========================================================= */
+var Q = [
+
+/* ---------- ZNAKI I OZNAKOWANIE ---------- */
+{id:"z1",c:"znaki",q:"Szwedzki znak ograniczenia prędkości ma żółte tło z czerwoną obwódką. Co z tego wynika dla polskiego kierowcy?",
+ o:["Nic — to ten sam znak, tylko inny kolor tła","Że znak dotyczy wyłącznie pojazdów ciężarowych","Że ograniczenie jest tylko zalecane","Że obowiązuje wyłącznie zimą"],
+ a:[0],
+ why:"W Szwecji znaki zakazu (<span class='sv'>förbudsmärken</span> (znaki zakazu) — znaki zakazu) mają żółte tło, w Polsce białe. Znaczenie jest identyczne. Żółte tło ma poprawiać widoczność w śniegu i mroku — nie osłabia mocy prawnej znaku."},
+
+{id:"z2",c:"znaki",q:"Widzisz na jezdni żółte oznakowanie poziome obok białego. Którym się kierujesz?",
+ o:["Białym, bo jest oryginalne","Żółtym — ma pierwszeństwo nad białym","Tym, które jest lepiej widoczne","Żadnym, decyduje ustawienie znaków pionowych"],
+ a:[1],
+ why:"Żółte linie (<span class='sv'>gul vägmarkering</span> (żółte oznakowanie poziome) — żółte oznakowanie) to oznakowanie tymczasowe, zwykle przy robotach drogowych (<span class='sv'>vägarbete</span> (roboty drogowe)). <b>Ma pierwszeństwo nad białym</b>, które w tym czasie traci ważność."},
+
+{id:"z3",c:"znaki",q:"Znak ostrzegawczy poza obszarem zabudowanym stoi zwykle w jakiej odległości od miejsca zagrożenia?",
+ o:["30–50 m","Bezpośrednio przy zagrożeniu","150–250 m","Zawsze dokładnie 500 m"],
+ a:[2],
+ why:"Poza obszarem zabudowanym znaki ostrzegawcze (<span class='sv'>varningsmärken</span> (znaki ostrzegawcze) — znaki ostrzegawcze) ustawia się zazwyczaj 150–250 m przed zagrożeniem. W terenie zabudowanym bliżej. Jeśli odległość jest inna, podaje ją tabliczka pod znakiem."},
+
+{id:"z4",c:"znaki",q:"Wjeżdżasz na <span class='sv'>gårdsgata</span> (strefa zamieszkania). Co obowiązuje? Zaznacz wszystkie poprawne.",m:true,
+ o:["Prędkość dostosowana do pieszych, czyli tempo marszu","Piesi mają pierwszeństwo na całej szerokości","Parkowanie tylko w wyznaczonych miejscach","Wyjeżdżając, mam pierwszeństwo, bo wyjeżdżam z drogi z pierwszeństwem"],
+ a:[0,1,2],
+ why:"Na <span class='sv'>gårdsgata</span> (strefa zamieszkania) jedziesz w tempie pieszego (<span class='sv'>gångfart</span> (tempo marszu) — tempo marszu), ustępujesz pieszym i parkujesz wyłącznie w wyznaczonych miejscach. Wyjeżdżając ze strefy obowiązuje <span class='sv'>utfartsregeln</span> (zasada wyjazdu) — ustępujesz wszystkim."},
+
+{id:"z5",c:"znaki",q:"Żółty romb (<span class='sv'>huvudled</span> (droga z pierwszeństwem)) oznacza drogę z pierwszeństwem. Kiedy przestaje obowiązywać?",
+ o:["Na najbliższym skrzyżowaniu","Po znaku odwołującym lub gdy skręcam z tej drogi","Po 500 metrach","W obszarze zabudowanym nie obowiązuje wcale"],
+ a:[1],
+ why:"<span class='sv'>Huvudled</span> (droga z pierwszeństwem) obowiązuje do znaku odwołującego. Ale jeśli z niej zjeżdżasz — także na parking, do posesji czy w drogę podrzędną — pierwszeństwo tracisz natychmiast."},
+
+{id:"z6",c:"znaki",q:"Czym różni się <span class='sv'>motorväg</span> (autostrada) od <span class='sv'>motortrafikled</span> (droga ekspresowa)?",
+ o:["Niczym, to synonimy","Motorväg ma rozdzielone jezdnie i zwykle wyższy limit; motortrafikled bywa jednojezdniowa","Motortrafikled jest płatna","Na motortrafikled wolno jeździć rowerem"],
+ a:[1],
+ why:"<span class='sv'>Motorväg</span> (autostrada) ma fizycznie rozdzielone kierunki ruchu. <span class='sv'>Motortrafikled</span> (droga ekspresowa) ma te same zakazy dla pieszych, rowerów i traktorów, ale często jest jednojezdniowa — dlatego niższy limit i realnie większe ryzyko czołowego zderzenia."},
+
+{id:"z7",c:"znaki",q:"Linia ciągła (<span class='sv'>heldragen linje</span> (linia ciągła)) po Twojej stronie jezdni. Co wolno?",
+ o:["Przekroczyć ją przy wyprzedzaniu rowerzysty","Nie wolno jej przekraczać ani na niej jechać","Przekroczyć, jeśli droga jest pusta","Przekroczyć, jeśli skręcam w lewo"],
+ a:[1],
+ why:"Linii ciągłej nie wolno przekraczać ani na niej jechać. Wyjątkiem są sytuacje wymuszone, np. ominięcie przeszkody, gdy nie da się inaczej i jest to bezpieczne. Wyprzedzanie rowerzysty jej nie usprawiedliwia — czekasz."},
+
+{id:"z8",c:"znaki",q:"Niebieski okrągły znak w Szwecji to najczęściej:",
+ o:["Zakaz","Nakaz lub informacja o obowiązującym kierunku","Ostrzeżenie","Koniec ograniczeń"],
+ a:[1],
+ why:"Niebieskie koło to <span class='sv'>påbudsmärke</span> (znak nakazu) — np. nakazany kierunek jazdy, droga dla rowerów. Kolor i kształt czyta się tak samo jak w Polsce; zmienia się tylko tło znaków zakazu na żółte."},
+
+/* ---------- PIERWSZEŃSTWO ---------- */
+{id:"p1",c:"pierwszenstwo",q:"Skrzyżowanie na osiedlu, bez żadnych znaków. Z prawej nadjeżdża auto, Twoja droga jest wyraźnie szersza. Kto ma pierwszeństwo?",
+ o:["Ja, bo jadę drogą szerszą","Auto z prawej","Ten, kto pierwszy dojedzie","Ja, bo z prawej jest droga dojazdowa"],
+ a:[1],
+ why:"Obowiązuje <span class='sv'>högerregeln</span> (reguła prawej ręki). Szerokość jezdni, nawierzchnia i „ważniejszy wygląd” drogi nie mają żadnego znaczenia prawnego. Całe szwedzkie dzielnice działają tylko na tej zasadzie."},
+
+{id:"p2",c:"pierwszenstwo",q:"Wyjeżdżasz z parkingu przy sklepie. Przecinasz ścieżkę rowerową i chodnik. Komu ustępujesz?",
+ o:["Tylko pojazdom na jezdni","Rowerzystom, ale nie pieszym","Wszystkim: pojazdom, rowerzystom i pieszym","Nikomu, jeśli mam włączony kierunkowskaz"],
+ a:[2],
+ why:"<span class='sv'>Utfartsregeln</span> (zasada wyjazdu) — wyjeżdżając z parkingu, posesji, stacji paliw lub strefy zamieszkania ustępujesz <b>wszystkim</b>. To najczęstsza kolizja obcokrajowca w szwedzkim mieście."},
+
+{id:"p3",c:"pierwszenstwo",q:"Autobus miejski sygnalizuje wyjazd z przystanku. Droga ma ograniczenie 50 km/h. Co robisz?",
+ o:["Mam pierwszeństwo, jadę dalej","Ustępuję — mam väjningsplikt","Zależy, czy jest oznakowanie poziome","Ustępuję tylko, jeśli to autobus szkolny"],
+ a:[1],
+ why:"Na drogach z ograniczeniem 50 km/h lub niższym masz <span class='sv'>väjningsplikt</span> (obowiązek ustąpienia) wobec autobusu odjeżdżającego z przystanku. Przy wyższym limicie już nie — ale Szwedzi zwalniają i tak."},
+
+{id:"p4",c:"pierwszenstwo",q:"Widzisz w Szwecji znak STOP. Co to najczęściej sygnalizuje?",
+ o:["Standardowe rozwiązanie skrzyżowania","Że widoczność jest naprawdę zła — znak jest tu rzadki","Że sygnalizacja jest wyłączona","Że skrzyżowanie jest niebezpieczne tylko zimą"],
+ a:[1],
+ why:"<span class='sv'>Stopplikt</span> (obowiązek zatrzymania) stosuje się w Szwecji oszczędnie — tylko tam, gdzie inaczej nic nie widać. Standardem jest <span class='sv'>väjningsplikt</span> (obowiązek ustąpienia pierwszeństwa). Widok STOP to informacja: zatrzymaj się i wyjrzyj, bo naprawdę nie widzisz."},
+
+{id:"p5",c:"pierwszenstwo",q:"Jedziesz przez rondo i zamierzasz zjechać na drugim wyjeździe. Jak sygnalizujesz?",
+ o:["Lewy przy wjeździe, prawy przed zjazdem","Nie sygnalizuję wcale","Tylko prawy przed zjazdem","Prawy przy wjeździe i lewy przy zjeździe"],
+ a:[2],
+ why:"Jadąc prosto lub prawie prosto nie sygnalizujesz wjazdu; prawy kierunkowskaz włączasz przed zjazdem. W Szwecji jest to przestrzegane bezwyjątkowo — kierowca czekający na wjeździe podejmuje decyzję na podstawie Twojego migacza."},
+
+{id:"p6",c:"pierwszenstwo",q:"Masz zielone światło i skręcasz w lewo. Kto ma pierwszeństwo? Zaznacz wszystkie poprawne.",m:true,
+ o:["Pojazdy jadące z przeciwka na wprost","Piesi przechodzący przez jezdnię, w którą skręcam","Rowerzyści jadący ścieżką wzdłuż tej jezdni","Nikt — zielone światło daje mi pierwszeństwo"],
+ a:[0,1,2],
+ why:"Zielone światło nie daje pierwszeństwa przy skręcie. Ustępujesz pojazdom z przeciwka jadącym na wprost oraz pieszym i rowerzystom przecinającym jezdnię, w którą wjeżdżasz. Rowerzysta ma zielone razem z Tobą."},
+
+{id:"p7",c:"pierwszenstwo",q:"Zbliżasz się do przejazdu kolejowego. Za torami jest korek i nie widzisz, czy zdążysz zjechać. Co robisz?",
+ o:["Wjeżdżam — pociągu nie widać","Czekam przed torami, aż będę mieć miejsce po drugiej stronie","Wjeżdżam na tory i czekam tam","Wjeżdżam szybko, żeby zwolnić przejazd"],
+ a:[1],
+ why:"Nigdy nie wjeżdżasz na przejazd, dopóki nie masz pewności, że zjedziesz z niego bez zatrzymania. Zatrzymanie się na torach jest jedną z najczęstszych przyczyn śmiertelnych zdarzeń na przejazdach."},
+
+{id:"p8",c:"pierwszenstwo",q:"Za Tobą jedzie pojazd uprzywilejowany na sygnale (<span class='sv'>utryckningsfordon</span> (pojazd uprzywilejowany)). Stoisz na czerwonym świetle w kolumnie. Co robisz?",
+ o:["Czekam na zielone, bo nie wolno przejechać na czerwonym","Zjeżdżam na bok i zatrzymuję się, także wjeżdżając ostrożnie za linię, jeśli to jedyna droga zrobienia miejsca","Trąbię, żeby ostrzec innych","Cofam, żeby zrobić miejsce"],
+ a:[1],
+ why:"Masz obowiązek ułatwić przejazd i wolno w tym celu ostrożnie opuścić swoje miejsce, nawet przekraczając linię — pod warunkiem, że nie stwarzasz zagrożenia. Cofanie w kolumnie jest zakazane i niebezpieczne."},
+
+/* ---------- PRĘDKOŚĆ I ODSTĘPY ---------- */
+{id:"h1",c:"hastighet",q:"Poza obszarem zabudowanym nie ma żadnego znaku ograniczenia prędkości. Ile wolno?",
+ o:["90 km/h","70 km/h","80 km/h","Tyle, ile pozwalają warunki"],
+ a:[1],
+ why:"<span class='sv'>Bashastighet</span> (domyślny limit) poza obszarem zabudowanym to <b>70 km/h</b>, w obszarze zabudowanym 50 km/h. Polski odruch „pusta szosa, więc 90” to w Szwecji przekroczenie o 20 km/h przez cały przejazd."},
+
+{id:"h2",c:"hastighet",q:"Jaki jest najwyższy dopuszczalny limit prędkości na szwedzkiej autostradzie?",
+ o:["100 km/h","110 km/h","120 km/h","140 km/h"],
+ a:[2],
+ why:"Maksimum na <span class='sv'>motorväg</span> (autostrada) to 120 km/h i występuje tylko na wybranych odcinkach; częściej jest 110. Polskie 140 nie istnieje w szwedzkim systemie — limit jest funkcją tego, ile droga wybacza."},
+
+{id:"h3",c:"hastighet",q:"Jedziesz samochodem osobowym z przyczepą. Jaki jest zwykle najwyższy limit prędkości?",
+ o:["70 km/h","80 km/h","90 km/h","Taki jak dla samochodu bez przyczepy"],
+ a:[1],
+ why:"Zespół pojazdów z przyczepą to zasadniczo maksymalnie 80 km/h, niezależnie od tego, jaki limit obowiązuje na drodze. Dochodzą do tego wymogi dotyczące masy przyczepy i uprawnień (kategoria B, B96 lub BE)."},
+
+{id:"h4",c:"hastighet",q:"Podwajasz prędkość z 40 na 80 km/h. Co dzieje się z drogą hamowania (<span class='sv'>bromssträcka</span> (droga hamowania))?",
+ o:["Rośnie dwukrotnie","Rośnie około czterokrotnie","Rośnie o połowę","Nie zmienia się, decydują opony"],
+ a:[1],
+ why:"Droga hamowania rośnie z kwadratem prędkości: dwa razy szybciej to <b>cztery razy dłużej</b>. Do tego dochodzi droga reakcji (<span class='sv'>reaktionssträcka</span> (droga reakcji)), która rośnie liniowo. Dlatego różnica 30 km/h decyduje o tym, czy pieszy przeżyje."},
+
+{id:"h5",c:"hastighet",q:"Jaki minimalny odstęp od poprzedzającego pojazdu zaleca szwedzka nauka jazdy w dobrych warunkach?",
+ o:["Jedna sekunda","Dwie sekundy","Trzy sekundy","Pół długości samochodu na każde 10 km/h"],
+ a:[2],
+ why:"<span class='sv'>Tresekundersregeln</span> (zasada trzech sekund): wybierasz punkt na drodze i liczysz. W deszczu, śniegu i na lodzie odstęp <b>podwajasz co najmniej</b>. Odstęp mierzy się czasem, nie metrami — bo metry zależą od prędkości."},
+
+{id:"h6",c:"hastighet",q:"Dlaczego strefy 30 km/h są w Szwecji tak częste wokół szkół?",
+ o:["Bo tam często stoi policja","Bo przy 30 km/h pieszy najczęściej przeżywa zderzenie, a przy 50 najczęściej nie","Bo zmniejsza to hałas","Bo wymaga tego prawo Unii Europejskiej"],
+ a:[1],
+ why:"To wprost wynika z <span class='sv'>Nollvisionen</span> (wizja zero). Granica tolerancji ludzkiego ciała przy uderzeniu przez samochód leży w okolicach 30 km/h. Limit nie jest karą dla kierowcy — jest progiem przeżycia dla pieszego."},
+
+{id:"h7",c:"hastighet",q:"Które z poniższych wydłużają Twoją drogę zatrzymania? Zaznacz wszystkie poprawne.",m:true,
+ o:["Zmęczenie","Zużyty bieżnik opon","Mokra jezdnia","Włączona klimatyzacja"],
+ a:[0,1,2],
+ why:"Zmęczenie wydłuża drogę reakcji (<span class='sv'>reaktionssträcka</span> (droga reakcji)), a opony i nawierzchnia drogę hamowania. Klimatyzacja nie ma z tym nic wspólnego. Uwaga: obciążenie pojazdu również wydłuża hamowanie — pełny samochód po dwóch godzinach jazdy hamuje wyraźnie dłużej niż ten sam samochód rano i pusty."},
+
+/* ---------- POJAZD I TECHNIKA ---------- */
+{id:"f1",c:"fordon",q:"Jaka jest minimalna głębokość bieżnika opony zimowej używanej przy zimowych warunkach drogowych?",
+ o:["1,6 mm","3 mm","4 mm","5 mm"],
+ a:[1],
+ why:"Opona zimowa przy <span class='sv'>vinterväglag</span> (zimowe warunki drogowe) musi mieć co najmniej <b>3 mm</b>. Dla opon letnich minimum to 1,6 mm. To dwie różne liczby i kontrola drogowa sprawdza właściwą."},
+
+{id:"f2",c:"fordon",q:"Zapala się czerwona kontrolka ciśnienia oleju. Co robisz?",
+ o:["Dojeżdżam do najbliższego warsztatu","Zatrzymuję się bezpiecznie jak najszybciej i gaszę silnik","Dolewam olej przy najbliższej okazji","Jadę dalej wolniej"],
+ a:[1],
+ why:"Czerwona kontrolka to ostrzeżenie krytyczne — jazda dalej może zniszczyć silnik w ciągu minut. Żółta lub pomarańczowa kontrolka oznacza usterkę do sprawdzenia, ale pozwala zwykle dojechać. Kolor jest informacją o pilności."},
+
+{id:"f3",c:"fordon",q:"Zbyt niskie ciśnienie w oponach powoduje: zaznacz wszystkie poprawne.",m:true,
+ o:["Wyższe zużycie paliwa","Gorsze prowadzenie i dłuższą drogę hamowania","Szybsze zużycie krawędzi opony","Większe ryzyko aquaplaningu"],
+ a:[0,1,2,3],
+ why:"Niedopompowana opona zwiększa opór toczenia, odkształca się, grzeje i traci zdolność odprowadzania wody. Ciśnienie sprawdza się na zimnych oponach, a wartości znajdziesz w instrukcji lub na słupku drzwi kierowcy."},
+
+{id:"f4",c:"fordon",q:"Co daje układ ABS?",
+ o:["Zawsze skraca drogę hamowania","Pozwala zachować kontrolę nad kierownicą podczas hamowania awaryjnego","Zapobiega poślizgowi przy przyspieszaniu","Zastępuje hamulec ręczny"],
+ a:[1],
+ why:"ABS zapobiega blokowaniu kół, dzięki czemu <b>możesz kierować podczas mocnego hamowania</b>. Na luźnym żwirze i głębokim śniegu droga hamowania może się nawet wydłużyć. ABS nie jest skrótem — jest zachowaniem sterowności."},
+
+{id:"f5",c:"fordon",q:"Wjeżdżasz w kałużę i czujesz, że auto płynie (<span class='sv'>vattenplaning</span> (aquaplaning)). Jak reagujesz?",
+ o:["Mocno hamuję","Puszczam gaz, trzymam kierownicę prosto, nie hamuję gwałtownie","Dodaję gazu, żeby przebić się przez wodę","Gwałtownie skręcam, żeby złapać przyczepność"],
+ a:[1],
+ why:"Podczas aquaplaningu koła nie mają kontaktu z asfaltem, więc hamowanie i skręcanie nic nie zrobią — poza utratą kontroli w momencie, gdy przyczepność wróci. Puszczasz gaz i czekasz. Zapobiegasz zwalniając wcześniej i dbając o bieżnik."},
+
+{id:"f6",c:"fordon",q:"Dziecko ma 3 lata i podróżuje w foteliku ustawionym tyłem do kierunku jazdy. Gdzie nie wolno go przewozić?",
+ o:["Na tylnym siedzeniu za kierowcą","Na przednim siedzeniu z włączoną poduszką powietrzną","Na środkowym miejscu z tyłu","Nigdzie nie ma ograniczeń"],
+ a:[1],
+ why:"Fotelik tyłem do kierunku jazdy nie może stać na przednim siedzeniu z aktywną poduszką (<span class='sv'>airbag</span> (poduszka powietrzna)) — jej wystrzelenie jest wtedy śmiertelne. Dzieci niższe niż 135 cm muszą korzystać z fotelika lub podkładki, a szwedzka praktyka to jazda tyłem do kierunku jazdy aż do ok. 4. roku życia."},
+
+{id:"f7",c:"fordon",q:"Wieziesz deski wystające ponad metr za tył samochodu. Co jest wymagane?",
+ o:["Nic, jeśli są dobrze przywiązane","Oznaczenie ładunku, a po zmroku również światłem i odblaskiem","Zgłoszenie do policji","Tylko trójkąt ostrzegawczy w bagażniku"],
+ a:[1],
+ why:"Ładunek wystający wyraźnie poza obrys pojazdu — w praktyce ponad metr z tyłu — musi być oznaczony chorągiewką lub tablicą, a w warunkach ograniczonej widoczności także światłem i odblaskiem. Za zabezpieczenie ładunku odpowiada kierowca."},
+
+{id:"f8",c:"fordon",q:"Jedziesz długim zjazdem w dół. Jak najbezpieczniej kontrolować prędkość?",
+ o:["Jadę na luzie i hamuję hamulcem","Włączam niższy bieg i hamuję silnikiem, dodatkowo hamulcem","Ciągle trzymam hamulec, żeby nie rozpędzić się","Wyłączam silnik, żeby oszczędzić paliwo"],
+ a:[1],
+ why:"Hamowanie silnikiem (<span class='sv'>motorbromsning</span> (hamowanie silnikiem)) chroni hamulce od przegrzania i zaniku skuteczności (<span class='sv'>bromsfading</span> (zanik skuteczności hamowania)). Jazda na luzie pozbawia Cię tego efektu i odbiera kontrolę nad pojazdem."},
+
+/* ---------- ZIMA I CIEMNOŚĆ ---------- */
+{id:"v1",c:"vinter",q:"Od kiedy do kiedy opony zimowe są w Szwecji obowiązkowe?",
+ o:["Zawsze od października do maja","Od 1 grudnia do 31 marca, jeśli panują zimowe warunki drogowe","Nie ma takiego obowiązku, tylko zalecenie","Tylko na drogach na północ od Sztokholmu"],
+ a:[1],
+ why:"Obowiązek dotyczy okresu 1 grudnia – 31 marca i wchodzi w życie, gdy występuje <span class='sv'>vinterväglag</span> (zimowe warunki drogowe): śnieg, lód, szron lub błoto pośniegowe na drodze. W Polsce takiego obowiązku nie ma wcale."},
+
+{id:"v2",c:"vinter",q:"W jakim okresie wolno w Szwecji jeździć na oponach z kolcami (<span class='sv'>dubbdäck</span> (opony z kolcami))?",
+ o:["Cały rok","Od 1 października do 15 kwietnia, a poza tym przy zimowych warunkach","Tylko w grudniu i styczniu","Kolce są zabronione, jak w Polsce"],
+ a:[1],
+ why:"Kolce są legalne od 1 października do 15 kwietnia, a poza tym okresem tylko wtedy, gdy zimowe warunki panują lub są spodziewane. Uwaga: część miast ma lokalne zakazy kolców na konkretnych ulicach."},
+
+{id:"v3",c:"vinter",q:"Gdzie najczęściej pojawia się czarny lód (<span class='sv'>svarthalka</span> (czarny lód))?",m:true,
+ o:["Na mostach i wiaduktach","W cieniu lasu","Przy temperaturze około zera i dużej wilgotności","Na odcinkach nasłonecznionych w środku dnia"],
+ a:[0,1,2],
+ why:"Most oddaje ciepło z obu stron, cień nie pozwala nawierzchni się nagrzać, a temperatura około zera to najgroźniejszy przedział. Nasłoneczniony odcinek w środku dnia jest najbezpieczniejszy — i właśnie dlatego kierowca traci czujność przed najbliższym mostem. Czarny lód jest niewidoczny: droga wygląda po prostu na mokrą."},
+
+{id:"v4",c:"vinter",q:"Jedziesz 90 km/h po ciemku na światłach mijania. Dlaczego to problem?",
+ o:["Bo światła mijania są zabronione poza miastem","Bo oświetlają zwykle 50–75 m, a droga zatrzymania jest dłuższa","Bo szybciej zużywają żarówki","Bo nie widzą ich inni kierowcy"],
+ a:[1],
+ why:"To klasyczne pytanie egzaminacyjne: jedziesz szybciej, niż widzisz. Jeśli światła mijania (<span class='sv'>halvljus</span> (światła mijania)) sięgają ok. 50–75 m, a droga zatrzymania przy 90 km/h jest dłuższa, nie zdążysz zareagować na przeszkodę bez świateł drogowych (<span class='sv'>helljus</span> (światła drogowe))."},
+
+{id:"v5",c:"vinter",q:"Przed odjazdem samochód jest zaśnieżony. Co musisz zrobić?",
+ o:["Odśnieżyć przednią szybę","Odśnieżyć szyby, światła, tablice i dach","Odśnieżyć tylko to, co przeszkadza mi w widoczności","Nic, śnieg zdmuchnie się w trakcie jazdy"],
+ a:[1],
+ why:"Śnieg z dachu zsuwa się przy hamowaniu na szybę i całkowicie odbiera widoczność, a od pojazdu jadącego za Tobą — jemu. Zaśnieżone światła i tablice to również podstawa mandatu za nieodpowiedni stan pojazdu."},
+
+{id:"v6",c:"vinter",q:"Wpadasz w poślizg tyłu samochodu na oblodzonej drodze. Jak reagujesz?",
+ o:["Hamuję mocno i kręcę kierownicą w stronę poślizgu","Patrzę tam, gdzie chcę jechać, i delikatnie kontruję kierownicą, bez gwałtownego hamowania","Wciskam sprzęgło i czekam","Dodaję gazu, żeby wyprostować auto"],
+ a:[1],
+ why:"Wzrok prowadzi ręce — dlatego patrzysz tam, gdzie chcesz jechać. Ruchy kierownicą muszą być drobne i szybko cofnięte, żeby nie wywołać poślizgu w drugą stronę. Właśnie tego uczy obowiązkowy kurs <span class='sv'>Risk 2</span> (obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym) na torze poślizgowym (<span class='sv'>halkbana</span> (tor poślizgowy))."},
+
+/* ---------- CZŁOWIEK ---------- */
+{id:"m1",c:"manniska",q:"Jaki jest w Szwecji próg zawartości alkoholu, od którego jazda jest przestępstwem?",
+ o:["0,0 ‰","0,2 ‰","0,5 ‰","0,8 ‰"],
+ a:[1],
+ why:"Od 0,2 ‰ to <span class='sv'>rattfylleri</span> (jazda pod wpływem alkoholu), czyli przestępstwo — nie wykroczenie. Od 1,0 ‰ mówimy o <span class='sv'>grovt rattfylleri</span> (przestępstwo kwalifikowane) z realną karą pozbawienia wolności."},
+
+{id:"m2",c:"manniska",q:"Ile alkoholu organizm usuwa średnio w ciągu godziny?",
+ o:["Około 0,5 ‰","Około 0,15 ‰","Około 1 ‰","Zależy wyłącznie od tego, co się je"],
+ a:[1],
+ why:"To około 0,15 ‰ na godzinę i tempa tego <b>nie da się przyspieszyć</b> — ani kawą, ani jedzeniem, ani prysznicem, ani snem. Dlatego „dzień po” jest najczęstszym scenariuszem utraty prawa jazdy przez obcokrajowca w Szwecji."},
+
+{id:"m3",c:"manniska",q:"Czujesz senność za kierownicą na długiej trasie. Co naprawdę pomaga?",
+ o:["Kawa i otwarte okno","Głośna muzyka","Zatrzymanie się i sen, choćby 15–20 minut","Rozmowa telefoniczna"],
+ a:[2],
+ why:"Na zmęczenie działa wyłącznie sen. Kawa, okno i muzyka dają złudzenie czujności, a mikrosen (<span class='sv'>mikrosömn</span> (mikrosen)) trwający sekundę oznacza przy 90 km/h dwadzieścia pięć metrów jazdy z zamkniętymi oczami."},
+
+{id:"m4",c:"manniska",q:"Na opakowaniu szwedzkiego leku widzisz czerwony trójkąt ostrzegawczy. Co to znaczy?",
+ o:["Lek jest przeznaczony wyłącznie dla dzieci","Lek może pogarszać zdolność prowadzenia pojazdu","Lek jest na receptę","Lek trzeba przechowywać w chłodzie"],
+ a:[1],
+ why:"Czerwony trójkąt (<span class='sv'>röd varningstriangel</span> (czerwony trójkąt ostrzegawczy na opakowaniu leku)) na opakowaniu oznacza, że preparat może wpływać na zdolność prowadzenia. Jazda pod wpływem leków może być traktowana jak <span class='sv'>drograttfylleri</span> (jazda pod wpływem narkotyków) — odpowiedzialność jest po stronie kierowcy, nie lekarza."},
+
+{id:"m5",c:"manniska",q:"Co dzieje się z Twoim polem widzenia, gdy rośnie prędkość?",
+ o:["Rozszerza się","Zawęża się","Nie zmienia się","Zależy tylko od oświetlenia"],
+ a:[1],
+ why:"Pole widzenia zawęża się wraz z prędkością — to tzw. widzenie tunelowe. Przy 30 km/h obejmujesz szeroki kąt i widzisz dziecko przy krawężniku; przy 90 km/h skupiasz się na wąskim pasie przed sobą i tego dziecka po prostu nie zarejestrujesz."},
+
+{id:"m6",c:"manniska",q:"Które z tych czynników pogarszają Twoją zdolność prowadzenia? Zaznacz wszystkie poprawne.",m:true,
+ o:["Silny stres i złość","Choroba i gorączka","Głód i niski poziom cukru","Rozmowa przez telefon w zestawie głośnomówiącym"],
+ a:[0,1,2,3],
+ why:"Także zestaw głośnomówiący obciąża uwagę — obciążenie jest poznawcze, nie tylko manualne. Szwedzka teoria nazywa to <span class='sv'>personliga förutsättningar</span> (uwarunkowania osobiste) i traktuje na równi z technicznym stanem pojazdu."},
+
+{id:"m7",c:"manniska",q:"Od 2018 roku w Szwecji nie wolno podczas jazdy:",
+ o:["Rozmawiać przez telefon w ogóle","Trzymać telefonu w ręce","Korzystać z nawigacji","Słuchać radia"],
+ a:[1],
+ why:"Zakaz dotyczy <b>trzymania</b> urządzenia w ręce, niezależnie od tego, czy rozmawiasz. Nawigacja musi być w uchwycie. Zerknięcie na wiadomość na czerwonym świetle również podlega przepisowi, bo pojazd uczestniczy w ruchu."},
+
+/* ---------- ŚRODOWISKO ---------- */
+{id:"e1",c:"miljo",q:"Jak jeździć oszczędnie i mniej zanieczyszczać? Zaznacz wszystkie poprawne.",m:true,
+ o:["Zmieniać biegi na wyższe wcześnie i jeździć na niskich obrotach","Utrzymywać prawidłowe ciśnienie w oponach","Zdejmować bagażnik dachowy, gdy nie jest używany","Rozgrzewać silnik na postoju przez kilka minut"],
+ a:[0,1,2],
+ why:"Rozgrzewanie na postoju (<span class='sv'>tomgångskörning</span> (praca silnika na biegu jałowym) — praca na biegu jałowym) tylko zużywa paliwo i zanieczyszcza — silnik najszybciej grzeje się w ruchu. W wielu szwedzkich gminach praca na biegu jałowym jest ograniczona lokalnie do około minuty."},
+
+{id:"e2",c:"miljo",q:"Kiedy katalizator działa najsłabiej?",
+ o:["Podczas jazdy autostradą","Na zimnym silniku, w pierwszych minutach jazdy","Przy wysokich obrotach","Latem"],
+ a:[1],
+ why:"Katalizator (<span class='sv'>katalysator</span> (katalizator)) wymaga wysokiej temperatury. Dlatego krótkie przejazdy po mieście są najbardziej szkodliwe na kilometr — silnik nie osiąga temperatury pracy. Przy szwedzkich mrozach różnica jest jeszcze większa."},
+
+{id:"e3",c:"miljo",q:"Po co używa się w Szwecji podgrzewacza silnika (<span class='sv'>motorvärmare</span> (podgrzewacz silnika))?",
+ o:["Żeby w kabinie było cieplej","Żeby zmniejszyć emisję i zużycie przy zimnym starcie oraz ograniczyć zużycie silnika","Żeby doładować akumulator","To wymóg prawny"],
+ a:[1],
+ why:"Zimny rozruch przy −15 °C zużywa nieproporcjonalnie dużo paliwa i najbardziej zużywa silnik. Dlatego na szwedzkich parkingach zobaczysz słupki z gniazdkami — to nie ładowarki do aut elektrycznych, a przynajmniej nie tylko."},
+
+{id:"e4",c:"miljo",q:"Co oznacza <span class='sv'>miljözon</span> (strefa czystego transportu) w szwedzkim mieście?",
+ o:["Strefę, gdzie nie wolno parkować","Strefę z ograniczeniami wjazdu dla pojazdów o określonych normach emisji","Strefę ciszy","Strefę wyłącznie dla rowerów"],
+ a:[1],
+ why:"<span class='sv'>Miljözon</span> (strefa czystego transportu) występuje w kilku klasach o różnej surowości i dotyczy określonych norm emisji. Zasady ustala gmina i różnią się między miastami — sprawdzasz je na stronie konkretnej <span class='sv'>kommun</span> (gmina)."},
+
+/* ---------- RYZYKO I NIECHRONIENI ---------- */
+{id:"r1",c:"risk",q:"Zbliżasz się do przejścia bez sygnalizacji. Pieszy idzie chodnikiem w stronę pasów, ale jeszcze na nie nie wszedł. Co robisz?",
+ o:["Jadę dalej, bo nie jest jeszcze na przejściu","Zwalniam i ustępuję, bo zamierza wejść","Trąbię, żeby dać znać, że jadę","Przyspieszam, żeby zwolnić przejście"],
+ a:[1],
+ why:"Tak zwana <span class='sv'>zebralagen</span> (przepis o pierwszeństwie pieszych na przejściu) nakazuje ustąpić pieszemu, który wchodzi <b>lub zamierza wejść</b> na przejście bez sygnalizacji (<span class='sv'>obevakat övergångsställe</span> (przejście dla pieszych bez sygnalizacji)). Szwedzki pieszy zakłada, że zwolnisz — i wejdzie."},
+
+{id:"r2",c:"risk",q:"Czym różni się <span class='sv'>cykelöverfart</span> (przejazd dla rowerów z pierwszeństwem) od <span class='sv'>cykelpassage</span> (przejazd dla rowerów bez pierwszeństwa)?",
+ o:["Niczym, to dwa słowa na to samo","Na cykelöverfart mam obowiązek ustąpić rowerzyście, na cykelpassage rowerzysta nie ma pierwszeństwa","Na cykelpassage rowerzysta ma zawsze pierwszeństwo","Różnią się tylko kolorem oznakowania"],
+ a:[1],
+ why:"<span class='sv'>Cykelöverfart</span> (przejazd dla rowerów z pierwszeństwem) jest oznaczony znakiem i wyniesieniem, projektowany na maks. 30 km/h — tam ustępujesz. <span class='sv'>Cykelpassage</span> (przejazd bez pierwszeństwa) to samo oznakowanie poziome; rowerzysta nie ma pierwszeństwa, ale Ty masz obowiązek dostosować prędkość."},
+
+{id:"r3",c:"risk",q:"Wyprzedzasz rowerzystę na drodze poza miastem. Jaki odstęp przyjąć?",
+ o:["Pół metra wystarczy","Co najmniej około 1,5 metra, a jeśli nie można — czekać","Tyle, żeby nie przekroczyć linii","Nie ma znaczenia, jeśli zwolnię"],
+ a:[1],
+ why:"Rowerzysta może zachwiać się lub ominąć dziurę bez ostrzeżenia. Przyjęta praktyka to co najmniej ok. 1,5 m; jeśli nie możesz go dać, czekasz. Czekanie 15 sekund za rowerzystą jest w Szwecji normalne i nikt za Tobą nie zatrąbi."},
+
+{id:"r4",c:"risk",q:"Dlaczego dzieci są w ruchu szczególnie nieprzewidywalne? Zaznacz wszystkie poprawne.",m:true,
+ o:["Nie potrafią dobrze ocenić prędkości i odległości","Są niskie i często niewidoczne za pojazdami","Zakładają, że kierowca je widzi","Zawsze poruszają się w grupach, więc łatwo je zauważyć"],
+ a:[0,1,2],
+ why:"Umiejętność oceny prędkości rozwija się przez lata, a dziecko zakłada, że skoro ono widzi samochód, to kierowca widzi jego. Grupa nie jest regułą i nie jest ochroną — dziecko często jest samo i zasłonięte zaparkowanym autem. W Szwecji dzieci chodzą do szkoły samodzielnie od wczesnych klas, dlatego strefy 30 wokół szkół nie są dekoracją."},
+
+{id:"r5",c:"risk",q:"Na drodze 90 km/h przed maskę wychodzi łoś, nie zdążysz się zatrzymać. Co robisz?",
+ o:["Odbijam gwałtownie kierownicą","Hamuję z całej siły prosto, bez gwałtownego skrętu","Przyspieszam, żeby przejechać przed nim","Hamuję i celowo zjeżdżam do rowu"],
+ a:[1],
+ why:"Gwałtowny manewr przy 90 km/h kończy się utratą panowania — drzewem albo przeciwnym pasem, statystycznie gorzej niż samo uderzenie. Masa łosia jest wysoko, na poziomie szyby, więc każdy metr wytraconej prędkości ma ogromne znaczenie."},
+
+{id:"r6",c:"risk",q:"Potrąciłeś sarnę. Zwierzę pobiegło w las i wygląda na nieuszkodzone. Co musisz zrobić?",
+ o:["Nic, skoro odbiegło","Zgłosić tylko ubezpieczycielowi","Oznaczyć miejsce i zgłosić policji przez 112","Zgłosić tylko, jeśli auto jest uszkodzone"],
+ a:[2],
+ why:"<span class='sv'>Viltolycka</span> (kolizja z dzikim zwierzęciem) podlega obowiązkowi zgłoszenia niezależnie od tego, czy zwierzę odbiegło. Miejsce oznaczasz taśmą <span class='sv'>viltremsa</span> (taśma do oznaczenia miejsca kolizji ze zwierzęciem) po stronie, w którą uciekło. Policja wysyła myśliwego z psem tropiącym. Odjechanie bez zgłoszenia jest czynem karalnym."},
+
+{id:"r7",c:"risk",q:"Dlaczego trudno ocenić odległość i prędkość motocykla?",
+ o:["Bo motocykle jeżdżą wolniej, niż się wydaje","Bo wąska sylwetka sprawia, że mózg ocenia go jako dalszego, niż jest","Bo motocykliści zawsze łamią przepisy","Bo mają jedno światło"],
+ a:[1],
+ why:"Mózg szacuje odległość między innymi na podstawie szerokości obiektu. Wąski motocykl wydaje się dalej i wolniej — dlatego najczęstszym scenariuszem jest wjechanie mu w bok przy skręcie w lewo. Patrz dwa razy, zanim przetniesz jego tor."},
+
+/* ---------- PRAWO I DOKUMENTY ---------- */
+{id:"g1",c:"regler",q:"Jak w Szwecji działa system punktów karnych?",
+ o:["Tak jak w Polsce, limit punktów","Nie ma punktów — prawo jazdy odbiera się za konkretne wykroczenie","Punkty są tylko w okresie próbnym","Punkty nalicza ubezpieczyciel"],
+ a:[1],
+ why:"Szwecja nie ma punktów. Transportstyrelsen odbiera prawo jazdy (<span class='sv'>återkallelse</span> (odebranie uprawnień) — odebranie uprawnień) za jedno wystarczająco poważne przewinienie i nakłada <span class='sv'>spärrtid</span> (okres karencji). Jedno zdarzenie może wystarczyć."},
+
+{id:"g2",c:"regler",q:"Czy jadąc samochodem musisz mieć przy sobie prawo jazdy?",
+ o:["Nie, wystarczy, że jest ważne","Tak, trzeba je mieć przy sobie","Tylko przy jazdach nocnych","Tylko cudzoziemcy"],
+ a:[1],
+ why:"Prawo jazdy trzeba mieć ze sobą podczas jazdy i okazać na żądanie policji. Polskie prawo jazdy jest w Szwecji ważne tak długo, jak długo jest ważne w Polsce — ale musi fizycznie być w samochodzie."},
+
+{id:"g3",c:"regler",q:"Nowe szwedzkie prawo jazdy objęte jest okresem próbnym (<span class='sv'>prövotid</span> (okres próbny)). Ile trwa i co oznacza?",
+ o:["1 rok, obowiązuje niższy limit prędkości","2 lata; jeśli w tym czasie stracisz uprawnienia, musisz przejść całą procedurę od nowa","3 lata, obowiązuje zakaz jazdy autostradą","5 lat, wymagane oznaczenie pojazdu"],
+ a:[1],
+ why:"<span class='sv'>Prövotid</span> (okres próbny) trwa 2 lata. Odebranie uprawnień w tym czasie oznacza konieczność ponownego zdania egzaminów, a nie tylko odczekania karencji. Nie zmienia natomiast limitów prędkości."},
+
+{id:"g4",c:"regler",q:"Policjant wręcza Ci mandat (<span class='sv'>ordningsbot</span> (mandat wystawiany na miejscu)) i prosi o podpis. Co oznacza podpis?",
+ o:["Potwierdzenie odbioru dokumentu","Przyjęcie mandatu i rezygnację z drogi sądowej","Zobowiązanie do zapłaty na miejscu","Zgodę na kontrolę pojazdu"],
+ a:[1],
+ why:"Podpis to <b>przyjęcie</b> mandatu — sprawa jest zamknięta. Jeśli nie zgadzasz się z zarzutem, nie podpisujesz i sprawa idzie dalej. Na miejscu nie płaci się gotówką; płatność przychodzi osobno."},
+
+{id:"g5",c:"regler",q:"Które obowiązki wiążą się w Szwecji z posiadaniem zarejestrowanego samochodu? Zaznacz wszystkie poprawne.",m:true,
+ o:["Obowiązkowe ubezpieczenie trafikförsäkring","Podatek fordonsskatt","Przegląd kontrollbesiktning w terminie","Naklejka z terminem przeglądu na szybie"],
+ a:[0,1,2],
+ why:"Naklejek nie ma — system wie i przypomina sam. Za brak <span class='sv'>trafikförsäkring</span> (obowiązkowe OC) nalicza się dzienną opłatę karną wielokrotnie wyższą od składki, a po terminie przeglądu pojazd dostaje <span class='sv'>körförbud</span> (zakaz używania)."},
+
+{id:"g6",c:"regler",q:"Uczestniczyłeś w kolizji na parkingu i uszkodziłeś zaparkowane auto, którego właściciela nie ma na miejscu. Co robisz?",
+ o:["Odjeżdżam, skoro nikogo nie ma","Zostawiam swoje dane i informację o zdarzeniu, tak aby właściciel mógł się ze mną skontaktować","Zgłaszam tylko swojemu ubezpieczycielowi","Czekam maksymalnie 5 minut i odjeżdżam"],
+ a:[1],
+ why:"Odjechanie bez umożliwienia kontaktu to <span class='sv'>smitning</span> (ucieczka z miejsca zdarzenia) — czyn karalny, także przy drobnym uszkodzeniu. Obowiązek pomocy i podania danych jest jednym z twardych elementów szwedzkiego prawa drogowego."},
+
+{id:"g7",c:"regler",q:"Które szkolenia są w Szwecji obowiązkowe przed egzaminem praktycznym na kategorię B?",
+ o:["Tylko kurs pierwszej pomocy","Risk 1 i Risk 2","Tylko Risk 2 na torze poślizgowym","Żadne, wystarczy zdać teorię"],
+ a:[1],
+ why:"<span class='sv'>Risk 1</span> (obowiązkowe szkolenie ryzyka, część pierwsza) dotyczy alkoholu, narkotyków, zmęczenia i ryzyka, a <span class='sv'>Risk 2</span> (obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym) to praktyczna jazda na torze poślizgowym (<span class='sv'>halkbana</span> (tor poślizgowy)). Oba są ważne 5 lat i bez nich nie podejdziesz do <span class='sv'>körprov</span> (egzamin praktyczny)."},
+
+{id:"g8",c:"regler",q:"Gdzie w Szwecji nie wolno się zatrzymać?",m:true,
+ o:["W odległości mniejszej niż 10 m przed przejściem dla pieszych","Na skrzyżowaniu i w odległości mniejszej niż 10 m od niego","Na ścieżce rowerowej","Na drodze przy znaku förbud att parkera, żeby wysadzić pasażera"],
+ a:[0,1,2],
+ why:"<span class='sv'>Förbud att parkera</span> (zakaz parkowania) pozwala na krótkie zatrzymanie, np. żeby wysadzić pasażera; dopiero <span class='sv'>förbud att stanna</span> (zakaz zatrzymywania) tego zabrania. Reguła 10 metrów działa przed przejściem oraz przed i za skrzyżowaniem."},
+
+{id:"g9",c:"regler",q:"Znak parkingowy pokazuje godziny w nawiasach, np. „(8–18)”. Czego dotyczą?",
+ o:["Dni powszednich","Sobót","Niedziel i świąt","Całego tygodnia"],
+ a:[1],
+ why:"Na szwedzkich znakach parkingowych czarne cyfry oznaczają dni powszednie, <b>cyfry w nawiasach soboty</b>, a czerwone niedziele i święta. Podane godziny to czas, w którym parkowanie jest płatne lub ograniczone — nie czas, w którym jest dozwolone."},
+
+{id:"g10",c:"regler",q:"Zostawiasz auto na ulicy, na której obowiązuje <span class='sv'>städdag</span> (dzień sprzątania ulicy) / <span class='sv'>datumparkering</span> (parkowanie zależne od dnia lub daty). Co się stanie?",
+ o:["Nic, to tylko zalecenie","Mandat, a często również odholowanie pojazdu","Tylko upomnienie za pierwszy raz","Opłata dodana do podatku od pojazdu"],
+ a:[1],
+ why:"<span class='sv'>Städdag</span> (dzień sprzątania ulicy) to konkretna noc, w której ulica musi być pusta pod czyszczenie lub odśnieżanie. Auto zostawione tej nocy dostaje mandat i bywa odholowane na koszt właściciela. Zasady ustala gmina i różnią się między ulicami."}
+,
+
+/* ============ ZNAKI — dodatkowe ============ */
+{id:"z9",c:"znaki",q:"Niebieski kwadratowy znak z liczbą, np. 30, umieszczony przy zakręcie. Co oznacza?",
+ o:["Obowiązkowe ograniczenie do 30 km/h","Prędkość zalecaną, niewiążącą prawnie","Minimalną prędkość","Ograniczenie tylko dla ciężarówek"],
+ a:[1],
+ why:"To <span class='sv'>rekommenderad lägre hastighet</span> (zalecana niższa prędkość) — informacja, że przy tej prędkości pokonasz odcinek bezpiecznie. Nie jest wiążąca prawnie, ale jeśli wpadniesz w poślizg jadąc szybciej, odpowiedzialność jest po Twojej stronie."},
+
+{id:"z10",c:"znaki",q:"Co oznacza znak <span class='sv'>återvändsgata</span> (droga bez przejazdu)?",
+ o:["Droga zwęża się","Droga bez przejazdu — kończy się i trzeba wrócić","Zakaz wjazdu","Droga jednokierunkowa"],
+ a:[1],
+ why:"<span class='sv'>Återvändsgata</span> (droga bez przejazdu) kończy się i nie prowadzi dalej. Uwaga: dla pieszych i rowerzystów często istnieje przejście — dlatego na końcu takiej ulicy trzeba spodziewać się ruchu niechronionych uczestników, a nie pustki."},
+
+{id:"z11",c:"znaki",q:"Na jezdni widzisz obszar wypełniony ukośnymi białymi liniami (<span class='sv'>spärrområde</span> (obszar wyłączony z ruchu)). Co wolno?",
+ o:["Można tam parkować","Można przejechać, jeśli nie ma innego ruchu","Nie wolno tam wjeżdżać ani zatrzymywać się","Wolno wjechać przy skręcie w lewo"],
+ a:[2],
+ why:"<span class='sv'>Spärrområde</span> (obszar wyłączony z ruchu) jest zamknięty dla ruchu — rozdziela strumienie pojazdów albo chroni miejsce, w którym pojazdy się przeplatają. Nie wjeżdżasz i nie parkujesz."},
+
+{id:"z12",c:"znaki",q:"Mijasz znak oznaczający koniec obszaru zabudowanego. Jaka prędkość obowiązuje, jeśli nie ma innego znaku?",
+ o:["Nadal 50 km/h","70 km/h","90 km/h","Prędkość dowolna, dostosowana do warunków"],
+ a:[1],
+ why:"Znak końca <span class='sv'>tättbebyggt område</span> (obszar zabudowany) automatycznie przywraca <span class='sv'>bashastighet</span> (domyślny limit prędkości) 70 km/h. To dokładnie moment, w którym polski kierowca odruchowo przyspiesza do 90."},
+
+{id:"z13",c:"znaki",q:"Znak ostrzegający o progach zwalniających (<span class='sv'>farthinder</span> (progi zwalniające)) oznacza, że:",
+ o:["Droga jest w złym stanie","Na drodze są celowe elementy wymuszające zwolnienie","Trwają roboty drogowe","Obowiązuje zakaz wjazdu ciężarówek"],
+ a:[1],
+ why:"<span class='sv'>Farthinder</span> (progi zwalniające, wyniesienia) to element projektowania drogi zgodnie z <span class='sv'>Nollvisionen</span> (wizja zero). Nie jest utrudnieniem — jest fizycznym wymuszeniem prędkości tam, gdzie znak sam nie wystarcza, zwykle blisko szkół i przejść."},
+
+{id:"z14",c:"znaki",q:"Który znak informuje o obowiązku ustąpienia pierwszeństwa?",
+ o:["Trójkąt skierowany wierzchołkiem w dół","Ośmiokąt z napisem STOP","Żółty romb","Niebieskie koło ze strzałką"],
+ a:[0],
+ why:"Odwrócony trójkąt to <span class='sv'>väjningsplikt</span> (obowiązek ustąpienia pierwszeństwa) — w Szwecji standardowe rozwiązanie skrzyżowania. Żółty romb to <span class='sv'>huvudled</span> (droga z pierwszeństwem), czyli sytuacja odwrotna."},
+
+/* ============ PIERWSZEŃSTWO — dodatkowe ============ */
+{id:"p9",c:"pierwszenstwo",q:"Na Twoim pasie stoi zaparkowana ciężarówka. Z przeciwka nadjeżdża auto, jezdnia jest wąska. Kto ustępuje?",
+ o:["Ja, bo przeszkoda jest na mojej stronie","Auto z przeciwka, bo ja już zacząłem manewr","Kto pierwszy, ten lepszy","Ten, kto jedzie wolniej"],
+ a:[0],
+ why:"Przeszkoda na Twoim pasie oznacza, że to Ty musisz czekać — nie masz prawa wymusić przejazdu, bo to Twoja strona jest zablokowana. Zasada jest prosta: przeszkoda po mojej stronie, ustępstwo po mojej stronie."},
+
+{id:"p10",c:"pierwszenstwo",q:"Zbliżasz się do skrzyżowania, na którym stoi korek. Twoje światło jest zielone, ale nie zmieścisz się za skrzyżowaniem. Co robisz?",
+ o:["Wjeżdżam, bo mam zielone","Czekam przed skrzyżowaniem, żeby go nie zablokować","Wjeżdżam do połowy","Wjeżdżam i włączam światła awaryjne"],
+ a:[1],
+ why:"Nie wolno wjeżdżać na skrzyżowanie, jeśli nie da się go opuścić. Zablokowane skrzyżowanie zatrzymuje ruch poprzeczny, tramwaje i pojazdy uprzywilejowane. Zielone światło to zezwolenie na przejazd, nie na wjazd w nikąd."},
+
+{id:"p11",c:"pierwszenstwo",q:"Skręcasz w prawo. Wzdłuż jezdni biegnie ścieżka rowerowa, którą przecinasz. Rowerzysta nadjeżdża z tyłu po Twojej prawej stronie. Kto ma pierwszeństwo?",
+ o:["Ja, bo jestem przed nim","Rowerzysta — jadę przez jego tor jazdy","Zależy, czy ma kask","Rowerzysta tylko na oznakowanym przejeździe"],
+ a:[1],
+ why:"Skręcając przecinasz tor jazdy rowerzysty, który jedzie na wprost — ustępujesz. Rowerzysta pojawia się w martwym polu i jedzie 25–30 km/h. Dlatego przed każdym skrętem w prawo sprawdzasz prawe lusterko i przez ramię."},
+
+{id:"p12",c:"pierwszenstwo",q:"Na skrzyżowaniu zbliża się tramwaj (<span class='sv'>spårvagn</span> (tramwaj)). Co przyjmujesz jako zasadę?",
+ o:["Tramwaj zawsze ustępuje pojazdom z prawej","Tramwaj ma zwykle pierwszeństwo i nie może gwałtownie hamować","Pierwszeństwo zależy tylko od znaków","Tramwaj ustępuje w obszarze zabudowanym"],
+ a:[1],
+ why:"Tramwaj ma zasadniczo pierwszeństwo, a przede wszystkim fizykę przeciw sobie: waży dziesiątki ton i nie może skręcić ani szybko się zatrzymać. Nawet gdyby formalnie miał ustąpić, nie stawiaj się w sytuacji, w której to sprawdzasz."},
+
+{id:"p13",c:"pierwszenstwo",q:"Jechałeś drogą oznaczoną jako <span class='sv'>huvudled</span> (droga z pierwszeństwem) i skręciłeś w drogę podrzędną. Co się zmienia na kolejnym skrzyżowaniu?",
+ o:["Nadal mam pierwszeństwo","Obowiązuje reguła prawej ręki lub oznakowanie tej drogi","Muszę się zatrzymać","Pierwszeństwo mam jeszcze 100 metrów"],
+ a:[1],
+ why:"Pierwszeństwo należy do drogi, nie do kierowcy. Zjeżdżając z <span class='sv'>huvudled</span> (droga z pierwszeństwem) tracisz je natychmiast i na następnym skrzyżowaniu obowiązuje <span class='sv'>högerregeln</span> (reguła prawej ręki) albo lokalne oznakowanie."},
+
+/* ============ PRĘDKOŚĆ — dodatkowe ============ */
+{id:"h8",c:"hastighet",q:"Jedziesz 90 km/h. Ile metrów przejedziesz w czasie jednej sekundy reakcji?",
+ o:["około 12 m","około 25 m","około 50 m","około 90 m"],
+ a:[1],
+ why:"90 km/h to 25 metrów na sekundę. Cała droga reakcji (<span class='sv'>reaktionssträcka</span> (droga reakcji)) dochodzi do drogi hamowania — dlatego rozmowa przez telefon albo sekunda mikrosnu oznacza 25 metrów jazdy bez kontroli."},
+
+{id:"h9",c:"hastighet",q:"Które pojazdy nie mogą wjeżdżać na szwedzką <span class='sv'>motorväg</span> (autostrada)?",
+ o:["Pojazdy, które nie mogą lub nie mogą legalnie jechać szybciej niż 40 km/h","Wyłącznie rowery","Pojazdy z przyczepą","Pojazdy starsze niż 15 lat"],
+ a:[0],
+ why:"Autostrada jest zamknięta dla pojazdów, które nie osiągają lub nie mogą legalnie przekroczyć 40 km/h — a także dla pieszych, rowerów i motorowerów. Powodem jest różnica prędkości, która sama w sobie tworzy ryzyko."},
+
+{id:"h10",c:"hastighet",q:"Znak pokazuje 80 km/h, ale jest mgła i widoczność wynosi 60 metrów. Ile wolno jechać?",
+ o:["80 km/h, bo tyle pokazuje znak","Tyle, ile pozwala widoczność i warunki — znacznie mniej","Maksymalnie 70 km/h","Połowę limitu, czyli 40 km/h"],
+ a:[1],
+ why:"Limit na znaku to maksimum w idealnych warunkach, nie wartość docelowa. Obowiązuje zasada prędkości dostosowanej: musisz być w stanie zatrzymać się w widocznym odcinku drogi. Jazda 80 km/h przy widoczności 60 m jest wykroczeniem, mimo znaku."},
+
+{id:"h11",c:"hastighet",q:"Mijasz odcinek robót drogowych, gdzie pracują ludzie. Dlaczego ograniczenia są tu wyjątkowo niskie?",
+ o:["Żeby nie uszkodzić nawierzchni","Bo robotnicy pracują metry od pasa ruchu, bez żadnej ochrony","Bo asfalt jest świeży","Bo tam zawsze stoi policja"],
+ a:[1],
+ why:"Przy <span class='sv'>vägarbete</span> (roboty drogowe) człowiek stoi w odległości wyciągniętej ręki od jadących pojazdów. Przekroczenia w takich strefach są w Szwecji traktowane szczególnie surowo, a oznakowanie tymczasowe (żółte linie) ma pierwszeństwo nad stałym."},
+
+{id:"h12",c:"hastighet",q:"Dlaczego wyprzedzanie na drodze jednojezdniowej wymaga tak dużego zapasu drogi?",
+ o:["Bo trzeba włączyć kierunkowskaz","Bo prędkość zbliżania się do pojazdu z przeciwka jest sumą obu prędkości","Bo silnik potrzebuje czasu na rozgrzanie","Bo obowiązuje limit 80 km/h"],
+ a:[1],
+ why:"Jeśli Ty jedziesz 80 i auto z przeciwka 80, zbliżacie się z prędkością 160 km/h, czyli ponad 44 metry na sekundę. Dlatego szwedzkie drogi typu <span class='sv'>2+1</span> (droga z naprzemiennie dwoma i jednym pasem, rozdzielona barierą) z liną stalową na środku niemal całkowicie eliminują ten manewr — i zderzenia czołowe."},
+
+/* ============ POJAZD — dodatkowe ============ */
+{id:"f9",c:"fordon",q:"Ile kół musi mieć opony zimowe, gdy panują zimowe warunki drogowe?",
+ o:["Tylko koła napędowe","Przednie koła","Wszystkie","Wystarczą dwa, byle na jednej osi"],
+ a:[2],
+ why:"Opony zimowe muszą być na <b>wszystkich</b> kołach, podobnie kolce — jeśli używasz <span class='sv'>dubbdäck</span> (opony z kolcami), to na wszystkich kołach. Mieszanie typów opon powoduje, że auto zachowuje się różnie na przedniej i tylnej osi, co jest klasyczną przyczyną poślizgu."},
+
+{id:"f10",c:"fordon",q:"Gaśnie silnik podczas jazdy. Co dzieje się z układem kierowniczym i hamulcami?",
+ o:["Działają normalnie","Kierownica staje się bardzo ciężka, a hamulce tracą wspomaganie","Hamulce przestają działać całkowicie","Włącza się hamulec awaryjny"],
+ a:[1],
+ why:"Wspomaganie kierownicy i hamulców pracuje dzięki silnikowi. Po jego zgaśnięciu nadal możesz kierować i hamować, ale wymaga to znacznie większej siły. Dlatego nigdy nie wyłącza się silnika podczas jazdy, nawet na zjazdach."},
+
+{id:"f11",c:"fordon",q:"Niezabezpieczony bagaż na tylnej kanapie przy zderzeniu przy 50 km/h:",
+ o:["Zsunie się na podłogę","Zachowa się jak pocisk i może zabić pasażera","Nie ma znaczenia, jeśli jest lekki","Zostanie zatrzymany przez zagłówki"],
+ a:[1],
+ why:"Przy zderzeniu przedmiot leci dalej z prędkością pojazdu. Ciężka torba, laptop czy butelka stają się pociskiem. Ciężkie rzeczy pakujesz nisko i do przodu bagażnika, a luźne przedmioty z półki zabierasz."},
+
+{id:"f12",c:"fordon",q:"Kto odpowiada za to, że dziecko w wieku 10 lat ma zapięte pasy?",
+ o:["Samo dziecko","Rodzic, nawet jeśli nie jedzie","Kierowca pojazdu","Nikt, to tylko zalecenie"],
+ a:[2],
+ why:"W Szwecji za zapięcie pasów przez pasażerów poniżej 15 lat odpowiada <b>kierowca</b>. Dodatkowo dziecko niższe niż 135 cm musi mieć fotelik lub podkładkę. Kara idzie na kierującego, nie na opiekuna dziecka."},
+
+{id:"f13",c:"fordon",q:"Hamulce przestają działać skutecznie po długim zjeździe, pedał jest miękki. Co się stało?",
+ o:["Skończył się płyn hamulcowy","Doszło do przegrzania i zaniku skuteczności hamowania","Zamarzły przewody","Zadziałał ABS"],
+ a:[1],
+ why:"To <span class='sv'>bromsfading</span> (zanik skuteczności hamowania) — przegrzane tarcze i klocki tracą zdolność hamowania. Zapobiegasz temu hamowaniem silnikiem na niższym biegu, a nie stałym trzymaniem pedału hamulca."},
+
+{id:"f14",c:"fordon",q:"Które elementy sprawdzasz sam, bez warsztatu, przed dłuższą trasą? Zaznacz wszystkie poprawne.",m:true,
+ o:["Ciśnienie i stan bieżnika opon","Działanie wszystkich świateł","Poziom płynu do spryskiwaczy i stan pióra wycieraczek","Ustawienie geometrii zawieszenia"],
+ a:[0,1,2],
+ why:"Geometrię ustawia się w warsztacie. Pozostałe trzy to podstawowa kontrola przed trasą i za nie odpowiada kierowca. Zimą płyn do spryskiwaczy musi być mrozoodporny — letni zamarza na szybie i całkowicie odbiera widoczność."},
+
+/* ============ ZIMA — dodatkowe ============ */
+{id:"v7",c:"vinter",q:"Jak zmienia się droga hamowania na lodzie w porównaniu z suchym asfaltem?",
+ o:["Jest o połowę dłuższa","Jest podobna, jeśli masz opony zimowe","Może być wielokrotnie dłuższa","Zależy tylko od ABS"],
+ a:[2],
+ why:"Na lodzie droga hamowania może być kilka, a w skrajnych warunkach nawet dziesięć razy dłuższa. Opony zimowe i ABS poprawiają sytuację, ale nie zmieniają fizyki. Jedyne realne narzędzie to niższa prędkość i większy odstęp."},
+
+{id:"v8",c:"vinter",q:"Jedziesz za pługiem odśnieżającym. Co robisz?",
+ o:["Wyprzedzam jak najszybciej","Zostaję z tyłu w bezpiecznej odległości","Jadę blisko, żeby jechać po odśnieżonym","Sygnalizuję światłami, żeby zjechał"],
+ a:[1],
+ why:"Za pługiem droga jest odśnieżona, przed nim nie. Wyprzedzanie oznacza wjazd w chmurę śniegu przy zerowej widoczności i na nieodśnieżony pas, często z boczną krawędzią zaspy. Cierpliwość jest tu najszybszą drogą."},
+
+{id:"v9",c:"vinter",q:"Oślepia Cię pojazd nadjeżdżający z przeciwka. Jak reagujesz?",
+ o:["Mrugam światłami drogowymi","Patrzę w prawą krawędź jezdni i zwalniam","Zamykam jedno oko","Przyspieszam, żeby szybciej go minąć"],
+ a:[1],
+ why:"Wzrok kierujesz na prawą krawędź lub linię krawędziową, żeby utrzymać tor jazdy, i zwalniasz — bo na kilka sekund realnie nie widzisz. Odbicie światłami tylko oślepia drugiego kierowcę i pogarsza sytuację obu stron."},
+
+{id:"v10",c:"vinter",q:"Kiedy masz obowiązek przełączyć światła drogowe (<span class='sv'>helljus</span> (światła drogowe)) na mijania?",m:true,
+ o:["Przy mijaniu pojazdu z przeciwka","Gdy jadę blisko za innym pojazdem","Na oświetlonej ulicy w mieście","Zawsze przy prędkości poniżej 50 km/h"],
+ a:[0,1,2],
+ why:"Światła drogowe wyłączasz, gdy mogłyby oślepić kogokolwiek: kierowcę z przeciwka, poprzedzającego przez lusterka, oraz na drogach z wystarczającym oświetleniem. Sama prędkość nie decyduje."},
+
+{id:"v11",c:"vinter",q:"Szyby parują od wewnątrz w mroźny dzień. Co działa najlepiej?",
+ o:["Otwarcie okna i przetarcie szyby ręką","Nawiew na szybę z klimatyzacją i ciepłym powietrzem","Wyłączenie wentylacji","Recyrkulacja powietrza w kabinie"],
+ a:[1],
+ why:"Para to wilgoć z powietrza w kabinie. Klimatyzacja osusza powietrze, a ciepły nawiew podnosi temperaturę szyby. Recyrkulacja robi dokładnie odwrotnie — zamyka wilgoć w środku. Przetarcie ręką rozmazuje i pogarsza widoczność."},
+
+/* ============ CZŁOWIEK — dodatkowe ============ */
+{id:"m8",c:"manniska",q:"W jakich godzinach ryzyko zaśnięcia za kierownicą jest największe?",
+ o:["Wieczorem, między 20 a 22","W nocy między 2 a 6 oraz po południu między 14 a 16","Rano między 7 a 9","Nie zależy od godziny"],
+ a:[1],
+ why:"Rytm dobowy powoduje dwa dołki czujności: głęboką noc i wczesne popołudnie. To nie kwestia charakteru ani wyspania — dlatego szwedzka teoria traktuje planowanie przerw jako element bezpieczeństwa, nie komfortu."},
+
+{id:"m9",c:"manniska",q:"Ile czasu potrzebuje oko na przystosowanie się do ciemności po wyjeździe z oświetlonego tunelu lub garażu?",
+ o:["Natychmiast","Kilka sekund do kilku minut","Około godziny","Tylko u osób starszych"],
+ a:[1],
+ why:"Adaptacja do ciemności trwa i pogarsza się z wiekiem. Dlatego wyjeżdżając z jasnego miejsca w ciemność zwalniasz, a nie przyspieszasz — przez chwilę widzisz znacznie mniej, niż Ci się wydaje."},
+
+{id:"m10",c:"manniska",q:"Jak alkohol wpływa na ocenę własnych umiejętności?",
+ o:["Nie wpływa, tylko na czas reakcji","Zawyża pewność siebie i osłabia samokrytykę","Zwiększa czujność","Wpływa tylko powyżej 1 ‰"],
+ a:[1],
+ why:"To najgroźniejszy mechanizm: umiejętności spadają, a poczucie kontroli rośnie. Kierowca po alkoholu ocenia swoją jazdę jako normalną, dlatego samoocena nigdy nie jest tu narzędziem decyzyjnym — decyduje wyłącznie zasada „piłem, nie jadę”."},
+
+{id:"m11",c:"manniska",q:"Pasażerowie namawiają Cię do szybszej jazdy. Co jest prawidłowe?",
+ o:["Odpowiedzialność dzieli się na wszystkich w pojeździe","Odpowiedzialność prawna i realna jest wyłącznie moja","Można jechać szybciej, jeśli wszyscy się zgadzają","Odpowiada właściciel pojazdu"],
+ a:[1],
+ why:"Presja grupy to uznany czynnik ryzyka, szczególnie u młodych kierowców — a odpowiedzialność za pojazd ma tylko kierujący. Szwedzki kurs <span class='sv'>Risk 1</span> (obowiązkowe szkolenie ryzyka, część pierwsza) jest poświęcony w dużej części właśnie temu mechanizmowi."},
+
+{id:"m12",c:"manniska",q:"Inny kierowca zachowuje się agresywnie: jedzie na zderzaku i trąbi. Jak reagujesz?",
+ o:["Hamuję, żeby go zniechęcić","Umożliwiam mu wyprzedzenie i nie wchodzę w konfrontację","Odpowiadam tym samym","Przyspieszam, żeby się od niego oddalić"],
+ a:[1],
+ why:"Hamowanie „karzące” jest w Szwecji traktowane jako samodzielne wykroczenie i typowa przyczyna zderzeń tylnych. Wpuszczasz, odpuszczasz i zapamiętujesz numer rejestracyjny. Emocje są elementem prowadzenia, którym trzeba zarządzać jak prędkością."},
+
+/* ============ ŚRODOWISKO — dodatkowe ============ */
+{id:"e5",c:"miljo",q:"Co dzieje się ze zużyciem paliwa, gdy zdejmiesz nogę z gazu, jadąc na włączonym biegu?",
+ o:["Zużycie jest takie jak na biegu jałowym","Nowoczesny silnik odcina dawkę paliwa niemal do zera","Zużycie rośnie","Zależy od rodzaju paliwa"],
+ a:[1],
+ why:"Podczas hamowania silnikiem na włączonym biegu wtrysk praktycznie odcina paliwo. Dlatego jazda „na luzie” jest jednocześnie mniej bezpieczna i mniej oszczędna — planowanie zwalniania z wyprzedzeniem jest tańsze niż hamowanie."},
+
+{id:"e6",c:"miljo",q:"Które z tych zachowań zwiększają zużycie paliwa? Zaznacz wszystkie poprawne.",m:true,
+ o:["Wożenie niepotrzebnego ciężaru w bagażniku","Jazda z otwartymi oknami przy dużej prędkości","Stała praca klimatyzacji","Wczesna zmiana na wyższy bieg"],
+ a:[0,1,2],
+ why:"Wczesna zmiana na wyższy bieg to podstawa oszczędnej jazdy (<span class='sv'>sparsam körning</span> (jazda oszczędna)) i zużycie <b>obniża</b>. Pozostałe trzy je podnoszą — przy prędkości autostradowej otwarte okna kosztują więcej niż klimatyzacja."},
+
+{id:"e7",c:"miljo",q:"Dlaczego planowanie trasy ma znaczenie środowiskowe?",
+ o:["Bo krótsza trasa to zawsze mniejsze zużycie","Bo unikanie korków, zbędnych postojów i zimnych startów realnie obniża emisję","Bo nawigacja wyłącza klimatyzację","Nie ma znaczenia przy nowoczesnym silniku"],
+ a:[1],
+ why:"Jeden przejazd z rozgrzanym silnikiem jest znacznie czystszy niż kilka krótkich z zimnym. Łączenie spraw w jedną trasę i unikanie zatoru daje większy efekt niż jakikolwiek dodatek do paliwa."},
+
+{id:"e8",c:"miljo",q:"Co oznacza, że pojazd jest napędzany E85?",
+ o:["Jest to olej napędowy o podwyższonej jakości","Jest to paliwo zawierające głównie etanol","Jest to pojazd elektryczny","Jest to gaz LPG"],
+ a:[1],
+ why:"E85 to paliwo o wysokiej zawartości etanolu, dostępne w Szwecji od lat. Ma niższą emisję CO₂ w cyklu życia, ale wyższe zużycie na 100 km i trudniejszy rozruch przy dużym mrozie — wtedy szczególnie przydaje się <span class='sv'>motorvärmare</span> (podgrzewacz silnika)."},
+
+{id:"e9",c:"miljo",q:"Jak jazda z nadmierną prędkością wpływa na zużycie paliwa i hałas?",
+ o:["Zużycie rośnie liniowo, hałas nie zmienia się","Opór powietrza rośnie z kwadratem prędkości, więc zużycie i hałas rosną gwałtownie","Nowoczesne auta są na to odporne","Ma znaczenie tylko w mieście"],
+ a:[1],
+ why:"Powyżej około 80 km/h dominującym oporem staje się opór powietrza, który rośnie z kwadratem prędkości. Przejazd 110 zamiast 90 km/h kosztuje nieproporcjonalnie dużo paliwa i wyraźnie zwiększa hałas dla mieszkańców przy drodze."},
+
+/* ============ RYZYKO — dodatkowe ============ */
+{id:"r8",c:"risk",q:"Mijasz osobę starszą przechodzącą przez jezdnię. Co warto założyć?",
+ o:["Że przejdzie szybciej, gdy zatrąbię","Że może potrzebować więcej czasu i słabiej ocenia prędkość pojazdów","Że widzi i słyszy tak samo jak młodsza osoba","Że zawsze ustąpi pojazdowi"],
+ a:[1],
+ why:"Wzrok, słuch i szybkość poruszania się zmieniają się z wiekiem, a Szwecja ma znaczący udział seniorów wśród pieszych. Czekasz spokojnie i nie sygnalizujesz klaksonem — pośpiech zwiększa ryzyko potknięcia."},
+
+{id:"r9",c:"risk",q:"W szwedzkich miastach spotykasz hulajnogi elektryczne (<span class='sv'>elsparkcykel</span> (hulajnoga elektryczna)). Co jest istotne dla kierowcy?",
+ o:["Są traktowane jak motocykle","Poruszają się jak rowery, szybko i cicho, często nieprzewidywalnie","Wolno im jeździć tylko po jezdni","Zawsze mają pierwszeństwo"],
+ a:[1],
+ why:"Hulajnogi elektryczne podlegają w Szwecji zasadniczo przepisom dla rowerów. Są ciche, przyspieszają szybciej, niż się wydaje, a kierujący nimi często nie ma doświadczenia w ruchu. Przy każdym przecięciu ścieżki rowerowej patrzysz dwa razy."},
+
+{id:"r10",c:"risk",q:"Za pojazdem widzisz czerwono-żółty trójkąt (<span class='sv'>LGF-skylt</span> (tablica pojazdu wolnobieżnego)). Co oznacza?",
+ o:["Pojazd przewozi materiały niebezpieczne","Pojazd nie może jechać szybciej niż 45 km/h","Pojazd jest w awarii","Pojazd należy do służb drogowych"],
+ a:[1],
+ why:"To oznaczenie pojazdu wolnobieżnego, np. traktora. Zbliżając się z prędkością 90 km/h do pojazdu jadącego 40 km/h masz różnicę 50 km/h — dystans skraca się o 14 metrów na sekundę, więc reagujesz od razu, gdy zobaczysz trójkąt."},
+
+{id:"r11",c:"risk",q:"Autobus stoi na przystanku, wysiadają z niego dzieci. Co robisz?",
+ o:["Mijam normalnie, bo autobus stoi","Wyraźnie zwalniam i jestem gotowy do zatrzymania","Trąbię ostrzegawczo","Przyspieszam, żeby minąć przed nimi"],
+ a:[1],
+ why:"Dziecko wybiegnie przed lub za autobus, nie patrząc. Autobus zasłania je całkowicie, a ono zakłada, że skoro widzi drogę, droga widzi jego. Przy <span class='sv'>skolskjuts</span> (autobus szkolny) obowiązuje szczególna ostrożność."},
+
+{id:"r12",c:"risk",q:"Pies podróżuje niezabezpieczony na tylnej kanapie. Dlaczego to problem?",m:true,
+ o:["Przy zderzeniu staje się zagrożeniem dla pasażerów","Może odwracać uwagę kierowcy w trakcie jazdy","Po wypadku spanikowane zwierzę może wybiec na drogę","Nie stanowi problemu, jeśli jest spokojny"],
+ a:[0,1,2],
+ why:"Zwierzę przewozi się w klatce, na uwięzi transportowej lub w bagażniku za kratą. Przy zderzeniu 30-kilogramowy pies uderza z siłą kilkuset kilogramów, a po wypadku wybiegające na drogę zwierzę tworzy drugie zdarzenie."},
+
+/* ============ PRAWO — dodatkowe ============ */
+{id:"g11",c:"regler",q:"Jak długo jest ważny zdany egzamin teoretyczny (<span class='sv'>kunskapsprov</span> (egzamin teoretyczny))?",
+ o:["Bezterminowo","Około 4 miesięcy — w tym czasie trzeba zdać praktykę","2 lata","1 rok"],
+ a:[1],
+ why:"Teoria ma ograniczoną ważność, w praktyce około czterech miesięcy, i w tym okresie musisz zdać <span class='sv'>körprov</span> (egzamin praktyczny). Dlatego terminy obu egzaminów planuje się razem, a nie po kolei. Dokładny okres potwierdź w Trafikverket."},
+
+{id:"g12",c:"regler",q:"Kto może być opiekunem przy nauce jazdy (<span class='sv'>handledare</span> (opiekun przy nauce jazdy)) w Szwecji?",
+ o:["Każdy z prawem jazdy","Osoba spełniająca wymogi wieku i doświadczenia, po zatwierdzonym kursie i z zezwoleniem","Tylko instruktor szkoły jazdy","Tylko rodzic lub opiekun prawny"],
+ a:[1],
+ why:"<span class='sv'>Handledare</span> (opiekun przy nauce jazdy) musi mieć odpowiedni wiek i wystarczająco długo posiadane prawo jazdy, przejść kurs dla opiekunów i uzyskać zezwolenie razem z uczniem. Dzięki temu Szwedzi mają często setki godzin praktyki przed egzaminem. Aktualne wymogi sprawdź w Transportstyrelsen."},
+
+{id:"g13",c:"regler",q:"Nie używasz samochodu przez pół roku i zgłaszasz go jako <span class='sv'>avställd</span> (wyrejestrowany czasowo). Co z tego wynika?",
+ o:["Można nim jeździć, ale tylko lokalnie","Nie wolno nim jeździć, ale nie płaci się podatku ani obowiązkowego OC","Trzeba zdać przegląd przed wyrejestrowaniem","Nic się nie zmienia"],
+ a:[1],
+ why:"<span class='sv'>Avställning</span> (czasowe wycofanie z ruchu) zwalnia z <span class='sv'>fordonsskatt</span> (podatek od pojazdu) i obowiązku <span class='sv'>trafikförsäkring</span> (obowiązkowe ubezpieczenie OC), ale pojazdem nie wolno jechać — nawet do warsztatu. Przywrócenie do ruchu robi się online i działa od razu."},
+
+{id:"g14",c:"regler",q:"Jedziesz zimą bez opon zimowych przy zimowych warunkach drogowych. Jak liczona jest kara?",
+ o:["Jedna kara za pojazd","Kara naliczana za każdą nieprawidłową oponę","Tylko ostrzeżenie za pierwszy raz","Kara zależy od przebiegu pojazdu"],
+ a:[1],
+ why:"Mandat naliczany jest za oponę, więc cztery nieprawidłowe opony oznaczają czterokrotność kwoty. Do tego dochodzi realne ryzyko: ubezpieczyciel może obniżyć odszkodowanie, jeśli pojazd nie był przygotowany do warunków."},
+
+{id:"g15",c:"regler",q:"Straciłeś prawo jazdy w Szwecji w okresie próbnym (<span class='sv'>prövotid</span> (okres próbny)). Co Cię czeka?",
+ o:["Odczekanie karencji i odzyskanie dokumentu","Ponowne przejście całej procedury, w tym egzaminów","Kurs uzupełniający","Automatyczne przedłużenie okresu próbnego"],
+ a:[1],
+ why:"To zasadnicza różnica: po okresie próbnym zwykle wystarczy odczekać <span class='sv'>spärrtid</span> (okres karencji przed odzyskaniem uprawnień), ale utrata uprawnień w trakcie dwuletniego <span class='sv'>prövotid</span> (okres próbny) oznacza start od zera — łącznie z <span class='sv'>kunskapsprov</span> (egzamin teoretyczny) i <span class='sv'>körprov</span> (egzamin praktyczny)."},
+
+/* ============ ZNAKI ============ */
+{id:"z15",c:"znaki",q:"Wjeżdżasz w ulicę jednokierunkową (<span class='sv'>enkelriktad trafik</span> (ruch jednokierunkowy)). Co się z tego wynika?",
+ o:["Wolno jechać tylko środkiem jezdni","Cały pas jest do Twojej dyspozycji, ale nadal obowiązuje ruch prawostronny przy parkowaniu i wyprzedzaniu","Nie wolno wyprzedzać","Nie wolno zawracać ani cofać"],
+ a:[1],
+ why:"Na jednokierunkowej możesz korzystać z całej szerokości jezdni i wyprzedzać również z prawej strony. Uwaga na rowerzystów: w wielu szwedzkich miastach mają wyznaczone prawo jazdy pod prąd, oznaczone tabliczką."},
+
+{id:"z16",c:"znaki",q:"Okrągły znak z czerwoną obwódką i poziomą białą belką oznacza:",
+ o:["Zakaz zatrzymywania","Zakaz wjazdu wszelkich pojazdów","Koniec drogi z pierwszeństwem","Nakaz jazdy prosto"],
+ a:[1],
+ why:"To zakaz wjazdu (<span class='sv'>förbud mot infart med fordon</span> (zakaz wjazdu pojazdów)). Najczęściej zamyka wyjazd z jednokierunkowej. Ten znak wygląda tak samo jak polski i jest jednym z niewielu, gdzie żółte tło nie występuje."},
+
+{id:"z17",c:"znaki",q:"Do czego służy linia krawędziowa (<span class='sv'>kantlinje</span> (linia krawędziowa)) na skraju jezdni?",
+ o:["Wyznacza pas dla rowerów","Pokazuje granicę jezdni, co ma szczególne znaczenie w śniegu i ciemności","Oznacza zakaz zatrzymywania","Wyznacza pobocze do jazdy"],
+ a:[1],
+ why:"Linia krawędziowa jest w Szwecji punktem odniesienia przy oślepieniu i w śnieżycy — patrzysz na nią, żeby utrzymać tor. Pobocze za nią nie jest pasem ruchu; wjeżdżasz tam tylko w razie konieczności, bo bywa miękkie i zaśnieżone."},
+
+{id:"z18",c:"znaki",q:"Znak ostrzegawczy z sylwetkami dzieci oznacza, że:",
+ o:["W pobliżu jest szkoła lub plac zabaw i trzeba liczyć się z dziećmi na drodze","Obowiązuje ograniczenie do 30 km/h","Zakaz wjazdu w godzinach lekcyjnych","Droga jest zamknięta dla ruchu"],
+ a:[0],
+ why:"Sam znak nie wprowadza ograniczenia prędkości — robi to osobny znak, często razem z nim. Ale zobowiązuje do prędkości dostosowanej. W Szwecji dzieci chodzą do szkoły samodzielnie, więc ten znak realnie znaczy: może wybiec."},
+
+{id:"z19",c:"znaki",q:"Pod znakiem zakazu parkowania widzisz dodatkową tabliczkę z tekstem. Co ona robi?",
+ o:["Powtarza treść znaku","Uściśla lub ogranicza zakres znaku, np. do określonych godzin lub grup","Jest tylko informacją turystyczną","Można ją zignorować"],
+ a:[1],
+ why:"<span class='sv'>Tilläggstavla</span> (tabliczka dodatkowa) zmienia zakres znaku: godziny, dni, rodzaj pojazdu, wyjątek dla mieszkańców. Bez jej przeczytania znaku nie da się prawidłowo zinterpretować — a większość szwedzkich mandatów za parkowanie wynika z pominięcia tabliczki."},
+
+{id:"z20",c:"znaki",q:"Ile metrów przed znakiem przystanku autobusowego obowiązuje zakaz zatrzymywania, jeśli nic innego nie jest oznaczone?",
+ o:["5 metrów przed i 20 za","10 metrów w obie strony","20 metrów przed i 5 za","Zakaz nie obowiązuje, jeśli nie ma linii"],
+ a:[2],
+ why:"Zasada to 20 metrów przed znakiem przystanku i 5 metrów za nim, o ile oznakowanie poziome nie wskazuje inaczej. Autobus musi móc podjechać równo do krawężnika, żeby wysiadający nie wchodzili między pojazdy."},
+
+{id:"z21",c:"znaki",q:"Widzisz znak odwołujący ograniczenie prędkości. Co obowiązuje dalej?",
+ o:["Prędkość dowolna","Poprzednie ograniczenie z tej drogi","Limit ogólny dla danego obszaru, czyli 50 lub 70 km/h","Zawsze 70 km/h"],
+ a:[2],
+ why:"Odwołanie ograniczenia przywraca <span class='sv'>bashastighet</span> (domyślny limit prędkości) — 50 km/h w obszarze zabudowanym, 70 km/h poza nim. Nie oznacza „jedź ile chcesz” i nie przywraca wcześniejszego znaku z innego odcinka."},
+
+{id:"z22",c:"znaki",q:"Na szwedzkich znakach kierunkowych widzisz oznaczenie typu E4 albo E20. Co to jest?",
+ o:["Numer zjazdu","Numer trasy europejskiej","Klasa emisji dopuszczonych pojazdów","Numer gminy"],
+ a:[1],
+ why:"E oznacza trasę europejską — E4 biegnie przez całą Szwecję z południa na północ. Numer jest przydatny w nawigacji i przy zgłaszaniu zdarzenia: podając numer drogi i najbliższy kilometr, znacznie skracasz czas dojazdu służb."},
+
+/* ============ PIERWSZEŃSTWO ============ */
+{id:"p14",c:"pierwszenstwo",q:"Rondo ma dwa pasy. Jedziesz pasem wewnętrznym i chcesz zjechać. Co musisz zrobić?",
+ o:["Zjechać natychmiast, mam pierwszeństwo","Upewnić się, że nie przecinam toru pojazdu jadącego pasem zewnętrznym","Zatrzymać się na rondzie i przepuścić wszystkich","Zjechać tylko na ostatnim wyjeździe"],
+ a:[1],
+ why:"Zmieniając pas z wewnętrznego na zewnętrzny wykonujesz zmianę pasa jak na każdej innej drodze — ustępujesz temu, kto już nim jedzie. Dlatego pas wybiera się przed wjazdem, zależnie od tego, którym wyjazdem chcesz opuścić rondo."},
+
+{id:"p15",c:"pierwszenstwo",q:"Cofasz z miejsca parkingowego. Kto ma pierwszeństwo?",
+ o:["Ja, jeśli już częściowo wyjechałem","Wszyscy inni — cofający ustępuje","Ten, kto jest po prawej","Piesi, ale nie pojazdy"],
+ a:[1],
+ why:"Cofanie to manewr, przy którym ustępujesz wszystkim i odpowiadasz za jego bezpieczne wykonanie. Widoczność do tyłu jest zawsze ograniczona, a kamera cofania nie pokazuje dziecka wchodzącego z boku."},
+
+{id:"p16",c:"pierwszenstwo",q:"Wjeżdżasz na autostradę pasem włączania (<span class='sv'>accelerationsfält</span> (pas włączania)). Jak postępujesz?",
+ o:["Wjeżdżam wolno i wymuszam miejsce","Rozpędzam się do prędkości ruchu i wpasowuję się w lukę, dostosowując się do jadących","Zatrzymuję się na końcu pasa i czekam na wolną drogę","Mam pierwszeństwo, bo wjeżdżam z prawej"],
+ a:[1],
+ why:"Pas włączania służy do rozpędzenia się. Wjazd z małą prędkością wymusza hamowanie na autostradzie i jest częstą przyczyną zderzeń. Kierowcy na autostradzie powinni Ci ułatwić wjazd — ale to Ty dostosowujesz się do nich, nie odwrotnie."},
+
+{id:"p17",c:"pierwszenstwo",q:"Sygnalizacja na skrzyżowaniu nie działa. Co obowiązuje?",
+ o:["Wszyscy się zatrzymują jak przy znaku STOP","Oznakowanie pionowe, a jeśli go nie ma — reguła prawej ręki","Pierwszeństwo ma droga szersza","Skrzyżowanie jest wyłączone z ruchu"],
+ a:[1],
+ why:"Wyłączona sygnalizacja odsłania zasady, które były pod nią: znaki pierwszeństwa, a w ich braku <span class='sv'>högerregeln</span> (reguła prawej ręki). Ponieważ inni kierowcy mogą interpretować to różnie, jedziesz wyjątkowo defensywnie i nawiązujesz kontakt wzrokowy."},
+
+{id:"p18",c:"pierwszenstwo",q:"Na jezdni wyznaczony jest pas dla rowerów (<span class='sv'>cykelfält</span> (pas dla rowerów na jezdni)). Co wolno kierowcy samochodu?",
+ o:["Jechać nim, jeśli jest wolny","Parkować na nim krótko","Ani jechać, ani parkować — poza koniecznym przecięciem przy skręcie","Wyprzedzać nim wolniejsze pojazdy"],
+ a:[2],
+ why:"<span class='sv'>Cykelfält</span> (pas dla rowerów) jest częścią jezdni zastrzeżoną dla rowerów. Przecinasz go tylko wtedy, gdy skręcasz — i wtedy ustępujesz rowerzyście jadącemu na wprost."},
+
+{id:"p19",c:"pierwszenstwo",q:"Zamierzasz zawrócić na drodze w obszarze zabudowanym. Co obowiązuje?",
+ o:["Mam pierwszeństwo, bo jestem już na drodze","Ustępuję całemu ruchowi z obu kierunków i pieszym","Wystarczy włączyć kierunkowskaz","Zawracanie jest zawsze zabronione"],
+ a:[1],
+ why:"Zawracanie jest manewrem, przy którym nie masz żadnego pierwszeństwa i nie wolno Ci zmuszać innych do hamowania. Nie wykonuje się go na przejściach, skrzyżowaniach z ograniczoną widocznością, autostradzie ani przy linii ciągłej."},
+
+{id:"p20",c:"pierwszenstwo",q:"Piesi przechodzą przez jezdnię na zielonym, a Ty skręcasz w prawo na zieloną strzałkę. Kto ma pierwszeństwo?",
+ o:["Ja, bo strzałka daje mi zgodę na przejazd","Piesi — strzałka zezwala na jazdę, ale nie znosi obowiązku ustąpienia","Zależy, ilu jest pieszych","Nikt, obowiązuje kontakt wzrokowy"],
+ a:[1],
+ why:"Zielona strzałka to zezwolenie na kontynuowanie jazdy w danym kierunku pod warunkiem ustąpienia pieszym i rowerzystom, którzy mają wtedy swoje zielone. Skręt na strzałce jest jednym z najczęstszych scenariuszy potrącenia pieszego."},
+
+{id:"p21",c:"pierwszenstwo",q:"Jedziesz drogą podrzędną i masz <span class='sv'>väjningsplikt</span> (obowiązek ustąpienia pierwszeństwa). Co dokładnie musisz zrobić?",
+ o:["Zawsze zatrzymać się przed linią","Zwolnić, a jeśli trzeba zatrzymać się, i nie zmuszać nikogo do zmiany prędkości ani kierunku","Zatrzymać się tylko, gdy nadjeżdża pojazd","Zatrąbić, żeby zasygnalizować obecność"],
+ a:[1],
+ why:"Ustąpienie pierwszeństwa nie oznacza automatycznie zatrzymania — oznacza, że Twój wjazd nie może wpłynąć na ruch na drodze z pierwszeństwem. Jeśli droga jest wolna, jedziesz. Zatrzymanie obowiązkowe daje tylko <span class='sv'>stopplikt</span> (obowiązek zatrzymania się)."},
+
+/* ============ PRĘDKOŚĆ ============ */
+{id:"h13",c:"hastighet",q:"Z czego składa się droga zatrzymania (<span class='sv'>stoppsträcka</span> (droga zatrzymania))?",
+ o:["Tylko z drogi hamowania","Z drogi reakcji i drogi hamowania","Z drogi hamowania i poślizgu","Z odstępu i drogi hamowania"],
+ a:[1],
+ why:"<span class='sv'>Stoppsträcka</span> (droga zatrzymania) = <span class='sv'>reaktionssträcka</span> (droga reakcji) + <span class='sv'>bromssträcka</span> (droga hamowania). Pierwsza rośnie liniowo z prędkością i zależy od Twojego stanu, druga rośnie z kwadratem prędkości i zależy od pojazdu i nawierzchni."},
+
+{id:"h14",c:"hastighet",q:"Czy wolno przekroczyć ograniczenie prędkości podczas wyprzedzania?",
+ o:["Tak, do 20 km/h powyżej limitu","Tak, jeśli manewr jest bezpieczniejszy","Nie, ograniczenie obowiązuje również przy wyprzedzaniu","Tak, ale tylko poza obszarem zabudowanym"],
+ a:[2],
+ why:"Limit obowiązuje bez wyjątku. Jeśli nie możesz wyprzedzić bez przekroczenia prędkości, to znaczy, że nie masz warunków do wyprzedzania — i po prostu nie wyprzedzasz. To jedna z częstszych błędnych odpowiedzi na egzaminie."},
+
+{id:"h15",c:"hastighet",q:"Musisz hamować awaryjnie w samochodzie z ABS. Jak?",
+ o:["Pompować pedałem","Wcisnąć pedał mocno i utrzymać nacisk, jednocześnie kierując","Hamować delikatnie, żeby nie stracić przyczepności","Zaciągnąć hamulec ręczny"],
+ a:[1],
+ why:"Pompowanie było techniką dla samochodów bez ABS. Z ABS wciskasz pedał do końca i trzymasz — układ sam moduluje siłę, a Ty w tym czasie możesz kierować. Wibracja pedału jest normalna i nie znaczy, że coś się psuje."},
+
+{id:"h16",c:"hastighet",q:"Jedziesz drogą żwirową (<span class='sv'>grusväg</span> (droga żwirowa)). Co się zmienia?",m:true,
+ o:["Droga hamowania jest dłuższa","Kurz może odebrać widoczność jadącym za Tobą","Krawędzie drogi są luźne i mogą ściągnąć koło","ABS działa lepiej niż na asfalcie"],
+ a:[0,1,2],
+ why:"Na żwirze ABS zwykle wydłuża drogę hamowania, bo zablokowane koło buduje przed sobą wałek żwiru. Dlatego na drogach żwirowych, których w Szwecji są tysiące kilometrów, zjeżdża się z prędkości znacznie bardziej, niż sugeruje znak."},
+
+{id:"h17",c:"hastighet",q:"Jedziesz w kolumnie na autostradzie z prędkością 110 km/h. Jaki odstęp jest właściwy?",
+ o:["Dwie długości samochodu","Co najmniej trzy sekundy do poprzedzającego pojazdu","Pół sekundy, żeby nikt się nie wciskał","Jedna sekunda wystarczy przy dobrej pogodzie"],
+ a:[1],
+ why:"Przy 110 km/h trzy sekundy to około 90 metrów. Zbyt mały odstęp jest w Szwecji traktowany poważnie i zgłaszany, a przy dużej prędkości jest jedyną rzeczą, która daje Ci czas na reakcję na hamowanie kilku pojazdów przed Tobą."},
+
+{id:"h18",c:"hastighet",q:"Wjeżdżasz do długiego tunelu. Co jest szczególnie istotne?",m:true,
+ o:["Włączone światła i zdjęte okulary przeciwsłoneczne","Utrzymanie odstępu, bo zatrzymanie w tunelu jest groźne","Zakaz zawracania i cofania","Zwiększenie prędkości, żeby szybciej go opuścić"],
+ a:[0,1,2],
+ why:"Oczy potrzebują czasu na adaptację przy wjeździe i wyjeździe, więc prędkość się zmniejsza, a nie zwiększa. Zator w tunelu jest jedną z najgroźniejszych sytuacji w ruchu, dlatego odstęp ma tu większe znaczenie niż na otwartej drodze."},
+
+{id:"h19",c:"hastighet",q:"Widzisz dzieci grające w piłkę przy poboczu. Znak pokazuje 50 km/h. Ile jedziesz?",
+ o:["50 km/h, bo tyle wolno","Wyraźnie mniej, gotowy do zatrzymania","50 km/h, ale z ręką na klaksonie","30 km/h, bo taki jest limit przy dzieciach"],
+ a:[1],
+ why:"Nie istnieje osobny limit „przy dzieciach” — istnieje obowiązek prędkości dostosowanej do warunków. Piłka wypadająca na jezdnię jest w szwedzkiej teorii klasycznym przykładem sytuacji, w której limit ze znaku jest zdecydowanie za wysoki."},
+
+{id:"h20",c:"hastighet",q:"Dlaczego duża różnica prędkości między pojazdami jest sama w sobie ryzykiem?",
+ o:["Bo zwiększa zużycie paliwa","Bo skraca czas na ocenę sytuacji i zwiększa energię zderzenia","Bo utrudnia utrzymanie pasa","Bo powoduje przegrzewanie hamulców"],
+ a:[1],
+ why:"Ryzyko tworzy różnica prędkości, nie sama prędkość. Dlatego autostrada z jednorodnym ruchem 110 km/h jest statystycznie bezpieczniejsza niż droga, gdzie jedni jadą 50, a inni 100 — i dlatego pojazdy poniżej 40 km/h nie mogą na nią wjeżdżać."},
+
+/* ============ POJAZD ============ */
+{id:"f15",c:"fordon",q:"Poziom płynu hamulcowego wyraźnie spadł. Co to najczęściej oznacza?",
+ o:["Normalne zużycie, wystarczy dolać","Możliwy wyciek w układzie — sprawa dla warsztatu","Że hamulce są nowe","Że trzeba wymienić klocki"],
+ a:[1],
+ why:"Płyn hamulcowy nie zużywa się w normalnej eksploatacji — spadek poziomu wskazuje na wyciek lub bardzo zużyte klocki. Układ hamulcowy nie ma rezerwy bezpieczeństwa, więc jedziesz do warsztatu, nie na wakacje."},
+
+{id:"f16",c:"fordon",q:"Uruchamiasz auto z kabli rozruchowych. Który element jest najważniejszy dla bezpieczeństwa?",
+ o:["Podłączyć oba kable do plusów","Kolejność podłączania i to, żeby zaciski nie zwarły się ze sobą","Uruchomić silnik dawcy na wysokich obrotach","Odłączyć akumulator odbiorcy"],
+ a:[1],
+ why:"Zwarcie zaciskami przy akumulatorze może spowodować wybuch gazów. Czerwony kabel łączy plusy, czarny podłącza się jako ostatni do masy w pewnej odległości od akumulatora rozładowanego auta. Przy mrozie problem częściej dotyczy akumulatora niż silnika."},
+
+{id:"f17",c:"fordon",q:"Jedziesz z pełnym bagażnikiem i czterema osobami. Co należy sprawdzić w oświetleniu?",
+ o:["Czy działa światło cofania","Czy reflektory nie świecą za wysoko i nie oślepiają","Czy światła są ciepłe","Nic, oświetlenie nie zależy od obciążenia"],
+ a:[1],
+ why:"Obciążony tył podnosi przód i reflektory świecą wyżej, oślepiając nadjeżdżających. Dlatego samochody mają regulację wysokości świateł — ustawiasz ją zgodnie z obciążeniem, zwłaszcza przed dłuższą trasą po ciemku."},
+
+{id:"f18",c:"fordon",q:"Opony zużywają się nierównomiernie — bieżnik starty tylko po krawędziach. Co to sugeruje?",
+ o:["Zbyt wysokie ciśnienie","Zbyt niskie ciśnienie","Zbyt małe obciążenie","Normalne zużycie"],
+ a:[1],
+ why:"Za niskie ciśnienie powoduje, że opona opiera się na krawędziach. Zużycie środka bieżnika oznacza odwrotność — ciśnienie za wysokie. Zużycie jednostronne wskazuje najczęściej na geometrię, którą sprawdza się w warsztacie."},
+
+{id:"f19",c:"fordon",q:"Skąd wiesz, ile możesz maksymalnie zabrać ładunku?",
+ o:["Z pojemności bagażnika","Z różnicy między masą całkowitą a masą własną pojazdu","Z liczby miejsc w pojeździe","Z mocy silnika"],
+ a:[1],
+ why:"Ładowność to <span class='sv'>totalvikt</span> (masa całkowita) minus <span class='sv'>tjänstevikt</span> (masa własna) — obie wartości znajdziesz w dokumentach pojazdu. Pasażerowie liczą się do ładowności, dlatego pełne auto na wakacje bywa przeciążone bez świadomości kierowcy."},
+
+{id:"f20",c:"fordon",q:"Co robi układ stabilizacji toru jazdy (<span class='sv'>antisladdsystem</span> (układ stabilizacji toru jazdy), ESP)?",
+ o:["Zastępuje opony zimowe","Hamuje wybrane koła, żeby przeciwdziałać poślizgowi","Skraca drogę hamowania na lodzie","Utrzymuje stałą prędkość"],
+ a:[1],
+ why:"ESP wykrywa różnicę między kierunkiem kierownicy i faktycznym torem jazdy, po czym przyhamowuje pojedyncze koła. Jest bardzo skuteczny, ale nie tworzy przyczepności tam, gdzie jej nie ma — na lodzie nadal decyduje prędkość i opony."},
+
+{id:"f21",c:"fordon",q:"Jak powinien być ustawiony zagłówek fotela?",
+ o:["Jak najniżej, żeby nie ograniczał widoku","Tak, aby jego środek był na wysokości potylicy, blisko głowy","Jak najwyżej","Nie ma to znaczenia przy zapiętych pasach"],
+ a:[1],
+ why:"Zagłówek chroni przed urazem kręgosłupa szyjnego (<span class='sv'>pisksnärtsskada</span> (uraz kręgosłupa szyjnego)) przy uderzeniu w tył — a to najczęstszy typ kolizji w mieście. Za nisko ustawiony zagłówek działa jak punkt obrotu i pogarsza uraz zamiast go ograniczać."},
+
+{id:"f22",c:"fordon",q:"Opony mają głęboki bieżnik, ale są dziesięcioletnie. Co z tego wynika?",
+ o:["Nic, liczy się tylko bieżnik","Guma z czasem twardnieje i traci przyczepność, zwłaszcza na zimno","Opony stają się bardziej ciche","Rośnie odporność na przebicie"],
+ a:[1],
+ why:"Mieszanka gumowa starzeje się niezależnie od przebiegu, a przy niskich temperaturach stwardniała opona zimowa przestaje pełnić swoją funkcję. Datę produkcji odczytasz z czterocyfrowego oznaczenia na boku opony: tydzień i rok."},
+
+/* ============ ZIMA ============ */
+{id:"v12",c:"vinter",q:"Ruszasz na oblodzonej nawierzchni i koła buksują. Co pomaga?",
+ o:["Więcej gazu","Delikatny gaz, a często ruszenie na drugim biegu","Wciśnięcie sprzęgła i dodanie obrotów","Włączenie ABS"],
+ a:[1],
+ why:"Mniejszy moment obrotowy oznacza mniejszą szansę na zerwanie przyczepności — dlatego wiele automatycznych skrzyń ma tryb zimowy startujący z drugiego biegu. Buksujące koło poleruje lód i sytuacja się pogarsza, a nie poprawia."},
+
+{id:"v13",c:"vinter",q:"Jak zachowują się opony z kolcami na czystym, mokrym asfalcie?",
+ o:["Lepiej niż opony bez kolców","Gorzej — kolce zmniejszają powierzchnię kontaktu gumy z asfaltem","Identycznie","Kolce chowają się automatycznie"],
+ a:[1],
+ why:"To dlatego kolce nie są uniwersalnie lepsze: dają ogromną przewagę na lodzie, ale na czystym asfalcie wydłużają drogę hamowania i zużywają nawierzchnię. Wybór między <span class='sv'>dubbdäck</span> (opony z kolcami) a oponami bez kolców zależy od tego, gdzie realnie jeździsz."},
+
+{id:"v14",c:"vinter",q:"Co warto mieć w samochodzie zimą w Szwecji? Zaznacz wszystkie poprawne.",m:true,
+ o:["Skrobaczkę i szczotkę do dachu","Koc lub ciepłą odzież","Łopatę i linę oraz naładowany telefon","Kanister z benzyną"],
+ a:[0,1,2],
+ why:"Kanistra z paliwem w kabinie się nie wozi. Pozostałe rzeczy wynikają z realiów: na drogach w Norrland przy −25 °C awaria bez ciepłej odzieży jest zagrożeniem życia, a odległość do najbliższej pomocy bywa liczona w dziesiątkach kilometrów."},
+
+{id:"v15",c:"vinter",q:"Jedziesz za ciężarówką, na której naczepie leży warstwa śniegu i lodu. Co robisz?",
+ o:["Jadę blisko, żeby mieć osłonę od wiatru","Zwiększam odstęp i staram się nie jechać bezpośrednio za nią","Wyprzedzam natychmiast, bez względu na warunki","Sygnalizuję światłami"],
+ a:[1],
+ why:"Bryła lodu zsuwająca się z naczepy przy 80 km/h rozbija szybę. Zwiększasz odstęp i wybierasz moment wyprzedzania spokojnie — nie natychmiast, bo za ciężarówką panuje chmura wodnego pyłu i widoczność jest najgorsza właśnie w trakcie manewru."},
+
+{id:"v16",c:"vinter",q:"Dlaczego jazda w koleinach wyjeżdżonych w śniegu jest ryzykowna?",
+ o:["Bo zwiększa zużycie paliwa","Bo wyjście z koleiny wymaga siły i auto może gwałtownie skręcić","Bo niszczy opony","Bo jest zabroniona"],
+ a:[1],
+ why:"Koleina prowadzi koła jak szyna. Przy próbie wyjścia — na przykład podczas wyprzedzania lub omijania — auto najpierw nie reaguje, a potem reaguje gwałtownie. Dlatego zmianę toru w koleinach wykonuje się zdecydowanie, ale z zapasem miejsca."},
+
+{id:"v17",c:"vinter",q:"Mróz i akumulator: dlaczego zimą częściej nie da się uruchomić silnika?",
+ o:["Bo paliwo zamarza","Bo pojemność akumulatora spada, a rozruch wymaga więcej energii","Bo olej jest za rzadki","Bo elektronika się wyłącza"],
+ a:[1],
+ why:"Zimno obniża sprawność akumulatora, a jednocześnie gęstszy olej zwiększa opór rozruchu. Te dwa efekty spotykają się w najgorszym momencie. Pomaga <span class='sv'>motorvärmare</span> (podgrzewacz silnika), krótkie wyłączenie odbiorników przy rozruchu i sprawny akumulator."},
+
+{id:"v18",c:"vinter",q:"Wyjeżdżasz z ogrzewanego garażu podziemnego na mróz. Na co uważać?",
+ o:["Na zaparowane szyby i natychmiastową utratę przyczepności na wyjeździe","Na wysokie obroty silnika","Na to, że hamulce są zimne","Nie ma szczególnego ryzyka"],
+ a:[0],
+ why:"Ciepłe, wilgotne auto na mrozie natychmiast paruje i szronieje z zewnątrz, a wyjazd z garażu bywa oblodzony i pochylony. To sytuacja, w której traci się kontrolę na pierwszych dwudziestu metrach jazdy."},
+
+/* ============ CZŁOWIEK ============ */
+{id:"m13",c:"manniska",q:"Jaka jest w Szwecji granica dla narkotyków w organizmie kierowcy?",
+ o:["Taka jak dla alkoholu, 0,2 ‰","Zero tolerancji — wykryta obecność substancji wystarcza","0,5 promila ekwiwalentu","Zależy od rodzaju substancji"],
+ a:[1],
+ why:"Przy narkotykach obowiązuje <span class='sv'>nolltolerans</span> (zero tolerancji) — samo stwierdzenie obecności substancji w organizmie oznacza <span class='sv'>drograttfylleri</span> (jazda pod wpływem narkotyków), niezależnie od tego, czy widać wpływ na jazdę. Dotyczy to również substancji zażytych dzień wcześniej."},
+
+{id:"m14",c:"manniska",q:"W prawie jazdy wpisany jest warunek używania okularów lub soczewek. Jedziesz bez nich. Co to znaczy?",
+ o:["Drobne wykroczenie","Jazda bez wymaganych uprawnień — poważne naruszenie","Nic, jeśli widzę dobrze","Problem tylko przy kontroli wzroku"],
+ a:[1],
+ why:"Warunek zapisany w dokumencie jest częścią uprawnienia. Bez okularów Twoje prawo jazdy nie obowiązuje, co przy zdarzeniu oznacza również poważne konsekwencje ubezpieczeniowe. Zapasowa para w schowku jest tu praktyczną koniecznością."},
+
+{id:"m15",c:"manniska",q:"Chorujesz przewlekle na schorzenie, które może wpływać na prowadzenie. Kto ma obowiązek działać?",
+ o:["Nikt, to sprawa prywatna","Kierowca sam, a w określonych sytuacjach również lekarz ma obowiązek zgłoszenia","Wyłącznie pracodawca","Wyłącznie ubezpieczyciel"],
+ a:[1],
+ why:"Szwedzki system opiera się na wymogach medycznych dla posiadania prawa jazdy, a lekarz, który stwierdzi, że pacjent nie spełnia ich w sposób trwały, ma obowiązek powiadomić Transportstyrelsen. Chodzi o padaczkę, ciężką bezsenność, wady wzroku, uzależnienia."},
+
+{id:"m16",c:"manniska",q:"Wsiadasz za kierownicę zaraz po ostrej kłótni. Jak to wpływa na jazdę?",
+ o:["Nie wpływa, jeśli jestem doświadczonym kierowcą","Zawęża uwagę, wydłuża reakcję i zwiększa skłonność do ryzyka","Poprawia koncentrację","Wpływa tylko na młodych kierowców"],
+ a:[1],
+ why:"Silne emocje zajmują zasoby uwagi dokładnie tak jak rozmowa telefoniczna. W szwedzkiej teorii stan emocjonalny jest częścią <span class='sv'>personliga förutsättningar</span> (uwarunkowania osobiste kierowcy) i jedynym rozsądnym rozwiązaniem jest odczekanie kilku minut przed wyjazdem."},
+
+{id:"m17",c:"manniska",q:"Przejechałeś znajomą trasę i nie pamiętasz ostatnich kilometrów. Co to oznacza?",
+ o:["Że jazda stała się bezpiecznie automatyczna","Że uwaga była wyłączona i nie zauważyłbyś zmiany w sytuacji","Że jesteś doświadczonym kierowcą","Że trasa jest zbyt łatwa"],
+ a:[1],
+ why:"To zjawisko nazywane jazdą na autopilocie i jest sygnałem ostrzegawczym, nie oznaką umiejętności. Rutyna obniża czujność właśnie tam, gdzie jeździsz najczęściej — dlatego statystycznie wiele zdarzeń dzieje się kilka kilometrów od domu."},
+
+{id:"m18",c:"manniska",q:"Które czynności realnie odciągają uwagę od drogi? Zaznacz wszystkie poprawne.",m:true,
+ o:["Jedzenie i picie w trakcie jazdy","Szukanie czegoś w schowku","Ustawianie nawigacji podczas jazdy","Patrzenie w lusterka"],
+ a:[0,1,2],
+ why:"Kontrola lusterek jest częścią prowadzenia. Pozostałe trzy odbierają wzrok, ręce albo uwagę. Zasada praktyczna: wszystko, co wymaga spojrzenia dłużej niż dwie sekundy, robi się na zatrzymanym pojeździe."},
+
+{id:"m19",c:"manniska",q:"Dlaczego bardzo głośna muzyka jest problemem za kierownicą?",
+ o:["Bo jest zabroniona przepisami","Bo odcina informacje dźwiękowe: sygnały, hamowanie, pojazdy uprzywilejowane","Bo rozprasza pasażerów","Bo zużywa akumulator"],
+ a:[1],
+ why:"Prowadzenie opiera się także na słuchu — nadjeżdżająca karetka, klakson, pisk opon, dziwny dźwięk z silnika. Zimą, przy zamkniętych szybach i pracującym nawiewie, izolacja dźwiękowa jest już i tak duża."},
+
+{id:"m20",c:"manniska",q:"Dlaczego kierowcy w pierwszych latach po egzaminie mają najwyższe ryzyko wypadku?",
+ o:["Bo jeżdżą starszymi samochodami","Bo brakuje im doświadczenia w rozpoznawaniu ryzyka, a pewność siebie rośnie szybciej niż umiejętności","Bo częściej jeżdżą w mieście","Bo mają słabszy wzrok"],
+ a:[1],
+ why:"Umiejętności techniczne przychodzą szybko, umiejętność przewidywania — po latach. Właśnie dlatego Szwecja ma dwuletni <span class='sv'>prövotid</span> (okres próbny) i obowiązkowe szkolenia <span class='sv'>Risk 1</span> (obowiązkowe szkolenie ryzyka, część pierwsza) i <span class='sv'>Risk 2</span> (obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym) skupione na ryzyku, nie na technice."},
+
+/* ============ ŚRODOWISKO ============ */
+{id:"e10",c:"miljo",q:"Dlaczego niektóre szwedzkie miasta ograniczają opony z kolcami na wybranych ulicach?",
+ o:["Ze względu na hałas w nocy","Bo kolce ścierają nawierzchnię i podnoszą stężenie pyłu zawieszonego","Bo niszczą tory tramwajowe","Bo są droższe"],
+ a:[1],
+ why:"Kolce wyrywają cząstki z asfaltu i tworzą pył PM10, który jest problemem zdrowotnym w wąskich, zabudowanych ulicach. Dlatego zakaz dotyczy zwykle konkretnych ulic, a nie całego miasta — i trzeba go sprawdzić lokalnie."},
+
+{id:"e11",c:"miljo",q:"Co robi filtr cząstek stałych w samochodzie z silnikiem Diesla?",
+ o:["Obniża zużycie paliwa","Zatrzymuje drobne cząstki spalin, ale wymaga regularnych dłuższych przejazdów","Zastępuje katalizator","Zmniejsza hałas"],
+ a:[1],
+ why:"Filtr wypala zgromadzone cząstki przy odpowiedniej temperaturze, co wymaga jazdy dłuższej niż kilka kilometrów. Auto z Dieslem używane wyłącznie do krótkich przejazdów po mieście zapycha filtr — to jednocześnie problem środowiskowy i kosztowna awaria."},
+
+{id:"e12",c:"miljo",q:"Jak mróz wpływa na samochód elektryczny?",
+ o:["Nie wpływa","Zasięg wyraźnie spada, bo ogrzewanie i zimne ogniwa zużywają energię","Rośnie moc silnika","Skraca się czas ładowania"],
+ a:[1],
+ why:"Przy dużym mrozie realny zasięg może spaść znacznie. Dlatego w Szwecji standardem jest podgrzewanie kabiny i akumulatora podczas ładowania z sieci przed odjazdem — pojazd ogrzewa się wtedy energią z gniazdka, nie z akumulatora trakcyjnego."},
+
+{id:"e13",c:"miljo",q:"Czym są opony o niskim oporze toczenia?",
+ o:["Oponami wyłącznie do aut elektrycznych","Oponami zmniejszającymi zużycie paliwa i energii","Oponami zimowymi bez kolców","Oponami do jazdy po żwirze"],
+ a:[1],
+ why:"Mniejszy opór toczenia oznacza mniej energii traconej na obracanie kół. Efekt jest realny, choć mniejszy niż wpływ prędkości i ciśnienia. Etykieta opony w Unii Europejskiej podaje klasę oporu toczenia razem z przyczepnością na mokrym i hałasem."},
+
+{id:"e14",c:"miljo",q:"Co robisz ze zużytym olejem silnikowym i starymi oponami?",
+ o:["Wyrzucam do zwykłych odpadów","Oddaję do punktu odbioru odpadów lub warsztatu","Zostawiam przy pojemnikach na osiedlu","Palę w piecu"],
+ a:[1],
+ why:"Olej, płyny i opony to odpady niebezpieczne — litr oleju zanieczyszcza ogromną ilość wody gruntowej. W Szwecji przyjmuje je <span class='sv'>återvinningscentral</span> (punkt odbioru odpadów) lub warsztat, zwykle bez opłaty przy zakupie nowego produktu."},
+
+{id:"e15",c:"miljo",q:"Dlaczego wspólne przejazdy i transport publiczny mają nieproporcjonalnie duży efekt?",
+ o:["Bo są tańsze","Bo eliminują całe przejazdy, a nie tylko poprawiają zużycie na kilometr","Bo zmniejszają zużycie opon","Bo skracają trasę"],
+ a:[1],
+ why:"Najbardziej ekologiczny kilometr to ten, którego nie przejechałeś. Optymalizacja stylu jazdy daje procenty, a rezygnacja z przejazdu — całość. To dlatego szwedzkie gminy inwestują w komunikację równolegle do przepisów o emisjach."},
+
+{id:"e16",c:"miljo",q:"Jaki wpływ ma regularny serwis na środowisko?",
+ o:["Żaden, serwis dotyczy tylko awarii","Zapchany filtr, zużyte świece i zła geometria podnoszą zużycie i emisję","Wyłącznie na hałas","Tylko na wartość odsprzedaży"],
+ a:[1],
+ why:"Silnik pracujący na zapchanym filtrze powietrza zużywa więcej paliwa, a rozregulowana geometria zwiększa opór toczenia i zużycie opon. Pojazd sprawny technicznie jest zawsze czystszy niż zaniedbany pojazd tej samej klasy."},
+
+{id:"e17",c:"miljo",q:"Jazda na wysokich obrotach zamiast wcześniejszej zmiany biegu powoduje:",m:true,
+ o:["Większe zużycie paliwa","Większy hałas dla otoczenia","Szybsze zużycie silnika","Krótszą drogę hamowania"],
+ a:[0,1,2],
+ why:"Na drogę hamowania obroty silnika nie mają wpływu. Reszta tak — a hałas jest w Szwecji traktowany jako realny problem środowiskowy, dlatego w strefach mieszkalnych obowiązują niskie limity i progi zwalniające."},
+
+/* ============ RYZYKO ============ */
+{id:"r13",c:"risk",q:"Ciężarówka skręca w prawo na skrzyżowaniu. Ty jedziesz rowerem lub stoisz obok jej prawego boku. Dlaczego to groźne?",
+ o:["Bo ciężarówka nie ma lusterek","Bo tył pojazdu zawęża tor i wciąga wszystko, co jest po wewnętrznej stronie zakrętu","Bo kierowca nie zna przepisów","Bo ciężarówki są głośne"],
+ a:[1],
+ why:"Naczepa nie jedzie po torze kabiny — ścina zakręt po wewnętrznej stronie. Nigdy nie zatrzymujesz się i nie jedziesz między krawężnikiem a skręcającą w prawo ciężarówką. Jako kierowca samochodu zostawiaj ciężarówce cały potrzebny łuk."},
+
+{id:"r14",c:"risk",q:"Jedziesz przez Norrland i widzisz stado reniferów na drodze. Jak reagujesz?",
+ o:["Trąbię i przejeżdżam wolno","Zatrzymuję się i czekam, aż zwierzęta zejdą, licząc się z tym, że stado wraca","Objeżdżam poboczem","Przyspieszam, żeby je rozproszyć"],
+ a:[1],
+ why:"Renifery poruszają się stadem i zachowują nieprzewidywalnie — zwierzę, które już przeszło, potrafi wrócić. Kolizja z reniferem również podlega obowiązkowi zgłoszenia, bo są to zwierzęta hodowlane należące do konkretnego właściciela."},
+
+{id:"r15",c:"risk",q:"Mijasz konia z jeźdźcem na drodze. Co robisz?",
+ o:["Trąbię, żeby ostrzec jeźdźca","Zwalniam znacznie, mijam szeroko i bez gwałtownych dźwięków","Mijam normalnie, koń jest przyzwyczajony","Włączam światła awaryjne"],
+ a:[1],
+ why:"Koń reaguje na dźwięk i ruch odruchem ucieczki, a masa zwierzęcia z jeźdźcem czyni tę reakcję groźną dla wszystkich. Klakson jest tu dokładnie najgorszą rzeczą, jaką można zrobić."},
+
+{id:"r16",c:"risk",q:"Doszło do wypadku. Co robisz w pierwszej kolejności?",
+ o:["Dzwonię do ubezpieczyciela","Zabezpieczam miejsce i ostrzegam innych, potem dzwonię na 112 i udzielam pomocy","Przestawiam pojazdy na pobocze","Robię zdjęcia do zgłoszenia"],
+ a:[1],
+ why:"Kolejność jest zawsze taka sama: najpierw nie dopuścić do drugiego wypadku, potem wezwać pomoc, potem pomagać. Kamizelka odblaskowa i trójkaty ostrzegawcze zakłada się przed wyjściem na jezdnię, a nie po."},
+
+{id:"r17",c:"risk",q:"Wybuchł pożar w tunelu drogowym, ruch stoi. Co jest prawidłowe?",
+ o:["Zostać w samochodzie i czekać","Zostawić pojazd z kluczykami, iść do najbliższego wyjścia ewakuacyjnego","Zawrócić i wyjechać z tunelu","Otworzyć okna i czekać na służby"],
+ a:[1],
+ why:"Dym w tunelu zabija znacznie szybciej niż ogień, a pozostawione pojazdy muszą dać się przesunąć służbom — dlatego kluczyki zostawia się w środku. Wyjścia ewakuacyjne są oznaczone i rozmieszczone regularnie; ich lokalizację warto rejestrować przy wjeździe."},
+
+{id:"r18",c:"risk",q:"Zimą ścieżka rowerowa nie jest odśnieżona i rowerzysta jedzie po jezdni. Jak to ocenić?",
+ o:["Łamie przepisy i powinien zjechać","To normalna i zrozumiała sytuacja, którą trzeba uwzględnić","Należy go ostrzec klaksonem","Nie zdarza się w Szwecji"],
+ a:[1],
+ why:"W Szwecji jeździ się rowerem także zimą, a odśnieżanie ścieżek bywa opóźnione. Rowerzysta na jezdni w takiej sytuacji jest przewidywalnym elementem ruchu — wyprzedzasz z pełnym odstępem albo czekasz."},
+
+{id:"r19",c:"risk",q:"Widzisz pieszego z białą laską zbliżającego się do przejścia. Co jest istotne?",
+ o:["Że słyszy mój samochód, więc mnie przepuści","Że nie widzi mnie i nie oceni sytuacji wzrokiem — zatrzymuję się wyraźnie i całkowicie","Że powinien czekać na pomoc","Że wystarczy zwolnić"],
+ a:[1],
+ why:"Biała laska oznacza, że osoba nie może polegać na wzroku, a przy cichym samochodzie także nie na słuchu. Zatrzymanie musi być pełne i jednoznaczne; machanie ręką nie działa, a podjeżdżanie powoli jest odczytywane jako brak zatrzymania."},
+
+{id:"r20",c:"risk",q:"Grupa rowerzystów jedzie jeden za drugim poza miastem. Jak ich wyprzedzasz?",
+ o:["Po jednym, wciskając się między nich","Traktując grupę jak jeden długi pojazd i wyprzedzając ją całą naraz","Trąbiąc, żeby ustawili się w rzędzie","Poboczem z prawej strony"],
+ a:[1],
+ why:"Wjeżdżanie w środek grupy odbiera rowerzystom przestrzeń manewru i jest bardzo groźne. Grupę wyprzedza się jak długi pojazd — czyli tylko wtedy, gdy widzisz dostatecznie długi odcinek drogi i możesz dać pełny odstęp."},
+
+/* ============ PRAWO ============ */
+{id:"g16",c:"regler",q:"Mieszkasz w Szwecji na stałe i chcesz wymienić polskie prawo jazdy na szwedzkie. Gdzie to robisz?",
+ o:["W Trafikverket","W Transportstyrelsen","W gminie","W szkole jazdy"],
+ a:[1],
+ why:"<span class='sv'>Utbyte av utländskt körkort</span> (wymiana zagranicznego prawa jazdy) należy do Transportstyrelsen, który prowadzi rejestr uprawnień. Trafikverket odpowiada za egzaminy. Przy wymianie oddajesz polski dokument, a szwedzki wchodzi w cykl odnawiania co 10 lat."},
+
+{id:"g17",c:"regler",q:"Przez dwa miesiące jeździłeś samochodem bez obowiązkowego ubezpieczenia. Jak to działa?",
+ o:["Grzywna jednorazowa","Opłata naliczana za każdy dzień braku ubezpieczenia, zwykle znacznie wyższa od składki","Tylko ostrzeżenie","Opłata dodawana do podatku od pojazdu"],
+ a:[1],
+ why:"<span class='sv'>Trafikförsäkringsavgift</span> (opłata karna za brak obowiązkowego OC) nalicza się dziennie i jest celowo dużo wyższa od normalnej składki, a jej egzekucją zajmuje się Kronofogden. Kilka tygodni przerwy potrafi kosztować więcej niż roczne ubezpieczenie."},
+
+{id:"g18",c:"regler",q:"Co to jest <span class='sv'>alkolås</span> (blokada alkoholowa w pojeździe) jako rozwiązanie po wyroku za jazdę po alkoholu?",
+ o:["Kara dodatkowa","Program z blokadą alkoholową w pojeździe, pozwalający dalej prowadzić pod warunkami","Urządzenie obowiązkowe we wszystkich autach","Ubezpieczenie dodatkowe"],
+ a:[1],
+ why:"Szwecja daje możliwość udziału w programie z blokadą alkoholową zamiast utraty prawa jazdy — z regularną kontrolą medyczną i na koszt uczestnika. To rozwiązanie typowe dla szwedzkiego podejścia: skutek ma być mniejszy nawrót, nie sama kara."},
+
+{id:"g19",c:"regler",q:"Które wyposażenie musi znajdować się w samochodzie w Szwecji?",
+ o:["Gaśnica","Trójkąt ostrzegawczy","Apteczka","Zapasowe żarówki"],
+ a:[1],
+ why:"Trójkąt ostrzegawczy jest wymagany. Kamizelka odblaskowa, apteczka i gaśnica nie są obowiązkowe, ale są mocno zalecane — kamizelka szczególnie, bo awaria zimą oznacza wyjście na ciemną drogę w śniegu."},
+
+{id:"g20",c:"regler",q:"Parkujesz w miejscu, gdzie wymagana jest <span class='sv'>P-skiva</span> (tarcza czasu parkowania). Co robisz?",
+ o:["Kupuję bilet w automacie","Ustawiam na tarczy godzinę przyjazdu i kładę ją widocznie za szybą","Wpisuję numer rejestracyjny w aplikacji","Nic, jeśli parkuję krótko"],
+ a:[1],
+ why:"Tarcza czasu jest darmowa, ale bez niej dostajesz mandat, mimo że samo parkowanie jest bezpłatne. Godzinę ustawia się zgodnie z zasadami z tabliczki — najczęściej zaokrągla się do najbliższej pełnej lub połowy godziny."},
+
+{id:"g21",c:"regler",q:"Wjeżdżasz do centrum Sztokholmu. Jak działa <span class='sv'>trängselskatt</span> (opłata za wjazd do centrum miasta)?",
+ o:["Płacę w automacie przy wjeździe","Kamery rejestrują tablicę, a rozliczenie przychodzi później do właściciela pojazdu","Kupuję winietę na rok","Opłata jest wliczona w paliwo"],
+ a:[1],
+ why:"Opłata jest naliczana automatycznie na podstawie odczytu tablic i rozliczana z właścicielem pojazdu — tu odpowiedzialność idzie za pojazdem, inaczej niż przy mandatach za prędkość. Nie ma bramek ani automatów, więc łatwo przeoczyć powstałe zobowiązanie."},
+
+{id:"g22",c:"regler",q:"Kierowca trzymał telefon w ręce podczas jazdy i został zatrzymany. Co z tego wynika?",
+ o:["Nic, jeśli nie rozmawiał","Mandat, bo samo trzymanie urządzenia jest wykroczeniem","Ostrzeżenie za pierwszy raz","Kara tylko przy spowodowaniu zagrożenia"],
+ a:[1],
+ why:"Przepis od 2018 roku zakazuje trzymania telefonu w ręce niezależnie od sposobu użycia. Nawigację umieszczasz w uchwycie. Przy jednoczesnym spowodowaniu zagrożenia sprawa może zostać zakwalifikowana znacznie poważniej niż jako sam mandat."}
+];
+
+var TERMS = {"2+1": "droga z naprzemiennie dwoma i jednym pasem, rozdzielona barierą","accelerationsfält": "pas włączania","airbag": "poduszka powietrzna","alkobommar": "automatyczne bramki z alkomatem","alkolås": "blokada alkoholowa w pojeździe","antisladdsystem": "układ stabilizacji toru jazdy","atk": "automatyczny nadzór nad prędkością","avställd": "czasowo wycofany z ruchu","avställning": "czasowe wycofanie pojazdu z ruchu","bashastighet": "domyślny limit prędkości","blixtlåsprincipen": "zasada zamka błyskawiczkowego","bromsfading": "zanik skuteczności hamowania","bromssträcka": "droga hamowania","cykelfält": "pas dla rowerów na jezdni","cykelpassage": "przejazd dla rowerów bez pierwszeństwa","cykelöverfart": "przejazd dla rowerów z pierwszeństwem","datumparkering": "parkowanie zależne od dnia lub daty","drograttfylleri": "jazda pod wpływem narkotyków","dubbdäck": "opony z kolcami","eftersöksjägare": "myśliwy z psem tropiącym","elsparkcykel": "hulajnoga elektryczna","enkelriktad trafik": "ruch jednokierunkowy","farthinder": "progi zwalniające","fordonsskatt": "podatek od pojazdu","färja": "prom","förarprov": "egzamin praktyczny","förbud att parkera": "zakaz parkowania","förbud att stanna": "zakaz zatrzymywania","förbud mot infart med fordon": "zakaz wjazdu pojazdów","förbudsmärken": "znaki zakazu","grovt rattfylleri": "jazda po alkoholu w typie kwalifikowanym","grusväg": "droga żwirowa","gul vägmarkering": "żółte oznakowanie poziome","gågata": "ulica dla pieszych","gångfart": "tempo marszu","gårdsgata": "strefa zamieszkania","halkbana": "tor poślizgowy","halvljus": "światła mijania","handledare": "opiekun przy nauce jazdy","heldragen linje": "linia ciągła","helljus": "światła drogowe","hjort": "jeleń","huvudled": "droga z pierwszeństwem","högerregeln": "reguła prawej ręki","kantlinje": "linia krawędziowa","katalysator": "katalizator","kommun": "gmina","kontrollbesiktning": "przegląd techniczny","kunskapsprov": "egzamin teoretyczny","körförbud": "zakaz używania pojazdu","körkort": "prawo jazdy","körprov": "egzamin praktyczny","lgf-skylt": "tablica pojazdu wolnobieżnego","localstorage": "pamięć lokalna przeglądarki","malus": "podwyższony podatek dla pojazdów o wysokiej emisji","mikrosömn": "mikrosen","miljözon": "strefa czystego transportu","motorbromsning": "hamowanie silnikiem","motortrafikled": "droga ekspresowa","motorväg": "autostrada","motorvärmare": "podgrzewacz silnika","nolltolerans": "zero tolerancji","nollvisionen": "wizja zero","obevakat övergångsställe": "przejście dla pieszych bez sygnalizacji","omkörning förbjuden": "zakaz wyprzedzania","ordningsbot": "mandat wystawiany na miejscu","p-skiva": "tarcza czasu parkowania","penningböter": "mandat w kwocie stałej","personliga förutsättningar": "uwarunkowania osobiste kierowcy","personnummer": "szwedzki numer identyfikacyjny","pisksnärtsskada": "uraz kręgosłupa szyjnego","prövotid": "okres próbny","påbudsmärke": "znak nakazu","rattfylleri": "jazda pod wpływem alkoholu","reaktionssträcka": "droga reakcji","reflex": "odblask","rekommenderad lägre hastighet": "zalecana niższa prędkość","ren": "renifer","renar": "renifery","risk 1": "obowiązkowe szkolenie ryzyka, część pierwsza","risk 2": "obowiązkowe szkolenie ryzyka, część druga na torze poślizgowym","rådjur": "sarna","röd varningstriangel": "czerwony trójkąt ostrzegawczy na opakowaniu leku","skolskjuts": "autobus szkolny","smitning": "ucieczka z miejsca zdarzenia","sparsam körning": "jazda oszczędna","spärrområde": "obszar wyłączony z ruchu","spärrtid": "okres karencji przed odzyskaniem uprawnień","spårvagn": "tramwaj","stopplikt": "obowiązek zatrzymania się","stoppsträcka": "droga zatrzymania","städdag": "dzień sprzątania ulicy","svarthalka": "czarny lód","teoriprov": "egzamin teoretyczny","tilläggstavla": "tabliczka dodatkowa pod znakiem","tjänstevikt": "masa własna pojazdu","tomgångskörning": "praca silnika na biegu jałowym","totalvikt": "dopuszczalna masa całkowita","trafikförsäkring": "obowiązkowe ubezpieczenie OC","trafikförsäkringsavgift": "opłata karna za brak obowiązkowego OC","trafiksäkerhetskamera": "fotoradar","tresekundersregeln": "zasada trzech sekund","trängselskatt": "opłata za wjazd do centrum miasta","tuta och köra nära": "trąbienie i jazda na zderzaku","tättbebyggt område": "obszar zabudowany","utbyte av körkort": "wymiana prawa jazdy","utbyte av utländskt körkort": "wymiana zagranicznego prawa jazdy","utfartsregeln": "zasada wyjazdu","utryckningsfordon": "pojazd uprzywilejowany","varningsmärken": "znaki ostrzegawcze","varningstriangel": "trójkąt ostrzegawczy","vattenplaning": "aquaplaning","vildsvin": "dzik","viltolycka": "kolizja z dzikim zwierzęciem","viltremsa": "taśma do oznaczenia miejsca kolizji ze zwierzęciem","vinterväglag": "zimowe warunki drogowe","vägarbete": "roboty drogowe","väjningsplikt": "obowiązek ustąpienia pierwszeństwa","zebralagen": "przepis o pierwszeństwie pieszych na przejściu","älg": "łoś","återkallelse": "odebranie uprawnień","återkallelse av körkort": "odebranie prawa jazdy","återvinningscentral": "punkt odbioru odpadów","återvändsgata": "droga bez przejazdu"};
+
+/* =========================================================
+   ZAPIS POSTĘPU — localStorage z bezpiecznym fallbackiem
+   ========================================================= */
+var KEY = "undrar.korkort.v1";
+
+var store = (function(){
+  var mem = {}, ok = false;
+  try {
+    var t = "__probe__";
+    window.localStorage.setItem(t, "1");
+    window.localStorage.removeItem(t);
+    ok = true;
+  } catch (e) { ok = false; }
+  return {
+    ok: ok,
+    get: function(k){
+      try { return ok ? window.localStorage.getItem(k) : (mem[k] || null); }
+      catch(e){ return mem[k] || null; }
+    },
+    set: function(k, v){
+      try { if(ok){ window.localStorage.setItem(k, v); } else { mem[k] = v; } }
+      catch(e){ mem[k] = v; }
+    },
+    del: function(k){
+      try { if(ok){ window.localStorage.removeItem(k); } else { delete mem[k]; } }
+      catch(e){ delete mem[k]; }
+    }
+  };
+})();
+
+function blank(){ return { v:1, stats:{}, exams:[], updated:null }; }
+
+var DB = (function(){
+  var raw = store.get(KEY);
+  if(!raw) return blank();
+  try {
+    var d = JSON.parse(raw);
+    if(!d || d.v !== 1 || typeof d.stats !== "object") return blank();
+    if(!Array.isArray(d.exams)) d.exams = [];
+    return d;
+  } catch(e){ return blank(); }
+})();
+
+function save(){
+  DB.updated = new Date().toISOString();
+  try { store.set(KEY, JSON.stringify(DB)); } catch(e){}
+}
+
+function rec(id, right){
+  var s = DB.stats[id] || {r:0, w:0, last:null};
+  if(right){ s.r++; s.last = "r"; } else { s.w++; s.last = "w"; }
+  DB.stats[id] = s;
+}
+
+/* =========================================================
+   POMOCNICZE
+   ========================================================= */
+function el(id){ return document.getElementById(id); }
+function scrollToEl(node){
+  if(node && typeof node.scrollIntoView === "function"){
+    try { node.scrollIntoView({block:"start"}); } catch(e){ node.scrollIntoView(); }
+  }
+}
+function shuffle(a){
+  for(var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+function catOf(k){
+  for(var i=0;i<CATS.length;i++){ if(CATS[i].k === k) return CATS[i]; }
+  return {k:k, pl:k, sv:""};
+}
+function sameSet(x, y){
+  if(x.length !== y.length) return false;
+  var a = x.slice().sort(), b = y.slice().sort();
+  for(var i=0;i<a.length;i++){ if(a[i] !== b[i]) return false; }
+  return true;
+}
+function pad(n){ return (n < 10 ? "0" : "") + n; }
+
+/* =========================================================
+   STAN INTERFEJSU
+   ========================================================= */
+var MODE = "train";
+var PICKED = [];          /* wybrane działy; puste = wszystkie */
+var EXAM_N = 40;
+var EXAM_SEC = 32 * 60;
+var PASS = 0.8;
+
+var S = null;             /* aktywna sesja */
+
+/* =========================================================
+   PASEK STATYSTYK + BANER
+   ========================================================= */
+function answeredCount(){
+  var n = 0;
+  for(var k in DB.stats){ if(DB.stats[k].last) n++; }
+  return n;
+}
+function rightNow(){
+  var n = 0;
+  for(var k in DB.stats){ if(DB.stats[k].last === "r") n++; }
+  return n;
+}
+function totalTries(){
+  var r = 0, w = 0;
+  for(var k in DB.stats){ r += DB.stats[k].r; w += DB.stats[k].w; }
+  return {r:r, w:w, all:r + w};
+}
+
+function drawStats(){
+  var t = totalTries();
+  var acc = t.all ? Math.round(t.r / t.all * 100) : 0;
+  var best = "—";
+  if(DB.exams.length){
+    var b = 0;
+    for(var i=0;i<DB.exams.length;i++){
+      var p = Math.round(DB.exams[i].score / DB.exams[i].total * 100);
+      if(p > b) b = p;
+    }
+    best = b + "%";
+  }
+  var items = [
+    [answeredCount() + " / " + Q.length, "Pytania poznane"],
+    [rightNow(), "Ostatnio poprawnie"],
+    [acc + "%", "Skuteczność"],
+    [best, "Najlepszy egzamin"]
+  ];
+  var html = "";
+  for(var j=0;j<items.length;j++){
+    html += '<div class="stat"><b>' + items[j][0] + '</b><span>' + items[j][1] + '</span></div>';
+  }
+  el("stats").innerHTML = html;
+}
+
+function drawBanner(){
+  var b = el("banner"), t = el("banner-txt");
+  if(store.ok){ b.classList.add("hidden"); return; }
+  b.classList.remove("hidden");
+  t.innerHTML = "Ta przeglądarka blokuje pamięć lokalną, więc postęp zniknie po zamknięciu karty. " +
+    "Po umieszczeniu pliku na własnym serwerze (np. w podkatalogu Twojej domeny) zapis działa normalnie.";
+}
+
+/* =========================================================
+   PANEL: TRYBY I DZIAŁY
+   ========================================================= */
+function drawChips(){
+  var html = '<button type="button" class="chip" data-cat="" aria-pressed="' +
+             (PICKED.length === 0) + '">Wszystkie działy <i>' + Q.length + '</i></button>';
+  for(var i=0;i<CATS.length;i++){
+    var c = CATS[i], n = 0;
+    for(var j=0;j<Q.length;j++){ if(Q[j].c === c.k) n++; }
+    html += '<button type="button" class="chip" data-cat="' + c.k + '" aria-pressed="' +
+            (PICKED.indexOf(c.k) > -1) + '">' + c.pl + ' <i>' + n + '</i></button>';
+  }
+  el("chips").innerHTML = html;
+}
+
+/* Losowanie preferuje pytania widziane najrzadziej, żeby kolejne podejścia
+   pokrywały całą bazę, a nie losowo powtarzały te same pytania. */
+function coverageOrder(pool){
+  var buckets = {}, i;
+  for(i=0;i<pool.length;i++){
+    var st = DB.stats[pool[i].id];
+    var seen = st ? (st.r + st.w) : 0;
+    if(!buckets[seen]) buckets[seen] = [];
+    buckets[seen].push(pool[i]);
+  }
+  var keys = Object.keys(buckets).map(Number).sort(function(a,b){ return a - b; });
+  var out = [];
+  for(i=0;i<keys.length;i++){ out = out.concat(shuffle(buckets[keys[i]])); }
+  return out;
+}
+
+function poolFor(mode){
+  var pool = Q.filter(function(q){
+    return PICKED.length === 0 || PICKED.indexOf(q.c) > -1;
+  });
+  if(mode === "exam"){
+    return coverageOrder(Q.slice()).slice(0, Math.min(EXAM_N, Q.length));
+  }
+  if(mode === "wrong"){
+    return pool.filter(function(q){
+      var s = DB.stats[q.id];
+      return !s || !s.last || s.last === "w";
+    });
+  }
+  return pool;
+}
+
+function drawHint(){
+  var n = poolFor(MODE).length;
+  var h = el("starthint");
+  var catbox = el("chips"), catlab = el("catlabel");
+  if(MODE === "exam"){
+    catbox.classList.add("hidden"); catlab.classList.add("hidden");
+    h.textContent = EXAM_N + " z " + Q.length + " pytań · 32 minuty · próg 80% (" +
+                    Math.ceil(EXAM_N * PASS) + " poprawnych) · każde podejście losuje od nowa";
+  } else {
+    catbox.classList.remove("hidden"); catlab.classList.remove("hidden");
+    if(MODE === "wrong"){
+      h.textContent = n ? n + " pytań do powtórki" : "Brak zaległości w tych działach — dobra robota.";
+    } else {
+      h.textContent = n + " pytań w wybranym zakresie";
+    }
+  }
+  el("go").disabled = (n === 0);
+}
+
+el("modes").addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest(".mode") : null;
+  if(!b) return;
+  setMode(b.getAttribute("data-mode"));
+  drawHint();
+});
+
+el("chips").addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest(".chip") : null;
+  if(!b) return;
+  var c = b.getAttribute("data-cat");
+  if(c === ""){ PICKED = []; }
+  else {
+    var i = PICKED.indexOf(c);
+    if(i > -1) PICKED.splice(i, 1); else PICKED.push(c);
+  }
+  drawChips(); drawHint();
+});
+
+/* =========================================================
+   SESJA
+   ========================================================= */
+function setMode(m){
+  MODE = m;
+  var all = el("modes").querySelectorAll(".mode");
+  for(var i=0;i<all.length;i++){
+    all[i].setAttribute("aria-pressed", all[i].getAttribute("data-mode") === m ? "true" : "false");
+  }
+}
+
+function startSession(){
+  var list = poolFor(MODE).slice();
+  if(MODE !== "exam") list = coverageOrder(list);
+  if(!list.length) return;
+  S = {
+    mode: MODE,
+    list: list,
+    i: 0,
+    sel: [],
+    graded: false,
+    log: [],
+    left: EXAM_SEC,
+    tick: null
+  };
+  el("runner").classList.remove("hidden");
+  el("panel").classList.add("hidden");
+  if(S.mode === "exam") startTimer(); else el("timer").classList.add("hidden");
+  drawQuestion();
+  scrollToEl(el("runner"));
+}
+
+el("go").addEventListener("click", startSession);
+
+function startTimer(){
+  var t = el("timer");
+  t.classList.remove("hidden");
+  function paint(){
+    var m = Math.floor(S.left / 60), s = S.left % 60;
+    t.textContent = pad(m) + ":" + pad(s);
+    if(S.left <= 120) t.classList.add("low"); else t.classList.remove("low");
+  }
+  paint();
+  S.tick = setInterval(function(){
+    S.left--;
+    if(S.left <= 0){ stopTimer(); finish(true); return; }
+    paint();
+  }, 1000);
+}
+function stopTimer(){
+  if(S && S.tick){ clearInterval(S.tick); S.tick = null; }
+}
+
+function drawQuestion(){
+  var q = S.list[S.i];
+  S.sel = []; S.graded = false;
+
+  /* kolejność odpowiedzi jest losowa przy każdym wyświetleniu,
+     żeby nie dało się zapamiętać pozycji poprawnej odpowiedzi */
+  S.map = shuffle(q.o.map(function(_, k){ return k; }));
+
+  el("runinfo").textContent =
+    (S.mode === "exam" ? "Egzamin próbny" : (S.mode === "wrong" ? "Powtórka błędów" : "Trening")) +
+    " · pytanie " + (S.i + 1) + " z " + S.list.length;
+  el("meterfill").style.width = Math.round(S.i / S.list.length * 100) + "%";
+
+  var c = catOf(q.c);
+  var html = '<div class="card">';
+  html += '<span class="qcat">' + c.pl + (c.sv ? " · " + c.sv : "") + '</span>';
+  html += '<p class="qtext">' + q.q + '</p>';
+  html += q.m
+    ? '<p class="qmulti">Więcej niż jedna odpowiedź jest poprawna — zaznacz wszystkie</p>'
+    : '<p class="qsingle"></p>';
+  html += '<div class="opts" id="opts" role="group">';
+  for(var k=0;k<S.map.length;k++){
+    html += '<button type="button" class="opt' + (q.m ? " multi" : "") + '" data-i="' + k +
+            '" aria-pressed="false"><span class="box" aria-hidden="true"></span><span>' +
+            q.o[S.map[k]] + '</span></button>';
+  }
+  html += '</div>';
+  html += '<div class="actions"><button type="button" class="btn" id="act" disabled>' +
+          (S.mode === "exam" ? "Dalej" : "Sprawdź odpowiedź") + '</button>' +
+          '<button type="button" class="btn ghost" id="quit">Przerwij</button></div>';
+  html += '<p class="why hidden" id="why"></p>';
+  html += '</div>';
+  el("stage").innerHTML = html;
+
+  el("opts").addEventListener("click", onPick);
+  el("act").addEventListener("click", onAct);
+  el("quit").addEventListener("click", function(){
+    stopTimer();
+    if(S.mode === "exam" && S.log.length){ finish(false); return; }
+    S = null;
+    el("runner").classList.add("hidden");
+    el("panel").classList.remove("hidden");
+    drawAll();
+  });
+}
+
+function onPick(e){
+  var b = e.target.closest ? e.target.closest(".opt") : null;
+  if(!b || S.graded) return;
+  var q = S.list[S.i], i = parseInt(b.getAttribute("data-i"), 10);
+  if(q.m){
+    var p = S.sel.indexOf(i);
+    if(p > -1) S.sel.splice(p, 1); else S.sel.push(i);
+  } else {
+    S.sel = [i];
+  }
+  var all = el("opts").querySelectorAll(".opt");
+  for(var k=0;k<all.length;k++){
+    all[k].setAttribute("aria-pressed", S.sel.indexOf(k) > -1 ? "true" : "false");
+  }
+  el("act").disabled = S.sel.length === 0;
+}
+
+function origSel(){
+  var out = [];
+  for(var i=0;i<S.sel.length;i++){ out.push(S.map[S.sel[i]]); }
+  return out;
+}
+
+function onAct(){
+  var q = S.list[S.i];
+  if(S.mode === "exam"){
+    var picked = origSel();
+    S.log.push({id:q.id, sel:picked, right:sameSet(picked, q.a)});
+    next();
+    return;
+  }
+  if(!S.graded){
+    grade();
+    return;
+  }
+  next();
+}
+
+function grade(){
+  var q = S.list[S.i];
+  var picked = origSel();
+  var right = sameSet(picked, q.a);
+  S.graded = true;
+  S.log.push({id:q.id, sel:picked, right:right});
+  rec(q.id, right); save();
+
+  var all = el("opts").querySelectorAll(".opt");
+  for(var k=0;k<all.length;k++){
+    all[k].disabled = true;
+    var isRight = q.a.indexOf(S.map[k]) > -1;
+    var chosen = S.sel.indexOf(k) > -1;
+    if(isRight && chosen) all[k].classList.add("right");
+    else if(isRight && !chosen) all[k].classList.add("missed");
+    else if(!isRight && chosen) all[k].classList.add("wrong");
+  }
+  var w = el("why");
+  w.innerHTML = (right ? "<b>Dobrze. </b>" : "<b>Niedobrze. </b>") + q.why;
+  w.classList.remove("hidden");
+  var act = el("act");
+  act.disabled = false;
+  act.textContent = (S.i + 1 < S.list.length) ? "Następne pytanie" : "Zakończ i pokaż wynik";
+  drawStats();
+}
+
+function next(){
+  S.i++;
+  if(S.i >= S.list.length){ stopTimer(); finish(false); return; }
+  drawQuestion();
+}
+
+function finish(timeout){
+  stopTimer();
+  var total = (S.mode === "exam") ? S.list.length : S.log.length;
+  var score = 0;
+  for(var i=0;i<S.log.length;i++){ if(S.log[i].right) score++; }
+
+  if(S.mode === "exam"){
+    for(var j=0;j<S.log.length;j++){ rec(S.log[j].id, S.log[j].right); }
+    DB.exams.unshift({
+      date: new Date().toISOString(),
+      score: score,
+      total: total,
+      passed: (score / total) >= PASS
+    });
+    DB.exams = DB.exams.slice(0, 12);
+  }
+  save();
+
+  var pct = total ? Math.round(score / total * 100) : 0;
+  var passed = (score / total) >= PASS;
+  var need = Math.ceil(total * PASS);
+
+  var html = '<div class="result">';
+  if(S.mode === "exam"){
+    html += '<p class="verdict ' + (passed ? "pass" : "fail") + '">' +
+            (passed ? "Zaliczone" : "Niezaliczone") + '</p>';
+    html += '<p class="big">' + score + " / " + total + '</p>';
+    html += '<p>' + pct + '% · próg zaliczenia to ' + need + ' poprawnych odpowiedzi' +
+            (timeout ? ' · <strong>czas się skończył</strong>' : '') + '</p>';
+  } else {
+    html += '<p class="verdict">Koniec serii</p>';
+    html += '<p class="big">' + score + " / " + total + '</p>';
+    html += '<p>' + pct + '% poprawnych w tej serii.</p>';
+  }
+
+  /* rozbicie wyniku na działy — pokazuje, gdzie poszło dobrze, a gdzie nie */
+  var per = {};
+  for(var p2=0;p2<S.log.length;p2++){
+    var qq = byId(S.log[p2].id);
+    if(!qq) continue;
+    if(!per[qq.c]) per[qq.c] = {n:0, ok:0};
+    per[qq.c].n++;
+    if(S.log[p2].right) per[qq.c].ok++;
+  }
+  var keys = Object.keys(per).sort(function(x, y){
+    return (per[x].ok / per[x].n) - (per[y].ok / per[y].n);
+  });
+  if(keys.length > 1){
+    html += '<p class="plabel" style="margin-top:26px">Wynik po działach</p><div class="brk">';
+    for(var kk=0;kk<keys.length;kk++){
+      var d = per[keys[kk]];
+      var share = Math.round(d.ok / d.n * 100);
+      html += '<div class="brk-row"><b>' + catOf(keys[kk]).pl + '</b>' +
+              '<span>' + d.ok + " / " + d.n + '</span>' +
+              '<u class="' + (share >= 70 ? "good" : "bad") + '">' + share + '%</u></div>';
+    }
+    html += '</div>';
+  }
+
+  var bad = S.log.filter(function(l){ return !l.right; });
+  if(bad.length){
+    html += '<p class="plabel" style="margin-top:26px">Do powtórki</p><div class="review">';
+    for(var b=0;b<bad.length;b++){
+      var q = byId(bad[b].id);
+      if(!q) continue;
+      var corr = [];
+      for(var a=0;a<q.a.length;a++){ corr.push(q.o[q.a[a]]); }
+      html += '<div class="rev"><b>' + q.q + '</b>' +
+              '<em>Poprawnie: ' + corr.join(" · ") + '</em><br>' + q.why + '</div>';
+    }
+    html += '</div>';
+  } else {
+    html += '<p style="margin-top:20px">Wszystkie odpowiedzi poprawne — nic do powtórki.</p>';
+  }
+
+  html += '<div class="actions" style="margin-top:26px">' +
+          '<button type="button" class="btn" id="again">Wróć do wyboru</button></div>';
+  html += '</div>';
+
+  el("meterfill").style.width = "100%";
+  el("runinfo").textContent = "Wynik";
+  el("timer").classList.add("hidden");
+  el("stage").innerHTML = html;
+  el("again").addEventListener("click", function(){
+    S = null;
+    el("runner").classList.add("hidden");
+    el("panel").classList.remove("hidden");
+    drawAll();
+    scrollToEl(el("panel"));
+  });
+  drawAll();
+}
+
+function byId(id){
+  for(var i=0;i<Q.length;i++){ if(Q[i].id === id) return Q[i]; }
+  return null;
+}
+
+/* =========================================================
+   PULPIT POSTĘPU
+   ========================================================= */
+/* Ocena działu: skuteczność ze wszystkich odpowiedzi, ale dopiero od 5 odpowiedzi. */
+var MIN_SAMPLE = 5;
+
+function areaStats(){
+  var out = [];
+  for(var i=0;i<CATS.length;i++){
+    var c = CATS[i], tot = 0, seen = 0, tries = 0, hits = 0, weakNow = 0;
+    for(var j=0;j<Q.length;j++){
+      if(Q[j].c !== c.k) continue;
+      tot++;
+      var st = DB.stats[Q[j].id];
+      if(!st) continue;
+      if(st.last) seen++;
+      if(st.last === "w") weakNow++;
+      tries += st.r + st.w;
+      hits += st.r;
+    }
+    var acc = tries ? Math.round(hits / tries * 100) : 0;
+    var status = "s-none", label = "Za mało odpowiedzi";
+    if(tries >= MIN_SAMPLE){
+      if(acc >= 85){ status = "s-top"; label = "Mocna strona"; }
+      else if(acc >= 70){ status = "s-ok"; label = "Solidnie"; }
+      else if(acc >= 50){ status = "s-mid"; label = "Do poprawy"; }
+      else { status = "s-low"; label = "Słaby punkt"; }
+    }
+    out.push({k:c.k, pl:c.pl, sv:c.sv, tot:tot, seen:seen, tries:tries,
+              acc:acc, status:status, label:label, weakNow:weakNow,
+              judged:(tries >= MIN_SAMPLE)});
+  }
+  return out;
+}
+
+function drawSummary(){
+  var a = areaStats();
+  var judged = a.filter(function(x){ return x.judged; });
+  var box = el("summary");
+
+  if(!judged.length){
+    box.innerHTML = '<p class="none">Odpowiedz na kilka pytań, a pojawi się tutaj ocena działów — ' +
+                    'w których jesteś dobry i które warto poćwiczić.</p>';
+    return;
+  }
+
+  var sorted = judged.slice().sort(function(x, y){ return y.acc - x.acc; });
+  var strong = sorted.filter(function(x){ return x.acc >= 85; });
+  var weak = sorted.filter(function(x){ return x.acc < 70; }).reverse();
+
+  var html = "";
+  if(strong.length){
+    html += '<p>Najlepiej radzisz sobie w: <b>' +
+            strong.slice(0,3).map(function(x){ return x.pl + " (" + x.acc + "%)"; }).join(", ") +
+            '</b>.</p>';
+  } else {
+    html += '<p>Żaden dział nie przekroczył jeszcze 85%. Najbliżej jest <b>' +
+            sorted[0].pl + " (" + sorted[0].acc + '%)</b>.</p>';
+  }
+  if(weak.length){
+    html += '<p>Najwięcej do zrobienia w: <b>' +
+            weak.slice(0,3).map(function(x){ return x.pl + " (" + x.acc + "%)"; }).join(", ") +
+            '</b>. Zacznij od tego działu — przycisk „Trenuj” znajdziesz przy każdym z nich poniżej.</p>';
+  } else {
+    html += '<p>Każdy oceniony dział jest powyżej 70%. Jeśli chcesz sprawdzić gotowość, ' +
+            'zrób egzamin próbny na czas.</p>';
+  }
+  var unjudged = a.filter(function(x){ return !x.judged; });
+  if(unjudged.length){
+    html += '<p class="none">Bez oceny (mniej niż ' + MIN_SAMPLE + ' odpowiedzi): ' +
+            unjudged.map(function(x){ return x.pl; }).join(", ") + '.</p>';
+  }
+  box.innerHTML = html;
+}
+
+function drawBars(){
+  var a = areaStats(), html = "";
+  for(var i=0;i<a.length;i++){
+    var x = a[i];
+    var fill = x.judged ? x.acc : (x.tries ? x.acc : 0);
+    html += '<div class="area ' + x.status + '">' +
+      '<div class="area-h"><b>' + x.pl + '</b>' +
+      '<span class="pill ' + x.status + '">' + x.label +
+      (x.judged ? " · " + x.acc + "%" : "") + '</span></div>' +
+      '<div class="area-track ' + x.status + '"><i style="width:' + fill + '%"></i></div>' +
+      '<div class="area-f"><span>poznane ' + x.seen + " / " + x.tot +
+      ' · odpowiedzi ' + x.tries +
+      (x.weakNow ? ' · do powtórki ' + x.weakNow : '') + '</span>' +
+      '<button type="button" class="trainbtn" data-train="' + x.k + '">Trenuj ten dział</button>' +
+      '</div></div>';
+  }
+  el("bars").innerHTML = html;
+}
+
+function drawHist(){
+  var h = el("hist");
+  if(!DB.exams.length){
+    h.innerHTML = '<p class="hint">Nie masz jeszcze żadnego egzaminu próbnego. Wynik pojawi się tutaj.</p>';
+    return;
+  }
+  var html = '<p class="plabel">Historia egzaminów próbnych</p><table><thead><tr>' +
+             '<th>Data</th><th>Wynik</th><th>Procent</th><th>Status</th></tr></thead><tbody>';
+  for(var i=0;i<DB.exams.length;i++){
+    var e = DB.exams[i];
+    var d = new Date(e.date);
+    var pct = Math.round(e.score / e.total * 100);
+    html += '<tr><td>' + d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) +
+            " " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + '</td>' +
+            '<td class="n">' + e.score + " / " + e.total + '</td>' +
+            '<td class="n">' + pct + '%</td>' +
+            '<td class="' + (e.passed ? "pass" : "fail") + '">' +
+            (e.passed ? "zaliczone" : "niezaliczone") + '</td></tr>';
+  }
+  html += '</tbody></table>';
+  h.innerHTML = html;
+}
+
+el("bars").addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest(".trainbtn") : null;
+  if(!b) return;
+  setMode("train");
+  PICKED = [b.getAttribute("data-train")];
+  drawChips(); drawHint();
+  startSession();
+});
+
+el("wipe").addEventListener("click", function(){
+  if(!window.confirm("Usunąć cały zapisany postęp? Tej operacji nie da się cofnąć.")) return;
+  store.del(KEY);
+  DB = blank();
+  drawAll();
+});
+
+/* =========================================================
+   START
+   ========================================================= */
+function drawGlossary(){
+  var box = el("gllist"), cnt = el("glcount");
+  var q = (el("glfind").value || "").trim().toLowerCase();
+  var keys = Object.keys(TERMS).sort(function(a, b){ return a.localeCompare(b, "sv"); });
+  var html = "", shown = 0;
+  for(var i=0;i<keys.length;i++){
+    var k = keys[i], v = TERMS[k];
+    if(q && k.indexOf(q) === -1 && v.toLowerCase().indexOf(q) === -1) continue;
+    html += '<div class="gl-item"><dt>' + k + '</dt><dd>' + v + '</dd></div>';
+    shown++;
+  }
+  box.innerHTML = shown ? html : '<p class="gl-empty">Brak dopasowań.</p>';
+  cnt.textContent = q ? (shown + " z " + keys.length + " terminów") : (keys.length + " terminów");
+}
+el("glfind").addEventListener("input", drawGlossary);
+
+function drawAll(){ drawStats(); drawChips(); drawHint(); drawSummary(); drawBars(); drawHist(); }
+drawBanner();
+drawGlossary();
+drawAll();
+
+})();
+</script>
+</body>
+</html>
